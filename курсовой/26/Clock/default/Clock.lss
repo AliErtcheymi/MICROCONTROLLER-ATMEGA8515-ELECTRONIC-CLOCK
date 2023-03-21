@@ -1,0 +1,1869 @@
+
+Clock.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000b52  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000005c  00800060  00000b52  00000be6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000010  008000bc  008000bc  00000c42  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  00000c44  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00001310  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000020  00000000  00000000  000013a7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 000000fa  00000000  00000000  000013c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   000003a7  00000000  00000000  000014c1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 00000138  00000000  00000000  00001868  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   00000b65  00000000  00000000  000019a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  00000070  00000000  00000000  00002508  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    0000011a  00000000  00000000  00002578  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000001f2  00000000  00000000  00002692  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 0000001e  00000000  00000000  00002884  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_ranges 00000030  00000000  00000000  000028a2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	10 c0       	rjmp	.+32     	; 0x22 <__ctors_end>
+   2:	2a c0       	rjmp	.+84     	; 0x58 <__bad_interrupt>
+   4:	29 c0       	rjmp	.+82     	; 0x58 <__bad_interrupt>
+   6:	28 c0       	rjmp	.+80     	; 0x58 <__bad_interrupt>
+   8:	27 c0       	rjmp	.+78     	; 0x58 <__bad_interrupt>
+   a:	26 c0       	rjmp	.+76     	; 0x58 <__bad_interrupt>
+   c:	25 c0       	rjmp	.+74     	; 0x58 <__bad_interrupt>
+   e:	25 c0       	rjmp	.+74     	; 0x5a <__vector_7>
+  10:	23 c0       	rjmp	.+70     	; 0x58 <__bad_interrupt>
+  12:	22 c0       	rjmp	.+68     	; 0x58 <__bad_interrupt>
+  14:	21 c0       	rjmp	.+66     	; 0x58 <__bad_interrupt>
+  16:	20 c0       	rjmp	.+64     	; 0x58 <__bad_interrupt>
+  18:	1f c0       	rjmp	.+62     	; 0x58 <__bad_interrupt>
+  1a:	1e c0       	rjmp	.+60     	; 0x58 <__bad_interrupt>
+  1c:	1d c0       	rjmp	.+58     	; 0x58 <__bad_interrupt>
+  1e:	1c c0       	rjmp	.+56     	; 0x58 <__bad_interrupt>
+  20:	1b c0       	rjmp	.+54     	; 0x58 <__bad_interrupt>
+
+00000022 <__ctors_end>:
+  22:	11 24       	eor	r1, r1
+  24:	1f be       	out	0x3f, r1	; 63
+  26:	cf e5       	ldi	r28, 0x5F	; 95
+  28:	d2 e0       	ldi	r29, 0x02	; 2
+  2a:	de bf       	out	0x3e, r29	; 62
+  2c:	cd bf       	out	0x3d, r28	; 61
+
+0000002e <__do_copy_data>:
+  2e:	10 e0       	ldi	r17, 0x00	; 0
+  30:	a0 e6       	ldi	r26, 0x60	; 96
+  32:	b0 e0       	ldi	r27, 0x00	; 0
+  34:	e2 e5       	ldi	r30, 0x52	; 82
+  36:	fb e0       	ldi	r31, 0x0B	; 11
+  38:	02 c0       	rjmp	.+4      	; 0x3e <__SP_H__>
+  3a:	05 90       	lpm	r0, Z+
+  3c:	0d 92       	st	X+, r0
+  3e:	ac 3b       	cpi	r26, 0xBC	; 188
+  40:	b1 07       	cpc	r27, r17
+  42:	d9 f7       	brne	.-10     	; 0x3a <__CCP__+0x6>
+
+00000044 <__do_clear_bss>:
+  44:	10 e0       	ldi	r17, 0x00	; 0
+  46:	ac eb       	ldi	r26, 0xBC	; 188
+  48:	b0 e0       	ldi	r27, 0x00	; 0
+  4a:	01 c0       	rjmp	.+2      	; 0x4e <.do_clear_bss_start>
+
+0000004c <.do_clear_bss_loop>:
+  4c:	1d 92       	st	X+, r1
+
+0000004e <.do_clear_bss_start>:
+  4e:	ac 3c       	cpi	r26, 0xCC	; 204
+  50:	b1 07       	cpc	r27, r17
+  52:	e1 f7       	brne	.-8      	; 0x4c <.do_clear_bss_loop>
+  54:	3d d4       	rcall	.+2170   	; 0x8d0 <main>
+  56:	7b c5       	rjmp	.+2806   	; 0xb4e <_exit>
+
+00000058 <__bad_interrupt>:
+  58:	d3 cf       	rjmp	.-90     	; 0x0 <__vectors>
+
+0000005a <__vector_7>:
+volatile uint8_t flag=0;  // флаг нажатой кнопки
+volatile uint8_t enable=0;  // включение времени часов
+uint8_t counter=0,flag2=0;  // счётчик нажатых кнопок и флаг обработки нужной кнопки
+
+// обработчик прерывания таймера Т0 по переполнению
+ISR(TIMER0_OVF_vect) {
+  5a:	1f 92       	push	r1
+  5c:	0f 92       	push	r0
+  5e:	0f b6       	in	r0, 0x3f	; 63
+  60:	0f 92       	push	r0
+  62:	11 24       	eor	r1, r1
+  64:	2f 93       	push	r18
+  66:	3f 93       	push	r19
+  68:	4f 93       	push	r20
+  6a:	5f 93       	push	r21
+  6c:	6f 93       	push	r22
+  6e:	7f 93       	push	r23
+  70:	8f 93       	push	r24
+  72:	9f 93       	push	r25
+  74:	af 93       	push	r26
+  76:	bf 93       	push	r27
+  78:	ef 93       	push	r30
+  7a:	ff 93       	push	r31
+	// повторная установка регистра переполнения
+	TCNT0=256-(0.001*F_CPU/1024);
+  7c:	88 ef       	ldi	r24, 0xF8	; 248
+  7e:	82 bf       	out	0x32, r24	; 50
+	ms++;
+  80:	80 91 c0 00 	lds	r24, 0x00C0
+  84:	90 91 c1 00 	lds	r25, 0x00C1
+  88:	01 96       	adiw	r24, 0x01	; 1
+  8a:	90 93 c1 00 	sts	0x00C1, r25
+  8e:	80 93 c0 00 	sts	0x00C0, r24
+	// секунда прошла
+	if (ms==1000) {
+  92:	80 91 c0 00 	lds	r24, 0x00C0
+  96:	90 91 c1 00 	lds	r25, 0x00C1
+  9a:	23 e0       	ldi	r18, 0x03	; 3
+  9c:	88 3e       	cpi	r24, 0xE8	; 232
+  9e:	92 07       	cpc	r25, r18
+  a0:	69 f4       	brne	.+26     	; 0xbc <__vector_7+0x62>
+		ms=0;
+  a2:	10 92 c1 00 	sts	0x00C1, r1
+  a6:	10 92 c0 00 	sts	0x00C0, r1
+		// если часы запущены
+		if (enable) second++;
+  aa:	80 91 c7 00 	lds	r24, 0x00C7
+  ae:	88 23       	and	r24, r24
+  b0:	29 f0       	breq	.+10     	; 0xbc <__vector_7+0x62>
+  b2:	80 91 c4 00 	lds	r24, 0x00C4
+  b6:	8f 5f       	subi	r24, 0xFF	; 255
+  b8:	80 93 c4 00 	sts	0x00C4, r24
+		//PORTB=0b11111111;
+	}
+	// минута прошла
+	if (enable && second==60) {
+  bc:	80 91 c7 00 	lds	r24, 0x00C7
+  c0:	88 23       	and	r24, r24
+  c2:	e1 f0       	breq	.+56     	; 0xfc <__vector_7+0xa2>
+  c4:	80 91 c4 00 	lds	r24, 0x00C4
+  c8:	8c 33       	cpi	r24, 0x3C	; 60
+  ca:	c1 f4       	brne	.+48     	; 0xfc <__vector_7+0xa2>
+		second=0;
+  cc:	10 92 c4 00 	sts	0x00C4, r1
+		minute++;
+  d0:	80 91 c3 00 	lds	r24, 0x00C3
+  d4:	8f 5f       	subi	r24, 0xFF	; 255
+  d6:	80 93 c3 00 	sts	0x00C3, r24
+		// час прошёл
+		if (minute==60) {
+  da:	80 91 c3 00 	lds	r24, 0x00C3
+  de:	8c 33       	cpi	r24, 0x3C	; 60
+  e0:	69 f4       	brne	.+26     	; 0xfc <__vector_7+0xa2>
+			minute=0;
+  e2:	10 92 c3 00 	sts	0x00C3, r1
+			hour++;
+  e6:	80 91 c2 00 	lds	r24, 0x00C2
+  ea:	8f 5f       	subi	r24, 0xFF	; 255
+  ec:	80 93 c2 00 	sts	0x00C2, r24
+			if (hour==24) hour=0;
+  f0:	80 91 c2 00 	lds	r24, 0x00C2
+  f4:	88 31       	cpi	r24, 0x18	; 24
+  f6:	11 f4       	brne	.+4      	; 0xfc <__vector_7+0xa2>
+  f8:	10 92 c2 00 	sts	0x00C2, r1
+		hour++;
+		if (hour==24) hour=0;
+	}*/
+	// проверка клавиатуры
+	// счётчик нажатых клавиш
+	counter=0;
+  fc:	10 92 c8 00 	sts	0x00C8, r1
+	// проверка раз в 20мс
+	if (ms%20==0) {
+ 100:	80 91 c0 00 	lds	r24, 0x00C0
+ 104:	90 91 c1 00 	lds	r25, 0x00C1
+ 108:	64 e1       	ldi	r22, 0x14	; 20
+ 10a:	70 e0       	ldi	r23, 0x00	; 0
+ 10c:	f9 d4       	rcall	.+2546   	; 0xb00 <__divmodhi4>
+ 10e:	00 97       	sbiw	r24, 0x00	; 0
+ 110:	c1 f5       	brne	.+112    	; 0x182 <__vector_7+0x128>
+ 112:	50 e0       	ldi	r21, 0x00	; 0
+ 114:	40 e0       	ldi	r20, 0x00	; 0
+		// перебор столбцов
+		for (uint8_t i=0;i<3;i++) {
+			if (i==0) PORTC=0b00111111;
+			else if (i==1) PORTC=0b01011111;
+			else if (i==2) PORTC=0b01101111;
+ 116:	ef e6       	ldi	r30, 0x6F	; 111
+	// проверка раз в 20мс
+	if (ms%20==0) {
+		// перебор столбцов
+		for (uint8_t i=0;i<3;i++) {
+			if (i==0) PORTC=0b00111111;
+			else if (i==1) PORTC=0b01011111;
+ 118:	7f e5       	ldi	r23, 0x5F	; 95
+	counter=0;
+	// проверка раз в 20мс
+	if (ms%20==0) {
+		// перебор столбцов
+		for (uint8_t i=0;i<3;i++) {
+			if (i==0) PORTC=0b00111111;
+ 11a:	6f e3       	ldi	r22, 0x3F	; 63
+ 11c:	44 23       	and	r20, r20
+ 11e:	21 f4       	brne	.+8      	; 0x128 <__vector_7+0xce>
+ 120:	65 bb       	out	0x15, r22	; 21
+	}*/
+	// проверка клавиатуры
+	// счётчик нажатых клавиш
+	counter=0;
+	// проверка раз в 20мс
+	if (ms%20==0) {
+ 122:	80 e0       	ldi	r24, 0x00	; 0
+ 124:	90 e0       	ldi	r25, 0x00	; 0
+ 126:	06 c0       	rjmp	.+12     	; 0x134 <__vector_7+0xda>
+		// перебор столбцов
+		for (uint8_t i=0;i<3;i++) {
+			if (i==0) PORTC=0b00111111;
+			else if (i==1) PORTC=0b01011111;
+ 128:	41 30       	cpi	r20, 0x01	; 1
+ 12a:	11 f4       	brne	.+4      	; 0x130 <__vector_7+0xd6>
+ 12c:	75 bb       	out	0x15, r23	; 21
+ 12e:	f9 cf       	rjmp	.-14     	; 0x122 <__vector_7+0xc8>
+			else if (i==2) PORTC=0b01101111;
+ 130:	e5 bb       	out	0x15, r30	; 21
+ 132:	f7 cf       	rjmp	.-18     	; 0x122 <__vector_7+0xc8>
+			// перебор строк
+			for (uint8_t j=0;j<4;j++) {
+				if (!(PINC&(1<<j))) {
+ 134:	23 b3       	in	r18, 0x13	; 19
+ 136:	30 e0       	ldi	r19, 0x00	; 0
+ 138:	08 2e       	mov	r0, r24
+ 13a:	02 c0       	rjmp	.+4      	; 0x140 <__vector_7+0xe6>
+ 13c:	35 95       	asr	r19
+ 13e:	27 95       	ror	r18
+ 140:	0a 94       	dec	r0
+ 142:	e2 f7       	brpl	.-8      	; 0x13c <__vector_7+0xe2>
+ 144:	20 fd       	sbrc	r18, 0
+ 146:	09 c0       	rjmp	.+18     	; 0x15a <__vector_7+0x100>
+ 148:	25 2f       	mov	r18, r21
+ 14a:	28 0f       	add	r18, r24
+					button=i*4+j;
+ 14c:	20 93 bb 00 	sts	0x00BB, r18
+					counter++;
+ 150:	20 91 c8 00 	lds	r18, 0x00C8
+ 154:	2f 5f       	subi	r18, 0xFF	; 255
+ 156:	20 93 c8 00 	sts	0x00C8, r18
+ 15a:	01 96       	adiw	r24, 0x01	; 1
+		for (uint8_t i=0;i<3;i++) {
+			if (i==0) PORTC=0b00111111;
+			else if (i==1) PORTC=0b01011111;
+			else if (i==2) PORTC=0b01101111;
+			// перебор строк
+			for (uint8_t j=0;j<4;j++) {
+ 15c:	84 30       	cpi	r24, 0x04	; 4
+ 15e:	91 05       	cpc	r25, r1
+ 160:	49 f7       	brne	.-46     	; 0x134 <__vector_7+0xda>
+	// счётчик нажатых клавиш
+	counter=0;
+	// проверка раз в 20мс
+	if (ms%20==0) {
+		// перебор столбцов
+		for (uint8_t i=0;i<3;i++) {
+ 162:	4f 5f       	subi	r20, 0xFF	; 255
+ 164:	5c 5f       	subi	r21, 0xFC	; 252
+ 166:	43 30       	cpi	r20, 0x03	; 3
+ 168:	c9 f6       	brne	.-78     	; 0x11c <__vector_7+0xc2>
+					counter++;
+				}			
+			}
+		}
+		// нажата только 1 кнопка
+		if (counter==1) {
+ 16a:	80 91 c8 00 	lds	r24, 0x00C8
+ 16e:	81 30       	cpi	r24, 0x01	; 1
+ 170:	19 f4       	brne	.+6      	; 0x178 <__vector_7+0x11e>
+			flag=1;
+ 172:	80 93 c6 00 	sts	0x00C6, r24
+ 176:	05 c0       	rjmp	.+10     	; 0x182 <__vector_7+0x128>
+		} else {
+			button=12;
+ 178:	8c e0       	ldi	r24, 0x0C	; 12
+ 17a:	80 93 bb 00 	sts	0x00BB, r24
+			flag=0;
+ 17e:	10 92 c6 00 	sts	0x00C6, r1
+		}
+	}
+	// вывод на индикаторы
+	// каждый раз из 5 выводится 1 разряд на 2мс из 10мс
+	if (ms%10==0) {
+ 182:	80 91 c0 00 	lds	r24, 0x00C0
+ 186:	90 91 c1 00 	lds	r25, 0x00C1
+ 18a:	2a e0       	ldi	r18, 0x0A	; 10
+ 18c:	30 e0       	ldi	r19, 0x00	; 0
+ 18e:	b9 01       	movw	r22, r18
+ 190:	b7 d4       	rcall	.+2414   	; 0xb00 <__divmodhi4>
+ 192:	00 97       	sbiw	r24, 0x00	; 0
+ 194:	81 f4       	brne	.+32     	; 0x1b6 <__vector_7+0x15c>
+		PORTB=~0b00010000;
+ 196:	8f ee       	ldi	r24, 0xEF	; 239
+ 198:	88 bb       	out	0x18, r24	; 24
+		// вывод позиции зоны
+		if (enable) PORTA=digits[pos+1];
+ 19a:	80 91 c7 00 	lds	r24, 0x00C7
+ 19e:	88 23       	and	r24, r24
+ 1a0:	39 f0       	breq	.+14     	; 0x1b0 <__vector_7+0x156>
+ 1a2:	e0 91 c5 00 	lds	r30, 0x00C5
+ 1a6:	f0 e0       	ldi	r31, 0x00	; 0
+ 1a8:	ef 54       	subi	r30, 0x4F	; 79
+ 1aa:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1ac:	81 81       	ldd	r24, Z+1	; 0x01
+ 1ae:	68 c0       	rjmp	.+208    	; 0x280 <__stack+0x21>
+		else PORTA=digits[pos];
+ 1b0:	e0 91 c5 00 	lds	r30, 0x00C5
+ 1b4:	61 c0       	rjmp	.+194    	; 0x278 <__stack+0x19>
+	} else if (ms%10==2) {
+ 1b6:	80 91 c0 00 	lds	r24, 0x00C0
+ 1ba:	90 91 c1 00 	lds	r25, 0x00C1
+ 1be:	b9 01       	movw	r22, r18
+ 1c0:	9f d4       	rcall	.+2366   	; 0xb00 <__divmodhi4>
+ 1c2:	82 30       	cpi	r24, 0x02	; 2
+ 1c4:	91 05       	cpc	r25, r1
+ 1c6:	b1 f4       	brne	.+44     	; 0x1f4 <__vector_7+0x19a>
+		PORTB=~0b00001000;
+ 1c8:	87 ef       	ldi	r24, 0xF7	; 247
+ 1ca:	88 bb       	out	0x18, r24	; 24
+		// вывод десятков часов
+		PORTA=digits[((hour+time_difference[pos])%24)/10];
+ 1cc:	80 91 c2 00 	lds	r24, 0x00C2
+ 1d0:	e0 91 c5 00 	lds	r30, 0x00C5
+ 1d4:	f0 e0       	ldi	r31, 0x00	; 0
+ 1d6:	e4 54       	subi	r30, 0x44	; 68
+ 1d8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1da:	40 81       	ld	r20, Z
+ 1dc:	90 e0       	ldi	r25, 0x00	; 0
+ 1de:	84 0f       	add	r24, r20
+ 1e0:	91 1d       	adc	r25, r1
+ 1e2:	68 e1       	ldi	r22, 0x18	; 24
+ 1e4:	70 e0       	ldi	r23, 0x00	; 0
+ 1e6:	8c d4       	rcall	.+2328   	; 0xb00 <__divmodhi4>
+ 1e8:	b9 01       	movw	r22, r18
+ 1ea:	8a d4       	rcall	.+2324   	; 0xb00 <__divmodhi4>
+ 1ec:	6f 54       	subi	r22, 0x4F	; 79
+ 1ee:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1f0:	fb 01       	movw	r30, r22
+ 1f2:	45 c0       	rjmp	.+138    	; 0x27e <__stack+0x1f>
+	} else if (ms%10==4) {
+ 1f4:	80 91 c0 00 	lds	r24, 0x00C0
+ 1f8:	90 91 c1 00 	lds	r25, 0x00C1
+ 1fc:	b9 01       	movw	r22, r18
+ 1fe:	80 d4       	rcall	.+2304   	; 0xb00 <__divmodhi4>
+ 200:	84 30       	cpi	r24, 0x04	; 4
+ 202:	91 05       	cpc	r25, r1
+ 204:	c1 f4       	brne	.+48     	; 0x236 <__vector_7+0x1dc>
+		PORTB=~0b00000100;
+ 206:	8b ef       	ldi	r24, 0xFB	; 251
+ 208:	88 bb       	out	0x18, r24	; 24
+		// вывод единиц часов
+		PORTA=digits[((hour+time_difference[pos])%24)%10]|0x80;
+ 20a:	80 91 c2 00 	lds	r24, 0x00C2
+ 20e:	e0 91 c5 00 	lds	r30, 0x00C5
+ 212:	f0 e0       	ldi	r31, 0x00	; 0
+ 214:	e4 54       	subi	r30, 0x44	; 68
+ 216:	ff 4f       	sbci	r31, 0xFF	; 255
+ 218:	40 81       	ld	r20, Z
+ 21a:	90 e0       	ldi	r25, 0x00	; 0
+ 21c:	84 0f       	add	r24, r20
+ 21e:	91 1d       	adc	r25, r1
+ 220:	68 e1       	ldi	r22, 0x18	; 24
+ 222:	70 e0       	ldi	r23, 0x00	; 0
+ 224:	6d d4       	rcall	.+2266   	; 0xb00 <__divmodhi4>
+ 226:	b9 01       	movw	r22, r18
+ 228:	6b d4       	rcall	.+2262   	; 0xb00 <__divmodhi4>
+ 22a:	8f 54       	subi	r24, 0x4F	; 79
+ 22c:	9f 4f       	sbci	r25, 0xFF	; 255
+ 22e:	fc 01       	movw	r30, r24
+ 230:	80 81       	ld	r24, Z
+ 232:	80 68       	ori	r24, 0x80	; 128
+ 234:	25 c0       	rjmp	.+74     	; 0x280 <__stack+0x21>
+	} else if (ms%10==6) {
+ 236:	80 91 c0 00 	lds	r24, 0x00C0
+ 23a:	90 91 c1 00 	lds	r25, 0x00C1
+ 23e:	b9 01       	movw	r22, r18
+ 240:	5f d4       	rcall	.+2238   	; 0xb00 <__divmodhi4>
+ 242:	86 30       	cpi	r24, 0x06	; 6
+ 244:	91 05       	cpc	r25, r1
+ 246:	41 f4       	brne	.+16     	; 0x258 <__vector_7+0x1fe>
+		PORTB=~0b00000010;
+ 248:	8d ef       	ldi	r24, 0xFD	; 253
+ 24a:	88 bb       	out	0x18, r24	; 24
+		// вывод десятков минут
+		PORTA=digits[minute/10];
+ 24c:	80 91 c3 00 	lds	r24, 0x00C3
+ 250:	6a e0       	ldi	r22, 0x0A	; 10
+ 252:	4a d4       	rcall	.+2196   	; 0xae8 <__udivmodqi4>
+ 254:	e8 2f       	mov	r30, r24
+ 256:	10 c0       	rjmp	.+32     	; 0x278 <__stack+0x19>
+	} else if (ms%10==8) {
+ 258:	80 91 c0 00 	lds	r24, 0x00C0
+ 25c:	90 91 c1 00 	lds	r25, 0x00C1
+ 260:	b9 01       	movw	r22, r18
+ 262:	4e d4       	rcall	.+2204   	; 0xb00 <__divmodhi4>
+ 264:	88 30       	cpi	r24, 0x08	; 8
+ 266:	91 05       	cpc	r25, r1
+ 268:	61 f4       	brne	.+24     	; 0x282 <__stack+0x23>
+		PORTB=~0b00000001;
+ 26a:	8e ef       	ldi	r24, 0xFE	; 254
+ 26c:	88 bb       	out	0x18, r24	; 24
+		// вывод единиц минут
+		PORTA=digits[minute%10];
+ 26e:	80 91 c3 00 	lds	r24, 0x00C3
+ 272:	6a e0       	ldi	r22, 0x0A	; 10
+ 274:	39 d4       	rcall	.+2162   	; 0xae8 <__udivmodqi4>
+ 276:	e9 2f       	mov	r30, r25
+ 278:	f0 e0       	ldi	r31, 0x00	; 0
+ 27a:	ef 54       	subi	r30, 0x4F	; 79
+ 27c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 27e:	80 81       	ld	r24, Z
+ 280:	8b bb       	out	0x1b, r24	; 27
+	}
+}
+ 282:	ff 91       	pop	r31
+ 284:	ef 91       	pop	r30
+ 286:	bf 91       	pop	r27
+ 288:	af 91       	pop	r26
+ 28a:	9f 91       	pop	r25
+ 28c:	8f 91       	pop	r24
+ 28e:	7f 91       	pop	r23
+ 290:	6f 91       	pop	r22
+ 292:	5f 91       	pop	r21
+ 294:	4f 91       	pop	r20
+ 296:	3f 91       	pop	r19
+ 298:	2f 91       	pop	r18
+ 29a:	0f 90       	pop	r0
+ 29c:	0f be       	out	0x3f, r0	; 63
+ 29e:	0f 90       	pop	r0
+ 2a0:	1f 90       	pop	r1
+ 2a2:	18 95       	reti
+
+000002a4 <show_char>:
+
+// вывести один символ по UART
+void show_char(char c) {
+	while ((UCSRA&(1<<UDRE))==0);
+ 2a4:	5d 9b       	sbis	0x0b, 5	; 11
+ 2a6:	fe cf       	rjmp	.-4      	; 0x2a4 <show_char>
+	UDR=c;
+ 2a8:	8c b9       	out	0x0c, r24	; 12
+}
+ 2aa:	08 95       	ret
+
+000002ac <show_string>:
+
+// вывести строку по UART
+void show_string(char *str) {
+ 2ac:	cf 93       	push	r28
+ 2ae:	df 93       	push	r29
+ 2b0:	ec 01       	movw	r28, r24
+	unsigned char c;
+	while((c=*str++)!=0) show_char(c);
+ 2b2:	01 c0       	rjmp	.+2      	; 0x2b6 <show_string+0xa>
+ 2b4:	f7 df       	rcall	.-18     	; 0x2a4 <show_char>
+ 2b6:	89 91       	ld	r24, Y+
+ 2b8:	88 23       	and	r24, r24
+ 2ba:	e1 f7       	brne	.-8      	; 0x2b4 <show_string+0x8>
+}
+ 2bc:	df 91       	pop	r29
+ 2be:	cf 91       	pop	r28
+ 2c0:	08 95       	ret
+
+000002c2 <input_uart>:
+
+// режим ввода начального времени и часов 4 зон через UART
+void input_uart(void) {
+ 2c2:	af 92       	push	r10
+ 2c4:	bf 92       	push	r11
+ 2c6:	cf 92       	push	r12
+ 2c8:	df 92       	push	r13
+ 2ca:	ef 92       	push	r14
+ 2cc:	ff 92       	push	r15
+ 2ce:	0f 93       	push	r16
+ 2d0:	1f 93       	push	r17
+ 2d2:	df 93       	push	r29
+ 2d4:	cf 93       	push	r28
+ 2d6:	0f 92       	push	r0
+ 2d8:	cd b7       	in	r28, 0x3d	; 61
+ 2da:	de b7       	in	r29, 0x3e	; 62
+	show_string("Input UTC time (HH:MM): ");
+ 2dc:	80 e6       	ldi	r24, 0x60	; 96
+ 2de:	90 e0       	ldi	r25, 0x00	; 0
+ 2e0:	43 c0       	rjmp	.+134    	; 0x368 <input_uart+0xa6>
+	// цикличный ввод часов UTC, если где-то была допущена ошибка
+	while (error) {
+		for (int i=0;i<2;i++) {
+			// чтение ":" между НН и ММ
+			if (i==1) {
+				while (!(UCSRA&(1<<RXC)));
+ 2e2:	5f 9b       	sbis	0x0b, 7	; 11
+ 2e4:	fe cf       	rjmp	.-4      	; 0x2e2 <input_uart+0x20>
+				a=UDR;
+ 2e6:	fc b0       	in	r15, 0x0c	; 12
+				show_char(a);
+ 2e8:	8f 2d       	mov	r24, r15
+ 2ea:	dc df       	rcall	.-72     	; 0x2a4 <show_char>
+ 2ec:	01 e0       	ldi	r16, 0x01	; 1
+ 2ee:	10 e0       	ldi	r17, 0x00	; 0
+			}
+			// ожидание приёма десятков часов/минут
+			while (!(UCSRA&(1<<RXC)));
+ 2f0:	5f 9b       	sbis	0x0b, 7	; 11
+ 2f2:	fe cf       	rjmp	.-4      	; 0x2f0 <input_uart+0x2e>
+			temp_time[i]=UDR;
+ 2f4:	8c b1       	in	r24, 0x0c	; 12
+ 2f6:	f6 01       	movw	r30, r12
+ 2f8:	80 83       	st	Z, r24
+ 2fa:	98 2f       	mov	r25, r24
+ 2fc:	90 53       	subi	r25, 0x30	; 48
+			if (i==0) {
+ 2fe:	01 15       	cp	r16, r1
+ 300:	11 05       	cpc	r17, r1
+ 302:	19 f4       	brne	.+6      	; 0x30a <input_uart+0x48>
+				// проверка для часов
+				if (temp_time[i]<'0' || temp_time[i]>'2') error=0;
+ 304:	93 30       	cpi	r25, 0x03	; 3
+ 306:	18 f4       	brcc	.+6      	; 0x30e <input_uart+0x4c>
+ 308:	03 c0       	rjmp	.+6      	; 0x310 <input_uart+0x4e>
+			} else {
+				// проверка для минут
+				if (temp_time[i]<'0' || temp_time[i]>'5') error=0;
+ 30a:	96 30       	cpi	r25, 0x06	; 6
+ 30c:	08 f0       	brcs	.+2      	; 0x310 <input_uart+0x4e>
+ 30e:	ee 24       	eor	r14, r14
+			}
+			// отображение введённого символа
+			show_char(temp_time[i]);
+ 310:	c9 df       	rcall	.-110    	; 0x2a4 <show_char>
+			temp_time[i]=(temp_time[i]-'0')*10;
+ 312:	f6 01       	movw	r30, r12
+ 314:	90 81       	ld	r25, Z
+ 316:	99 0f       	add	r25, r25
+ 318:	89 2f       	mov	r24, r25
+ 31a:	88 0f       	add	r24, r24
+ 31c:	88 0f       	add	r24, r24
+ 31e:	89 0f       	add	r24, r25
+ 320:	80 5e       	subi	r24, 0xE0	; 224
+ 322:	80 83       	st	Z, r24
+			// ожидание приёма единиц часов/минут
+			while (!(UCSRA&(1<<RXC)));
+ 324:	5f 9b       	sbis	0x0b, 7	; 11
+ 326:	fe cf       	rjmp	.-4      	; 0x324 <input_uart+0x62>
+			b=UDR;
+ 328:	8c b1       	in	r24, 0x0c	; 12
+			if (b<'0' || b>'9') error=0;
+ 32a:	98 2f       	mov	r25, r24
+ 32c:	90 53       	subi	r25, 0x30	; 48
+ 32e:	9a 30       	cpi	r25, 0x0A	; 10
+ 330:	08 f0       	brcs	.+2      	; 0x334 <input_uart+0x72>
+ 332:	ee 24       	eor	r14, r14
+			// отображение введённого символа
+			show_char(b);
+ 334:	99 83       	std	Y+1, r25	; 0x01
+ 336:	b6 df       	rcall	.-148    	; 0x2a4 <show_char>
+			temp_time[i]=temp_time[i]-'0'+b;
+ 338:	f6 01       	movw	r30, r12
+ 33a:	80 81       	ld	r24, Z
+ 33c:	99 81       	ldd	r25, Y+1	; 0x01
+ 33e:	89 0f       	add	r24, r25
+ 340:	81 93       	st	Z+, r24
+ 342:	6f 01       	movw	r12, r30
+	show_string("Input UTC time (HH:MM): ");
+	uint8_t error=1;
+	char a,b;
+	// цикличный ввод часов UTC, если где-то была допущена ошибка
+	while (error) {
+		for (int i=0;i<2;i++) {
+ 344:	01 30       	cpi	r16, 0x01	; 1
+ 346:	11 05       	cpc	r17, r1
+ 348:	61 f6       	brne	.-104    	; 0x2e2 <input_uart+0x20>
+			// отображение введённого символа
+			show_char(b);
+			temp_time[i]=temp_time[i]-'0'+b;
+		}
+		// проверка ввода
+		if (temp_time[0]>23 || temp_time[1]>59 || a!=':' || error==0) error=1;
+ 34a:	90 91 ca 00 	lds	r25, 0x00CA
+ 34e:	98 31       	cpi	r25, 0x18	; 24
+ 350:	48 f4       	brcc	.+18     	; 0x364 <input_uart+0xa2>
+ 352:	80 91 cb 00 	lds	r24, 0x00CB
+ 356:	8c 33       	cpi	r24, 0x3C	; 60
+ 358:	28 f4       	brcc	.+10     	; 0x364 <input_uart+0xa2>
+ 35a:	ff 2d       	mov	r31, r15
+ 35c:	fa 33       	cpi	r31, 0x3A	; 58
+ 35e:	11 f4       	brne	.+4      	; 0x364 <input_uart+0xa2>
+ 360:	ee 20       	and	r14, r14
+ 362:	61 f4       	brne	.+24     	; 0x37c <input_uart+0xba>
+		else error=0;
+		// вывод сообщения об ошибке
+		if (error) show_string("\rTry again: ");
+ 364:	89 e7       	ldi	r24, 0x79	; 121
+ 366:	90 e0       	ldi	r25, 0x00	; 0
+ 368:	a1 df       	rcall	.-190    	; 0x2ac <show_string>
+	}
+	// сохранение часов и минут и запуск часов
+	hour=temp_time[0];
+	minute=temp_time[1];
+	enable=1;
+	ms=0;
+ 36a:	9a ec       	ldi	r25, 0xCA	; 202
+ 36c:	c9 2e       	mov	r12, r25
+ 36e:	90 e0       	ldi	r25, 0x00	; 0
+ 370:	d9 2e       	mov	r13, r25
+	unsigned char c;
+	while((c=*str++)!=0) show_char(c);
+}
+
+// режим ввода начального времени и часов 4 зон через UART
+void input_uart(void) {
+ 372:	ee 24       	eor	r14, r14
+ 374:	e3 94       	inc	r14
+ 376:	00 e0       	ldi	r16, 0x00	; 0
+ 378:	10 e0       	ldi	r17, 0x00	; 0
+ 37a:	ba cf       	rjmp	.-140    	; 0x2f0 <input_uart+0x2e>
+		else error=0;
+		// вывод сообщения об ошибке
+		if (error) show_string("\rTry again: ");
+	}
+	// сохранение часов и минут и запуск часов
+	hour=temp_time[0];
+ 37c:	90 93 c2 00 	sts	0x00C2, r25
+	minute=temp_time[1];
+ 380:	80 93 c3 00 	sts	0x00C3, r24
+	enable=1;
+ 384:	81 e0       	ldi	r24, 0x01	; 1
+ 386:	80 93 c7 00 	sts	0x00C7, r24
+	ms=0;
+ 38a:	10 92 c1 00 	sts	0x00C1, r1
+ 38e:	10 92 c0 00 	sts	0x00C0, r1
+ 392:	3c eb       	ldi	r19, 0xBC	; 188
+ 394:	a3 2e       	mov	r10, r19
+ 396:	30 e0       	ldi	r19, 0x00	; 0
+ 398:	b3 2e       	mov	r11, r19
+ 39a:	21 e3       	ldi	r18, 0x31	; 49
+ 39c:	f2 2e       	mov	r15, r18
+			else error=1;
+			// вывод сообщения об ошибке
+			if (error) show_string("\r\nTry again: ");
+		}
+		// сохранение часов i+1 зоны
+		time_difference[i]=(temp_time[0]-hour+24)%24;
+ 39e:	08 e1       	ldi	r16, 0x18	; 24
+ 3a0:	10 e0       	ldi	r17, 0x00	; 0
+	enable=1;
+	ms=0;
+	// ввод 4 зон
+	for (int i=0;i<4;i++) {
+		// вывод строки о вводе i+1 зоны
+		show_string("\n\rInput ");
+ 3a2:	86 e8       	ldi	r24, 0x86	; 134
+ 3a4:	90 e0       	ldi	r25, 0x00	; 0
+ 3a6:	82 df       	rcall	.-252    	; 0x2ac <show_string>
+ 3a8:	8f ec       	ldi	r24, 0xCF	; 207
+ 3aa:	e8 2e       	mov	r14, r24
+ 3ac:	ef 0c       	add	r14, r15
+		show_char('1'+i);
+ 3ae:	8f 2d       	mov	r24, r15
+ 3b0:	79 df       	rcall	.-270    	; 0x2a4 <show_char>
+		show_string(" zone (HH): ");
+ 3b2:	8f e8       	ldi	r24, 0x8F	; 143
+ 3b4:	90 e0       	ldi	r25, 0x00	; 0
+ 3b6:	7a df       	rcall	.-268    	; 0x2ac <show_string>
+		error=1;
+		// цикличный ввод зоны, если где-то была допущена ошибка
+		while (error) {
+			// ожидание приёма десятков часов
+			while (!(UCSRA&(1<<RXC)));
+ 3b8:	5f 9b       	sbis	0x0b, 7	; 11
+ 3ba:	fe cf       	rjmp	.-4      	; 0x3b8 <input_uart+0xf6>
+			temp_time[0]=UDR;
+ 3bc:	8c b1       	in	r24, 0x0c	; 12
+ 3be:	80 93 ca 00 	sts	0x00CA, r24
+			// отображение введённого символа
+			show_char(temp_time[0]);
+ 3c2:	70 df       	rcall	.-288    	; 0x2a4 <show_char>
+			// проверка ввода
+			if (temp_time[0]<'0' || temp_time[0]>'2') error=0;
+ 3c4:	c0 90 ca 00 	lds	r12, 0x00CA
+			temp_time[0]=(temp_time[0]-'0')*10;
+ 3c8:	9c 2d       	mov	r25, r12
+ 3ca:	99 0f       	add	r25, r25
+ 3cc:	89 2f       	mov	r24, r25
+ 3ce:	88 0f       	add	r24, r24
+ 3d0:	88 0f       	add	r24, r24
+ 3d2:	89 0f       	add	r24, r25
+ 3d4:	80 5e       	subi	r24, 0xE0	; 224
+ 3d6:	80 93 ca 00 	sts	0x00CA, r24
+			// ожидание приёма единиц часов
+			while (!(UCSRA&(1<<RXC)));
+ 3da:	5f 9b       	sbis	0x0b, 7	; 11
+ 3dc:	fe cf       	rjmp	.-4      	; 0x3da <input_uart+0x118>
+			b=UDR;
+ 3de:	dc b0       	in	r13, 0x0c	; 12
+			// отображение введённого символа
+			show_char(b);
+ 3e0:	8d 2d       	mov	r24, r13
+ 3e2:	60 df       	rcall	.-320    	; 0x2a4 <show_char>
+			// проверка ввода
+			if (b<'0' || b>'9') error=0;
+ 3e4:	8d 2d       	mov	r24, r13
+ 3e6:	80 53       	subi	r24, 0x30	; 48
+ 3e8:	8a 30       	cpi	r24, 0x0A	; 10
+ 3ea:	28 f4       	brcc	.+10     	; 0x3f6 <input_uart+0x134>
+			while (!(UCSRA&(1<<RXC)));
+			temp_time[0]=UDR;
+			// отображение введённого символа
+			show_char(temp_time[0]);
+			// проверка ввода
+			if (temp_time[0]<'0' || temp_time[0]>'2') error=0;
+ 3ec:	9c 2d       	mov	r25, r12
+ 3ee:	90 53       	subi	r25, 0x30	; 48
+ 3f0:	81 e0       	ldi	r24, 0x01	; 1
+ 3f2:	93 30       	cpi	r25, 0x03	; 3
+ 3f4:	08 f0       	brcs	.+2      	; 0x3f8 <input_uart+0x136>
+			while (!(UCSRA&(1<<RXC)));
+			b=UDR;
+			// отображение введённого символа
+			show_char(b);
+			// проверка ввода
+			if (b<'0' || b>'9') error=0;
+ 3f6:	80 e0       	ldi	r24, 0x00	; 0
+			temp_time[0]=temp_time[0]-'0'+b;
+ 3f8:	20 91 ca 00 	lds	r18, 0x00CA
+ 3fc:	2d 0d       	add	r18, r13
+ 3fe:	20 53       	subi	r18, 0x30	; 48
+ 400:	20 93 ca 00 	sts	0x00CA, r18
+			// проверка ввода
+			if (temp_time[0]<=23 && error==1) error=0;
+ 404:	28 31       	cpi	r18, 0x18	; 24
+ 406:	28 f5       	brcc	.+74     	; 0x452 <input_uart+0x190>
+ 408:	81 30       	cpi	r24, 0x01	; 1
+ 40a:	19 f5       	brne	.+70     	; 0x452 <input_uart+0x190>
+			else error=1;
+			// вывод сообщения об ошибке
+			if (error) show_string("\r\nTry again: ");
+		}
+		// сохранение часов i+1 зоны
+		time_difference[i]=(temp_time[0]-hour+24)%24;
+ 40c:	80 91 c2 00 	lds	r24, 0x00C2
+ 410:	a8 01       	movw	r20, r16
+ 412:	48 1b       	sub	r20, r24
+ 414:	51 09       	sbc	r21, r1
+ 416:	ca 01       	movw	r24, r20
+ 418:	82 0f       	add	r24, r18
+ 41a:	91 1d       	adc	r25, r1
+ 41c:	b8 01       	movw	r22, r16
+ 41e:	70 d3       	rcall	.+1760   	; 0xb00 <__divmodhi4>
+ 420:	f5 01       	movw	r30, r10
+ 422:	81 93       	st	Z+, r24
+ 424:	5f 01       	movw	r10, r30
+		// переход на следующую зону
+		pos=i;
+ 426:	e0 92 c5 00 	sts	0x00C5, r14
+ 42a:	f3 94       	inc	r15
+	hour=temp_time[0];
+	minute=temp_time[1];
+	enable=1;
+	ms=0;
+	// ввод 4 зон
+	for (int i=0;i<4;i++) {
+ 42c:	ff 2d       	mov	r31, r15
+ 42e:	f5 33       	cpi	r31, 0x35	; 53
+ 430:	09 f0       	breq	.+2      	; 0x434 <input_uart+0x172>
+ 432:	b7 cf       	rjmp	.-146    	; 0x3a2 <input_uart+0xe0>
+		time_difference[i]=(temp_time[0]-hour+24)%24;
+		// переход на следующую зону
+		pos=i;
+	}
+	// сообщение об окончании ввода
+	show_string("\rDone!");
+ 434:	8c e9       	ldi	r24, 0x9C	; 156
+ 436:	90 e0       	ldi	r25, 0x00	; 0
+ 438:	39 df       	rcall	.-398    	; 0x2ac <show_string>
+}
+ 43a:	0f 90       	pop	r0
+ 43c:	cf 91       	pop	r28
+ 43e:	df 91       	pop	r29
+ 440:	1f 91       	pop	r17
+ 442:	0f 91       	pop	r16
+ 444:	ff 90       	pop	r15
+ 446:	ef 90       	pop	r14
+ 448:	df 90       	pop	r13
+ 44a:	cf 90       	pop	r12
+ 44c:	bf 90       	pop	r11
+ 44e:	af 90       	pop	r10
+ 450:	08 95       	ret
+			temp_time[0]=temp_time[0]-'0'+b;
+			// проверка ввода
+			if (temp_time[0]<=23 && error==1) error=0;
+			else error=1;
+			// вывод сообщения об ошибке
+			if (error) show_string("\r\nTry again: ");
+ 452:	83 ea       	ldi	r24, 0xA3	; 163
+ 454:	90 e0       	ldi	r25, 0x00	; 0
+ 456:	af cf       	rjmp	.-162    	; 0x3b6 <input_uart+0xf4>
+
+00000458 <input_keyboard>:
+	// сообщение об окончании ввода
+	show_string("\rDone!");
+}
+
+// режим ввода начального времени и часов 4 зон с матричной клавиатуры
+void input_keyboard(void) {
+ 458:	0f 93       	push	r16
+ 45a:	1f 93       	push	r17
+	// ввод часов UTC
+	flag=0;
+ 45c:	10 92 c6 00 	sts	0x00C6, r1
+	flag2=0;
+	// ожидание нажатия "0", "1" или "2"
+	while (flag2==0) {
+		if (flag==1 && (button==0 || button==4 || button==7)) flag2=1;
+ 460:	80 91 c6 00 	lds	r24, 0x00C6
+ 464:	81 30       	cpi	r24, 0x01	; 1
+ 466:	e1 f7       	brne	.-8      	; 0x460 <input_keyboard+0x8>
+ 468:	80 91 bb 00 	lds	r24, 0x00BB
+ 46c:	88 23       	and	r24, r24
+ 46e:	41 f0       	breq	.+16     	; 0x480 <input_keyboard+0x28>
+ 470:	80 91 bb 00 	lds	r24, 0x00BB
+ 474:	84 30       	cpi	r24, 0x04	; 4
+ 476:	21 f0       	breq	.+8      	; 0x480 <input_keyboard+0x28>
+ 478:	80 91 bb 00 	lds	r24, 0x00BB
+ 47c:	87 30       	cpi	r24, 0x07	; 7
+ 47e:	81 f7       	brne	.-32     	; 0x460 <input_keyboard+0x8>
+ 480:	81 e0       	ldi	r24, 0x01	; 1
+void input_keyboard(void) {
+	// ввод часов UTC
+	flag=0;
+	flag2=0;
+	// ожидание нажатия "0", "1" или "2"
+	while (flag2==0) {
+ 482:	80 93 c9 00 	sts	0x00C9, r24
+		if (flag==1 && (button==0 || button==4 || button==7)) flag2=1;
+	}
+	// запись десятков часов
+	if (button==0) hour=10;
+ 486:	80 91 bb 00 	lds	r24, 0x00BB
+ 48a:	88 23       	and	r24, r24
+ 48c:	11 f4       	brne	.+4      	; 0x492 <input_keyboard+0x3a>
+ 48e:	8a e0       	ldi	r24, 0x0A	; 10
+ 490:	05 c0       	rjmp	.+10     	; 0x49c <input_keyboard+0x44>
+	else if (button==4) hour=20;
+ 492:	80 91 bb 00 	lds	r24, 0x00BB
+ 496:	84 30       	cpi	r24, 0x04	; 4
+ 498:	21 f4       	brne	.+8      	; 0x4a2 <input_keyboard+0x4a>
+ 49a:	84 e1       	ldi	r24, 0x14	; 20
+ 49c:	80 93 c2 00 	sts	0x00C2, r24
+ 4a0:	06 c0       	rjmp	.+12     	; 0x4ae <input_keyboard+0x56>
+	else if (button==7) hour=0;
+ 4a2:	80 91 bb 00 	lds	r24, 0x00BB
+ 4a6:	87 30       	cpi	r24, 0x07	; 7
+ 4a8:	11 f4       	brne	.+4      	; 0x4ae <input_keyboard+0x56>
+ 4aa:	10 92 c2 00 	sts	0x00C2, r1
+	flag2=0;
+ 4ae:	10 92 c9 00 	sts	0x00C9, r1
+	button=12;
+ 4b2:	8c e0       	ldi	r24, 0x0C	; 12
+ 4b4:	80 93 bb 00 	sts	0x00BB, r24
+	// ожидание отпускания кнопки
+	while (flag);
+ 4b8:	80 91 c6 00 	lds	r24, 0x00C6
+ 4bc:	88 23       	and	r24, r24
+ 4be:	e1 f7       	brne	.-8      	; 0x4b8 <input_keyboard+0x60>
+ 4c0:	80 91 c9 00 	lds	r24, 0x00C9
+	// ожидание нажатия "0", "1" ... "9", для изменения единиц часов
+	while (flag2==0) {
+ 4c4:	88 23       	and	r24, r24
+ 4c6:	79 f5       	brne	.+94     	; 0x526 <input_keyboard+0xce>
+		// если десятки часов=20, то ожидание только "0", "1", "2" или "3"
+		if (flag==1 && hour==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+ 4c8:	80 91 c6 00 	lds	r24, 0x00C6
+ 4cc:	81 30       	cpi	r24, 0x01	; 1
+ 4ce:	a1 f4       	brne	.+40     	; 0x4f8 <input_keyboard+0xa0>
+ 4d0:	80 91 c2 00 	lds	r24, 0x00C2
+ 4d4:	84 31       	cpi	r24, 0x14	; 20
+ 4d6:	81 f4       	brne	.+32     	; 0x4f8 <input_keyboard+0xa0>
+ 4d8:	80 91 bb 00 	lds	r24, 0x00BB
+ 4dc:	88 23       	and	r24, r24
+ 4de:	11 f1       	breq	.+68     	; 0x524 <input_keyboard+0xcc>
+ 4e0:	80 91 bb 00 	lds	r24, 0x00BB
+ 4e4:	84 30       	cpi	r24, 0x04	; 4
+ 4e6:	f1 f0       	breq	.+60     	; 0x524 <input_keyboard+0xcc>
+ 4e8:	80 91 bb 00 	lds	r24, 0x00BB
+ 4ec:	87 30       	cpi	r24, 0x07	; 7
+ 4ee:	d1 f0       	breq	.+52     	; 0x524 <input_keyboard+0xcc>
+ 4f0:	80 91 bb 00 	lds	r24, 0x00BB
+ 4f4:	88 30       	cpi	r24, 0x08	; 8
+ 4f6:	b1 f0       	breq	.+44     	; 0x524 <input_keyboard+0xcc>
+		else if (flag==1 && hour!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+ 4f8:	80 91 c6 00 	lds	r24, 0x00C6
+ 4fc:	81 30       	cpi	r24, 0x01	; 1
+ 4fe:	21 f7       	brne	.-56     	; 0x4c8 <input_keyboard+0x70>
+ 500:	80 91 c2 00 	lds	r24, 0x00C2
+ 504:	84 31       	cpi	r24, 0x14	; 20
+ 506:	01 f3       	breq	.-64     	; 0x4c8 <input_keyboard+0x70>
+ 508:	80 91 bb 00 	lds	r24, 0x00BB
+ 50c:	83 30       	cpi	r24, 0x03	; 3
+ 50e:	e1 f2       	breq	.-72     	; 0x4c8 <input_keyboard+0x70>
+ 510:	80 91 bb 00 	lds	r24, 0x00BB
+ 514:	8b 30       	cpi	r24, 0x0B	; 11
+ 516:	c1 f2       	breq	.-80     	; 0x4c8 <input_keyboard+0x70>
+ 518:	90 91 bb 00 	lds	r25, 0x00BB
+	// сообщение об окончании ввода
+	show_string("\rDone!");
+}
+
+// режим ввода начального времени и часов 4 зон с матричной клавиатуры
+void input_keyboard(void) {
+ 51c:	81 e0       	ldi	r24, 0x01	; 1
+ 51e:	9c 30       	cpi	r25, 0x0C	; 12
+ 520:	11 f4       	brne	.+4      	; 0x526 <input_keyboard+0xce>
+ 522:	d2 cf       	rjmp	.-92     	; 0x4c8 <input_keyboard+0x70>
+	// ожидание отпускания кнопки
+	while (flag);
+	// ожидание нажатия "0", "1" ... "9", для изменения единиц часов
+	while (flag2==0) {
+		// если десятки часов=20, то ожидание только "0", "1", "2" или "3"
+		if (flag==1 && hour==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+ 524:	81 e0       	ldi	r24, 0x01	; 1
+	flag2=0;
+	button=12;
+	// ожидание отпускания кнопки
+	while (flag);
+	// ожидание нажатия "0", "1" ... "9", для изменения единиц часов
+	while (flag2==0) {
+ 526:	80 93 c9 00 	sts	0x00C9, r24
+		// если десятки часов=20, то ожидание только "0", "1", "2" или "3"
+		if (flag==1 && hour==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+		else if (flag==1 && hour!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+	}
+	// изменение единиц часов
+	if (button==0) hour+=1;
+ 52a:	80 91 bb 00 	lds	r24, 0x00BB
+ 52e:	88 23       	and	r24, r24
+ 530:	21 f4       	brne	.+8      	; 0x53a <input_keyboard+0xe2>
+ 532:	80 91 c2 00 	lds	r24, 0x00C2
+ 536:	8f 5f       	subi	r24, 0xFF	; 255
+ 538:	46 c0       	rjmp	.+140    	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==1) hour+=4;
+ 53a:	80 91 bb 00 	lds	r24, 0x00BB
+ 53e:	81 30       	cpi	r24, 0x01	; 1
+ 540:	21 f4       	brne	.+8      	; 0x54a <input_keyboard+0xf2>
+ 542:	80 91 c2 00 	lds	r24, 0x00C2
+ 546:	8c 5f       	subi	r24, 0xFC	; 252
+ 548:	3e c0       	rjmp	.+124    	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==2) hour+=7;
+ 54a:	80 91 bb 00 	lds	r24, 0x00BB
+ 54e:	82 30       	cpi	r24, 0x02	; 2
+ 550:	21 f4       	brne	.+8      	; 0x55a <input_keyboard+0x102>
+ 552:	80 91 c2 00 	lds	r24, 0x00C2
+ 556:	89 5f       	subi	r24, 0xF9	; 249
+ 558:	36 c0       	rjmp	.+108    	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==4) hour+=2;
+ 55a:	80 91 bb 00 	lds	r24, 0x00BB
+ 55e:	84 30       	cpi	r24, 0x04	; 4
+ 560:	21 f4       	brne	.+8      	; 0x56a <input_keyboard+0x112>
+ 562:	80 91 c2 00 	lds	r24, 0x00C2
+ 566:	8e 5f       	subi	r24, 0xFE	; 254
+ 568:	2e c0       	rjmp	.+92     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==5) hour+=5;
+ 56a:	80 91 bb 00 	lds	r24, 0x00BB
+ 56e:	85 30       	cpi	r24, 0x05	; 5
+ 570:	21 f4       	brne	.+8      	; 0x57a <input_keyboard+0x122>
+ 572:	80 91 c2 00 	lds	r24, 0x00C2
+ 576:	8b 5f       	subi	r24, 0xFB	; 251
+ 578:	26 c0       	rjmp	.+76     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==6) hour+=8;
+ 57a:	80 91 bb 00 	lds	r24, 0x00BB
+ 57e:	86 30       	cpi	r24, 0x06	; 6
+ 580:	21 f4       	brne	.+8      	; 0x58a <input_keyboard+0x132>
+ 582:	80 91 c2 00 	lds	r24, 0x00C2
+ 586:	88 5f       	subi	r24, 0xF8	; 248
+ 588:	1e c0       	rjmp	.+60     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==7) hour+=0;
+ 58a:	80 91 bb 00 	lds	r24, 0x00BB
+ 58e:	87 30       	cpi	r24, 0x07	; 7
+ 590:	19 f4       	brne	.+6      	; 0x598 <input_keyboard+0x140>
+ 592:	80 91 c2 00 	lds	r24, 0x00C2
+ 596:	17 c0       	rjmp	.+46     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==8) hour+=3;
+ 598:	80 91 bb 00 	lds	r24, 0x00BB
+ 59c:	88 30       	cpi	r24, 0x08	; 8
+ 59e:	21 f4       	brne	.+8      	; 0x5a8 <input_keyboard+0x150>
+ 5a0:	80 91 c2 00 	lds	r24, 0x00C2
+ 5a4:	8d 5f       	subi	r24, 0xFD	; 253
+ 5a6:	0f c0       	rjmp	.+30     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==9) hour+=6;
+ 5a8:	80 91 bb 00 	lds	r24, 0x00BB
+ 5ac:	89 30       	cpi	r24, 0x09	; 9
+ 5ae:	21 f4       	brne	.+8      	; 0x5b8 <input_keyboard+0x160>
+ 5b0:	80 91 c2 00 	lds	r24, 0x00C2
+ 5b4:	8a 5f       	subi	r24, 0xFA	; 250
+ 5b6:	07 c0       	rjmp	.+14     	; 0x5c6 <input_keyboard+0x16e>
+	else if (button==10) hour+=9;
+ 5b8:	80 91 bb 00 	lds	r24, 0x00BB
+ 5bc:	8a 30       	cpi	r24, 0x0A	; 10
+ 5be:	29 f4       	brne	.+10     	; 0x5ca <input_keyboard+0x172>
+ 5c0:	80 91 c2 00 	lds	r24, 0x00C2
+ 5c4:	87 5f       	subi	r24, 0xF7	; 247
+ 5c6:	80 93 c2 00 	sts	0x00C2, r24
+	// ввод минут UTC
+	flag2=0;
+ 5ca:	10 92 c9 00 	sts	0x00C9, r1
+	button=12;
+ 5ce:	8c e0       	ldi	r24, 0x0C	; 12
+ 5d0:	80 93 bb 00 	sts	0x00BB, r24
+	while (flag);
+ 5d4:	80 91 c6 00 	lds	r24, 0x00C6
+ 5d8:	88 23       	and	r24, r24
+ 5da:	e1 f7       	brne	.-8      	; 0x5d4 <input_keyboard+0x17c>
+ 5dc:	80 91 c9 00 	lds	r24, 0x00C9
+ 5e0:	1e c0       	rjmp	.+60     	; 0x61e <input_keyboard+0x1c6>
+	// ожидание нажатия "0", "1" ... "5"
+	while (flag2==0) {
+		if (flag==1 && (button==0 || button==1 || button==4 || button==5 || button==7 || button==8)) flag2=1;
+ 5e2:	90 91 c6 00 	lds	r25, 0x00C6
+ 5e6:	91 30       	cpi	r25, 0x01	; 1
+ 5e8:	e1 f7       	brne	.-8      	; 0x5e2 <input_keyboard+0x18a>
+ 5ea:	90 91 bb 00 	lds	r25, 0x00BB
+ 5ee:	99 23       	and	r25, r25
+ 5f0:	a1 f0       	breq	.+40     	; 0x61a <input_keyboard+0x1c2>
+ 5f2:	90 91 bb 00 	lds	r25, 0x00BB
+ 5f6:	91 30       	cpi	r25, 0x01	; 1
+ 5f8:	81 f0       	breq	.+32     	; 0x61a <input_keyboard+0x1c2>
+ 5fa:	90 91 bb 00 	lds	r25, 0x00BB
+ 5fe:	94 30       	cpi	r25, 0x04	; 4
+ 600:	61 f0       	breq	.+24     	; 0x61a <input_keyboard+0x1c2>
+ 602:	90 91 bb 00 	lds	r25, 0x00BB
+ 606:	95 30       	cpi	r25, 0x05	; 5
+ 608:	41 f0       	breq	.+16     	; 0x61a <input_keyboard+0x1c2>
+ 60a:	90 91 bb 00 	lds	r25, 0x00BB
+ 60e:	97 30       	cpi	r25, 0x07	; 7
+ 610:	21 f0       	breq	.+8      	; 0x61a <input_keyboard+0x1c2>
+ 612:	90 91 bb 00 	lds	r25, 0x00BB
+ 616:	98 30       	cpi	r25, 0x08	; 8
+ 618:	11 f4       	brne	.+4      	; 0x61e <input_keyboard+0x1c6>
+ 61a:	81 e0       	ldi	r24, 0x01	; 1
+ 61c:	02 c0       	rjmp	.+4      	; 0x622 <input_keyboard+0x1ca>
+	// ввод минут UTC
+	flag2=0;
+	button=12;
+	while (flag);
+	// ожидание нажатия "0", "1" ... "5"
+	while (flag2==0) {
+ 61e:	88 23       	and	r24, r24
+ 620:	01 f3       	breq	.-64     	; 0x5e2 <input_keyboard+0x18a>
+ 622:	80 93 c9 00 	sts	0x00C9, r24
+		if (flag==1 && (button==0 || button==1 || button==4 || button==5 || button==7 || button==8)) flag2=1;
+	}
+	// запись десятков минут
+	if (button==0) minute=10;
+ 626:	80 91 bb 00 	lds	r24, 0x00BB
+ 62a:	88 23       	and	r24, r24
+ 62c:	11 f4       	brne	.+4      	; 0x632 <input_keyboard+0x1da>
+ 62e:	8a e0       	ldi	r24, 0x0A	; 10
+ 630:	1e c0       	rjmp	.+60     	; 0x66e <input_keyboard+0x216>
+	else if (button==1) minute=40;
+ 632:	80 91 bb 00 	lds	r24, 0x00BB
+ 636:	81 30       	cpi	r24, 0x01	; 1
+ 638:	11 f4       	brne	.+4      	; 0x63e <input_keyboard+0x1e6>
+ 63a:	88 e2       	ldi	r24, 0x28	; 40
+ 63c:	18 c0       	rjmp	.+48     	; 0x66e <input_keyboard+0x216>
+	else if (button==4) minute=20;
+ 63e:	80 91 bb 00 	lds	r24, 0x00BB
+ 642:	84 30       	cpi	r24, 0x04	; 4
+ 644:	11 f4       	brne	.+4      	; 0x64a <input_keyboard+0x1f2>
+ 646:	84 e1       	ldi	r24, 0x14	; 20
+ 648:	12 c0       	rjmp	.+36     	; 0x66e <input_keyboard+0x216>
+	else if (button==5) minute=50;
+ 64a:	80 91 bb 00 	lds	r24, 0x00BB
+ 64e:	85 30       	cpi	r24, 0x05	; 5
+ 650:	11 f4       	brne	.+4      	; 0x656 <input_keyboard+0x1fe>
+ 652:	82 e3       	ldi	r24, 0x32	; 50
+ 654:	0c c0       	rjmp	.+24     	; 0x66e <input_keyboard+0x216>
+	else if (button==7) minute=0;
+ 656:	80 91 bb 00 	lds	r24, 0x00BB
+ 65a:	87 30       	cpi	r24, 0x07	; 7
+ 65c:	19 f4       	brne	.+6      	; 0x664 <input_keyboard+0x20c>
+ 65e:	10 92 c3 00 	sts	0x00C3, r1
+ 662:	07 c0       	rjmp	.+14     	; 0x672 <input_keyboard+0x21a>
+	else if (button==8) minute=30;
+ 664:	80 91 bb 00 	lds	r24, 0x00BB
+ 668:	88 30       	cpi	r24, 0x08	; 8
+ 66a:	19 f4       	brne	.+6      	; 0x672 <input_keyboard+0x21a>
+ 66c:	8e e1       	ldi	r24, 0x1E	; 30
+ 66e:	80 93 c3 00 	sts	0x00C3, r24
+	flag2=0;
+ 672:	10 92 c9 00 	sts	0x00C9, r1
+	button=12;
+ 676:	8c e0       	ldi	r24, 0x0C	; 12
+ 678:	80 93 bb 00 	sts	0x00BB, r24
+	// ожидание отпускания кнопки
+	while (flag);
+ 67c:	80 91 c6 00 	lds	r24, 0x00C6
+ 680:	88 23       	and	r24, r24
+ 682:	e1 f7       	brne	.-8      	; 0x67c <input_keyboard+0x224>
+ 684:	80 91 c9 00 	lds	r24, 0x00C9
+ 688:	13 c0       	rjmp	.+38     	; 0x6b0 <input_keyboard+0x258>
+	// ожидание нажатия "0", "1" ... "9", для изменения единиц минут
+	while (flag2==0) {
+		if (flag==1 && button!=3 && button!=11 && button!=12) flag2=1;
+ 68a:	90 91 c6 00 	lds	r25, 0x00C6
+ 68e:	91 30       	cpi	r25, 0x01	; 1
+ 690:	e1 f7       	brne	.-8      	; 0x68a <input_keyboard+0x232>
+ 692:	90 91 bb 00 	lds	r25, 0x00BB
+ 696:	93 30       	cpi	r25, 0x03	; 3
+ 698:	59 f0       	breq	.+22     	; 0x6b0 <input_keyboard+0x258>
+ 69a:	90 91 bb 00 	lds	r25, 0x00BB
+ 69e:	9b 30       	cpi	r25, 0x0B	; 11
+ 6a0:	39 f0       	breq	.+14     	; 0x6b0 <input_keyboard+0x258>
+ 6a2:	90 91 bb 00 	lds	r25, 0x00BB
+	// сообщение об окончании ввода
+	show_string("\rDone!");
+}
+
+// режим ввода начального времени и часов 4 зон с матричной клавиатуры
+void input_keyboard(void) {
+ 6a6:	81 e0       	ldi	r24, 0x01	; 1
+ 6a8:	9c 30       	cpi	r25, 0x0C	; 12
+ 6aa:	21 f4       	brne	.+8      	; 0x6b4 <input_keyboard+0x25c>
+ 6ac:	80 e0       	ldi	r24, 0x00	; 0
+ 6ae:	ed cf       	rjmp	.-38     	; 0x68a <input_keyboard+0x232>
+	flag2=0;
+	button=12;
+	// ожидание отпускания кнопки
+	while (flag);
+	// ожидание нажатия "0", "1" ... "9", для изменения единиц минут
+	while (flag2==0) {
+ 6b0:	88 23       	and	r24, r24
+ 6b2:	59 f3       	breq	.-42     	; 0x68a <input_keyboard+0x232>
+ 6b4:	80 93 c9 00 	sts	0x00C9, r24
+		if (flag==1 && button!=3 && button!=11 && button!=12) flag2=1;
+	}
+	// запись единиц минут
+	if (button==0) minute+=1;
+ 6b8:	80 91 bb 00 	lds	r24, 0x00BB
+ 6bc:	88 23       	and	r24, r24
+ 6be:	21 f4       	brne	.+8      	; 0x6c8 <input_keyboard+0x270>
+ 6c0:	80 91 c3 00 	lds	r24, 0x00C3
+ 6c4:	8f 5f       	subi	r24, 0xFF	; 255
+ 6c6:	46 c0       	rjmp	.+140    	; 0x754 <input_keyboard+0x2fc>
+	else if (button==1) minute+=4;
+ 6c8:	80 91 bb 00 	lds	r24, 0x00BB
+ 6cc:	81 30       	cpi	r24, 0x01	; 1
+ 6ce:	21 f4       	brne	.+8      	; 0x6d8 <input_keyboard+0x280>
+ 6d0:	80 91 c3 00 	lds	r24, 0x00C3
+ 6d4:	8c 5f       	subi	r24, 0xFC	; 252
+ 6d6:	3e c0       	rjmp	.+124    	; 0x754 <input_keyboard+0x2fc>
+	else if (button==2) minute+=7;
+ 6d8:	80 91 bb 00 	lds	r24, 0x00BB
+ 6dc:	82 30       	cpi	r24, 0x02	; 2
+ 6de:	21 f4       	brne	.+8      	; 0x6e8 <input_keyboard+0x290>
+ 6e0:	80 91 c3 00 	lds	r24, 0x00C3
+ 6e4:	89 5f       	subi	r24, 0xF9	; 249
+ 6e6:	36 c0       	rjmp	.+108    	; 0x754 <input_keyboard+0x2fc>
+	else if (button==4) minute+=2;
+ 6e8:	80 91 bb 00 	lds	r24, 0x00BB
+ 6ec:	84 30       	cpi	r24, 0x04	; 4
+ 6ee:	21 f4       	brne	.+8      	; 0x6f8 <input_keyboard+0x2a0>
+ 6f0:	80 91 c3 00 	lds	r24, 0x00C3
+ 6f4:	8e 5f       	subi	r24, 0xFE	; 254
+ 6f6:	2e c0       	rjmp	.+92     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==5) minute+=5;
+ 6f8:	80 91 bb 00 	lds	r24, 0x00BB
+ 6fc:	85 30       	cpi	r24, 0x05	; 5
+ 6fe:	21 f4       	brne	.+8      	; 0x708 <input_keyboard+0x2b0>
+ 700:	80 91 c3 00 	lds	r24, 0x00C3
+ 704:	8b 5f       	subi	r24, 0xFB	; 251
+ 706:	26 c0       	rjmp	.+76     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==6) minute+=8;
+ 708:	80 91 bb 00 	lds	r24, 0x00BB
+ 70c:	86 30       	cpi	r24, 0x06	; 6
+ 70e:	21 f4       	brne	.+8      	; 0x718 <input_keyboard+0x2c0>
+ 710:	80 91 c3 00 	lds	r24, 0x00C3
+ 714:	88 5f       	subi	r24, 0xF8	; 248
+ 716:	1e c0       	rjmp	.+60     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==7) minute+=0;
+ 718:	80 91 bb 00 	lds	r24, 0x00BB
+ 71c:	87 30       	cpi	r24, 0x07	; 7
+ 71e:	19 f4       	brne	.+6      	; 0x726 <input_keyboard+0x2ce>
+ 720:	80 91 c3 00 	lds	r24, 0x00C3
+ 724:	17 c0       	rjmp	.+46     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==8) minute+=3;
+ 726:	80 91 bb 00 	lds	r24, 0x00BB
+ 72a:	88 30       	cpi	r24, 0x08	; 8
+ 72c:	21 f4       	brne	.+8      	; 0x736 <input_keyboard+0x2de>
+ 72e:	80 91 c3 00 	lds	r24, 0x00C3
+ 732:	8d 5f       	subi	r24, 0xFD	; 253
+ 734:	0f c0       	rjmp	.+30     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==9) minute+=6;
+ 736:	80 91 bb 00 	lds	r24, 0x00BB
+ 73a:	89 30       	cpi	r24, 0x09	; 9
+ 73c:	21 f4       	brne	.+8      	; 0x746 <input_keyboard+0x2ee>
+ 73e:	80 91 c3 00 	lds	r24, 0x00C3
+ 742:	8a 5f       	subi	r24, 0xFA	; 250
+ 744:	07 c0       	rjmp	.+14     	; 0x754 <input_keyboard+0x2fc>
+	else if (button==10) minute+=9;
+ 746:	80 91 bb 00 	lds	r24, 0x00BB
+ 74a:	8a 30       	cpi	r24, 0x0A	; 10
+ 74c:	29 f4       	brne	.+10     	; 0x758 <input_keyboard+0x300>
+ 74e:	80 91 c3 00 	lds	r24, 0x00C3
+ 752:	87 5f       	subi	r24, 0xF7	; 247
+ 754:	80 93 c3 00 	sts	0x00C3, r24
+	enable=1;
+ 758:	81 e0       	ldi	r24, 0x01	; 1
+ 75a:	80 93 c7 00 	sts	0x00C7, r24
+	ms=0;
+ 75e:	10 92 c1 00 	sts	0x00C1, r1
+ 762:	10 92 c0 00 	sts	0x00C0, r1
+	flag2=0;
+	button=12;
+ 766:	8c e0       	ldi	r24, 0x0C	; 12
+ 768:	80 93 bb 00 	sts	0x00BB, r24
+	// ожидание отпускания кнопки
+	while (flag);
+ 76c:	80 91 c6 00 	lds	r24, 0x00C6
+ 770:	88 23       	and	r24, r24
+ 772:	e1 f7       	brne	.-8      	; 0x76c <input_keyboard+0x314>
+ 774:	40 91 ca 00 	lds	r20, 0x00CA
+ 778:	ec eb       	ldi	r30, 0xBC	; 188
+ 77a:	f0 e0       	ldi	r31, 0x00	; 0
+ 77c:	10 e0       	ldi	r17, 0x00	; 0
+		// запись десятков часов
+		if (button==0) temp_time[0]=10;
+		else if (button==4) temp_time[0]=20;
+		else if (button==7) temp_time[0]=0;
+		flag2=0;
+		button=12;
+ 77e:	0c e0       	ldi	r16, 0x0C	; 12
+		else if (button==7) temp_time[0]+=0;
+		else if (button==8) temp_time[0]+=3;
+		else if (button==9) temp_time[0]+=6;
+		else if (button==10) temp_time[0]+=9;
+		// сохранение часов i+1 зоны 
+		time_difference[i]=(temp_time[0]-hour+24)%24;
+ 780:	28 e1       	ldi	r18, 0x18	; 24
+ 782:	30 e0       	ldi	r19, 0x00	; 0
+	// ввод четырёх зон
+	for (uint8_t i=0;i<4;i++) {
+		flag2=0;
+		// ожидание нажатия "0", "1" или "2"
+		while (flag2==0) {
+			if (flag==1 && (button==0 || button==4 || button==7)) flag2=1;
+ 784:	80 91 c6 00 	lds	r24, 0x00C6
+ 788:	81 30       	cpi	r24, 0x01	; 1
+ 78a:	e1 f7       	brne	.-8      	; 0x784 <input_keyboard+0x32c>
+ 78c:	80 91 bb 00 	lds	r24, 0x00BB
+ 790:	88 23       	and	r24, r24
+ 792:	41 f0       	breq	.+16     	; 0x7a4 <input_keyboard+0x34c>
+ 794:	80 91 bb 00 	lds	r24, 0x00BB
+ 798:	84 30       	cpi	r24, 0x04	; 4
+ 79a:	21 f0       	breq	.+8      	; 0x7a4 <input_keyboard+0x34c>
+ 79c:	80 91 bb 00 	lds	r24, 0x00BB
+ 7a0:	87 30       	cpi	r24, 0x07	; 7
+ 7a2:	81 f7       	brne	.-32     	; 0x784 <input_keyboard+0x32c>
+		}
+		// запись десятков часов
+		if (button==0) temp_time[0]=10;
+ 7a4:	80 91 bb 00 	lds	r24, 0x00BB
+ 7a8:	88 23       	and	r24, r24
+ 7aa:	51 f0       	breq	.+20     	; 0x7c0 <input_keyboard+0x368>
+		else if (button==4) temp_time[0]=20;
+ 7ac:	80 91 bb 00 	lds	r24, 0x00BB
+ 7b0:	84 30       	cpi	r24, 0x04	; 4
+ 7b2:	41 f0       	breq	.+16     	; 0x7c4 <input_keyboard+0x36c>
+		else if (button==7) temp_time[0]=0;
+ 7b4:	80 91 bb 00 	lds	r24, 0x00BB
+ 7b8:	87 30       	cpi	r24, 0x07	; 7
+ 7ba:	29 f4       	brne	.+10     	; 0x7c6 <input_keyboard+0x36e>
+ 7bc:	40 e0       	ldi	r20, 0x00	; 0
+ 7be:	03 c0       	rjmp	.+6      	; 0x7c6 <input_keyboard+0x36e>
+		// ожидание нажатия "0", "1" или "2"
+		while (flag2==0) {
+			if (flag==1 && (button==0 || button==4 || button==7)) flag2=1;
+		}
+		// запись десятков часов
+		if (button==0) temp_time[0]=10;
+ 7c0:	4a e0       	ldi	r20, 0x0A	; 10
+ 7c2:	01 c0       	rjmp	.+2      	; 0x7c6 <input_keyboard+0x36e>
+		else if (button==4) temp_time[0]=20;
+ 7c4:	44 e1       	ldi	r20, 0x14	; 20
+		else if (button==7) temp_time[0]=0;
+		flag2=0;
+		button=12;
+ 7c6:	00 93 bb 00 	sts	0x00BB, r16
+		// ожидание отпускания кнопки
+		while (flag);
+ 7ca:	80 91 c6 00 	lds	r24, 0x00C6
+ 7ce:	88 23       	and	r24, r24
+ 7d0:	e1 f7       	brne	.-8      	; 0x7ca <input_keyboard+0x372>
+		// ожидание нажатия "0", "1" ... "9"
+		while (flag2==0) {
+			if (flag==1 && temp_time[0]==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+ 7d2:	80 91 c6 00 	lds	r24, 0x00C6
+ 7d6:	81 30       	cpi	r24, 0x01	; 1
+ 7d8:	91 f4       	brne	.+36     	; 0x7fe <input_keyboard+0x3a6>
+ 7da:	44 31       	cpi	r20, 0x14	; 20
+ 7dc:	81 f4       	brne	.+32     	; 0x7fe <input_keyboard+0x3a6>
+ 7de:	80 91 bb 00 	lds	r24, 0x00BB
+ 7e2:	88 23       	and	r24, r24
+ 7e4:	f1 f0       	breq	.+60     	; 0x822 <input_keyboard+0x3ca>
+ 7e6:	80 91 bb 00 	lds	r24, 0x00BB
+ 7ea:	84 30       	cpi	r24, 0x04	; 4
+ 7ec:	d1 f0       	breq	.+52     	; 0x822 <input_keyboard+0x3ca>
+ 7ee:	80 91 bb 00 	lds	r24, 0x00BB
+ 7f2:	87 30       	cpi	r24, 0x07	; 7
+ 7f4:	b1 f0       	breq	.+44     	; 0x822 <input_keyboard+0x3ca>
+ 7f6:	80 91 bb 00 	lds	r24, 0x00BB
+ 7fa:	88 30       	cpi	r24, 0x08	; 8
+ 7fc:	91 f0       	breq	.+36     	; 0x822 <input_keyboard+0x3ca>
+			else if (flag==1 && temp_time[0]!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+ 7fe:	80 91 c6 00 	lds	r24, 0x00C6
+ 802:	81 30       	cpi	r24, 0x01	; 1
+ 804:	31 f7       	brne	.-52     	; 0x7d2 <input_keyboard+0x37a>
+ 806:	44 31       	cpi	r20, 0x14	; 20
+ 808:	21 f3       	breq	.-56     	; 0x7d2 <input_keyboard+0x37a>
+ 80a:	80 91 bb 00 	lds	r24, 0x00BB
+ 80e:	83 30       	cpi	r24, 0x03	; 3
+ 810:	01 f3       	breq	.-64     	; 0x7d2 <input_keyboard+0x37a>
+ 812:	80 91 bb 00 	lds	r24, 0x00BB
+ 816:	8b 30       	cpi	r24, 0x0B	; 11
+ 818:	e1 f2       	breq	.-72     	; 0x7d2 <input_keyboard+0x37a>
+ 81a:	80 91 bb 00 	lds	r24, 0x00BB
+	// сообщение об окончании ввода
+	show_string("\rDone!");
+}
+
+// режим ввода начального времени и часов 4 зон с матричной клавиатуры
+void input_keyboard(void) {
+ 81e:	8c 30       	cpi	r24, 0x0C	; 12
+ 820:	c1 f2       	breq	.-80     	; 0x7d2 <input_keyboard+0x37a>
+		while (flag2==0) {
+			if (flag==1 && temp_time[0]==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+			else if (flag==1 && temp_time[0]!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+		}
+		// запись единиц часов
+		if (button==0) temp_time[0]+=1;
+ 822:	80 91 bb 00 	lds	r24, 0x00BB
+ 826:	88 23       	and	r24, r24
+ 828:	11 f4       	brne	.+4      	; 0x82e <input_keyboard+0x3d6>
+ 82a:	4f 5f       	subi	r20, 0xFF	; 255
+ 82c:	33 c0       	rjmp	.+102    	; 0x894 <input_keyboard+0x43c>
+		else if (button==1) temp_time[0]+=4;
+ 82e:	80 91 bb 00 	lds	r24, 0x00BB
+ 832:	81 30       	cpi	r24, 0x01	; 1
+ 834:	11 f4       	brne	.+4      	; 0x83a <input_keyboard+0x3e2>
+ 836:	4c 5f       	subi	r20, 0xFC	; 252
+ 838:	2d c0       	rjmp	.+90     	; 0x894 <input_keyboard+0x43c>
+		else if (button==2) temp_time[0]+=7;
+ 83a:	80 91 bb 00 	lds	r24, 0x00BB
+ 83e:	82 30       	cpi	r24, 0x02	; 2
+ 840:	11 f4       	brne	.+4      	; 0x846 <input_keyboard+0x3ee>
+ 842:	49 5f       	subi	r20, 0xF9	; 249
+ 844:	27 c0       	rjmp	.+78     	; 0x894 <input_keyboard+0x43c>
+		else if (button==4) temp_time[0]+=2;
+ 846:	80 91 bb 00 	lds	r24, 0x00BB
+ 84a:	84 30       	cpi	r24, 0x04	; 4
+ 84c:	11 f4       	brne	.+4      	; 0x852 <input_keyboard+0x3fa>
+ 84e:	4e 5f       	subi	r20, 0xFE	; 254
+ 850:	21 c0       	rjmp	.+66     	; 0x894 <input_keyboard+0x43c>
+		else if (button==5) temp_time[0]+=5;
+ 852:	80 91 bb 00 	lds	r24, 0x00BB
+ 856:	85 30       	cpi	r24, 0x05	; 5
+ 858:	11 f4       	brne	.+4      	; 0x85e <input_keyboard+0x406>
+ 85a:	4b 5f       	subi	r20, 0xFB	; 251
+ 85c:	1b c0       	rjmp	.+54     	; 0x894 <input_keyboard+0x43c>
+		else if (button==6) temp_time[0]+=8;
+ 85e:	80 91 bb 00 	lds	r24, 0x00BB
+ 862:	86 30       	cpi	r24, 0x06	; 6
+ 864:	11 f4       	brne	.+4      	; 0x86a <input_keyboard+0x412>
+ 866:	48 5f       	subi	r20, 0xF8	; 248
+ 868:	15 c0       	rjmp	.+42     	; 0x894 <input_keyboard+0x43c>
+		else if (button==7) temp_time[0]+=0;
+ 86a:	80 91 bb 00 	lds	r24, 0x00BB
+ 86e:	87 30       	cpi	r24, 0x07	; 7
+ 870:	89 f0       	breq	.+34     	; 0x894 <input_keyboard+0x43c>
+		else if (button==8) temp_time[0]+=3;
+ 872:	80 91 bb 00 	lds	r24, 0x00BB
+ 876:	88 30       	cpi	r24, 0x08	; 8
+ 878:	11 f4       	brne	.+4      	; 0x87e <input_keyboard+0x426>
+ 87a:	4d 5f       	subi	r20, 0xFD	; 253
+ 87c:	0b c0       	rjmp	.+22     	; 0x894 <input_keyboard+0x43c>
+		else if (button==9) temp_time[0]+=6;
+ 87e:	80 91 bb 00 	lds	r24, 0x00BB
+ 882:	89 30       	cpi	r24, 0x09	; 9
+ 884:	11 f4       	brne	.+4      	; 0x88a <input_keyboard+0x432>
+ 886:	4a 5f       	subi	r20, 0xFA	; 250
+ 888:	05 c0       	rjmp	.+10     	; 0x894 <input_keyboard+0x43c>
+		else if (button==10) temp_time[0]+=9;
+ 88a:	80 91 bb 00 	lds	r24, 0x00BB
+ 88e:	8a 30       	cpi	r24, 0x0A	; 10
+ 890:	09 f4       	brne	.+2      	; 0x894 <input_keyboard+0x43c>
+ 892:	47 5f       	subi	r20, 0xF7	; 247
+		// сохранение часов i+1 зоны 
+		time_difference[i]=(temp_time[0]-hour+24)%24;
+ 894:	80 91 c2 00 	lds	r24, 0x00C2
+ 898:	b9 01       	movw	r22, r18
+ 89a:	68 1b       	sub	r22, r24
+ 89c:	71 09       	sbc	r23, r1
+ 89e:	cb 01       	movw	r24, r22
+ 8a0:	84 0f       	add	r24, r20
+ 8a2:	91 1d       	adc	r25, r1
+ 8a4:	b9 01       	movw	r22, r18
+ 8a6:	2c d1       	rcall	.+600    	; 0xb00 <__divmodhi4>
+ 8a8:	81 93       	st	Z+, r24
+		flag2=0;
+		button=12;
+ 8aa:	00 93 bb 00 	sts	0x00BB, r16
+		// переход на следующую зону
+		pos=i;
+ 8ae:	10 93 c5 00 	sts	0x00C5, r17
+		// ожидание отпускания кнопки
+		while (flag);
+ 8b2:	80 91 c6 00 	lds	r24, 0x00C6
+ 8b6:	88 23       	and	r24, r24
+ 8b8:	e1 f7       	brne	.-8      	; 0x8b2 <input_keyboard+0x45a>
+	flag2=0;
+	button=12;
+	// ожидание отпускания кнопки
+	while (flag);
+	// ввод четырёх зон
+	for (uint8_t i=0;i<4;i++) {
+ 8ba:	1f 5f       	subi	r17, 0xFF	; 255
+ 8bc:	14 30       	cpi	r17, 0x04	; 4
+ 8be:	09 f0       	breq	.+2      	; 0x8c2 <input_keyboard+0x46a>
+ 8c0:	61 cf       	rjmp	.-318    	; 0x784 <input_keyboard+0x32c>
+ 8c2:	10 92 c9 00 	sts	0x00C9, r1
+ 8c6:	40 93 ca 00 	sts	0x00CA, r20
+		// переход на следующую зону
+		pos=i;
+		// ожидание отпускания кнопки
+		while (flag);
+	}
+}
+ 8ca:	1f 91       	pop	r17
+ 8cc:	0f 91       	pop	r16
+ 8ce:	08 95       	ret
+
+000008d0 <main>:
+
+int main(void) {
+ 8d0:	1f 93       	push	r17
+	// настройка портов
+	DDRC=0b01110000;
+ 8d2:	80 e7       	ldi	r24, 0x70	; 112
+ 8d4:	84 bb       	out	0x14, r24	; 20
+	PORTC=0b00001111;
+ 8d6:	8f e0       	ldi	r24, 0x0F	; 15
+ 8d8:	85 bb       	out	0x15, r24	; 21
+	DDRB=0xFF;
+ 8da:	8f ef       	ldi	r24, 0xFF	; 255
+ 8dc:	87 bb       	out	0x17, r24	; 23
+	DDRA=0xFF;
+ 8de:	8a bb       	out	0x1a, r24	; 26
+	// настройка таймера Т0 так, чтобы он переполнялся раз в 1мс
+	TCCR0=0;
+ 8e0:	13 be       	out	0x33, r1	; 51
+	TCCR0=(0<<WGM01)|(0<<WGM00);
+ 8e2:	13 be       	out	0x33, r1	; 51
+	TCNT0=256-(0.001*F_CPU/1024);
+ 8e4:	88 ef       	ldi	r24, 0xF8	; 248
+ 8e6:	82 bf       	out	0x32, r24	; 50
+	TIFR|=(1<<TOV0);
+ 8e8:	88 b7       	in	r24, 0x38	; 56
+ 8ea:	82 60       	ori	r24, 0x02	; 2
+ 8ec:	88 bf       	out	0x38, r24	; 56
+	TIMSK|=(1<<TOIE0);
+ 8ee:	89 b7       	in	r24, 0x39	; 57
+ 8f0:	82 60       	ori	r24, 0x02	; 2
+ 8f2:	89 bf       	out	0x39, r24	; 57
+	TCCR0|=(1<<CS02)|(0<<CS01)|(1<<CS00);
+ 8f4:	83 b7       	in	r24, 0x33	; 51
+ 8f6:	85 60       	ori	r24, 0x05	; 5
+ 8f8:	83 bf       	out	0x33, r24	; 51
+	// настройка UART 
+	UBRRL=F_CPU/9600/16-1;
+ 8fa:	84 e3       	ldi	r24, 0x34	; 52
+ 8fc:	89 b9       	out	0x09, r24	; 9
+	UCSRC=(1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);
+ 8fe:	86 e8       	ldi	r24, 0x86	; 134
+ 900:	80 bd       	out	0x20, r24	; 32
+	UCSRB=(1<<TXEN)|(1<<RXEN);
+ 902:	88 e1       	ldi	r24, 0x18	; 24
+ 904:	8a b9       	out	0x0a, r24	; 10
+	// разрешение прерываний
+	sei();
+ 906:	78 94       	sei
+	flag2=0;
+	// ожидание нажатия "<-" или "->"
+	while (flag2==0) {
+		if (flag==1 && (button==3 || button==11)) flag2=1;
+ 908:	80 91 c6 00 	lds	r24, 0x00C6
+ 90c:	81 30       	cpi	r24, 0x01	; 1
+ 90e:	e1 f7       	brne	.-8      	; 0x908 <main+0x38>
+ 910:	80 91 bb 00 	lds	r24, 0x00BB
+ 914:	83 30       	cpi	r24, 0x03	; 3
+ 916:	21 f0       	breq	.+8      	; 0x920 <main+0x50>
+ 918:	80 91 bb 00 	lds	r24, 0x00BB
+ 91c:	8b 30       	cpi	r24, 0x0B	; 11
+ 91e:	a1 f7       	brne	.-24     	; 0x908 <main+0x38>
+ 920:	81 e0       	ldi	r24, 0x01	; 1
+	UCSRB=(1<<TXEN)|(1<<RXEN);
+	// разрешение прерываний
+	sei();
+	flag2=0;
+	// ожидание нажатия "<-" или "->"
+	while (flag2==0) {
+ 922:	80 93 c9 00 	sts	0x00C9, r24
+		if (flag==1 && (button==3 || button==11)) flag2=1;
+	}
+	// если "<-" ввод через UART
+	if (button==3) input_uart();
+ 926:	80 91 bb 00 	lds	r24, 0x00BB
+ 92a:	83 30       	cpi	r24, 0x03	; 3
+ 92c:	11 f4       	brne	.+4      	; 0x932 <main+0x62>
+ 92e:	c9 dc       	rcall	.-1646   	; 0x2c2 <input_uart>
+ 930:	05 c0       	rjmp	.+10     	; 0x93c <main+0x6c>
+	// если "->" ввод с матричной клавиатуры
+	else if (button==11) input_keyboard();
+ 932:	80 91 bb 00 	lds	r24, 0x00BB
+ 936:	8b 30       	cpi	r24, 0x0B	; 11
+ 938:	09 f4       	brne	.+2      	; 0x93c <main+0x6c>
+ 93a:	8e dd       	rcall	.-1252   	; 0x458 <input_keyboard>
+ 93c:	40 91 ca 00 	lds	r20, 0x00CA
+		} else if (button==0 || button==4 || button==7) {
+			if (button==0) temp_time[0]=10;
+			else if (button==4) temp_time[0]=20;
+			else if (button==7) temp_time[0]=0;
+			flag2=0;
+			button=12;
+ 940:	1c e0       	ldi	r17, 0x0C	; 12
+			else if (button==7) temp_time[0]+=0;
+			else if (button==8) temp_time[0]+=3;
+			else if (button==9) temp_time[0]+=6;
+			else if (button==10) temp_time[0]+=9;
+			// запись полученного нового значения зоны в массив
+			time_difference[pos]=(temp_time[0]-hour+24)%24;
+ 942:	28 e1       	ldi	r18, 0x18	; 24
+ 944:	30 e0       	ldi	r19, 0x00	; 0
+	// бесконечный цикл опроса кнопок клавиатуры
+	while (1) {
+		flag2=0;
+		// ожидание нажатия "0", "1", "2", "<-" или "->"
+		while (flag2==0) {
+			if (flag==1 && (button==3 || button==11 || button==0 || button==4 || button==7)) flag2=1;
+ 946:	80 91 c6 00 	lds	r24, 0x00C6
+ 94a:	81 30       	cpi	r24, 0x01	; 1
+ 94c:	e1 f7       	brne	.-8      	; 0x946 <main+0x76>
+ 94e:	80 91 bb 00 	lds	r24, 0x00BB
+ 952:	83 30       	cpi	r24, 0x03	; 3
+ 954:	81 f0       	breq	.+32     	; 0x976 <main+0xa6>
+ 956:	80 91 bb 00 	lds	r24, 0x00BB
+ 95a:	8b 30       	cpi	r24, 0x0B	; 11
+ 95c:	61 f0       	breq	.+24     	; 0x976 <main+0xa6>
+ 95e:	80 91 bb 00 	lds	r24, 0x00BB
+ 962:	88 23       	and	r24, r24
+ 964:	41 f0       	breq	.+16     	; 0x976 <main+0xa6>
+ 966:	80 91 bb 00 	lds	r24, 0x00BB
+ 96a:	84 30       	cpi	r24, 0x04	; 4
+ 96c:	21 f0       	breq	.+8      	; 0x976 <main+0xa6>
+ 96e:	80 91 bb 00 	lds	r24, 0x00BB
+ 972:	87 30       	cpi	r24, 0x07	; 7
+ 974:	41 f7       	brne	.-48     	; 0x946 <main+0x76>
+		}
+		// если "<-", выбрать предыдущую позицию зон
+		if (button==3) {
+ 976:	80 91 bb 00 	lds	r24, 0x00BB
+ 97a:	83 30       	cpi	r24, 0x03	; 3
+ 97c:	51 f4       	brne	.+20     	; 0x992 <main+0xc2>
+			if (pos==0) pos=3;
+ 97e:	90 91 c5 00 	lds	r25, 0x00C5
+ 982:	99 23       	and	r25, r25
+ 984:	19 f0       	breq	.+6      	; 0x98c <main+0xbc>
+			else pos--;
+ 986:	80 91 c5 00 	lds	r24, 0x00C5
+ 98a:	81 50       	subi	r24, 0x01	; 1
+ 98c:	80 93 c5 00 	sts	0x00C5, r24
+ 990:	a6 c0       	rjmp	.+332    	; 0xade <main+0x20e>
+		// если "->", выбрать следующую позицию зон
+		} else if (button==11) {
+ 992:	80 91 bb 00 	lds	r24, 0x00BB
+ 996:	8b 30       	cpi	r24, 0x0B	; 11
+ 998:	59 f4       	brne	.+22     	; 0x9b0 <main+0xe0>
+			if (pos==3) pos=0;
+ 99a:	80 91 c5 00 	lds	r24, 0x00C5
+ 99e:	83 30       	cpi	r24, 0x03	; 3
+ 9a0:	19 f4       	brne	.+6      	; 0x9a8 <main+0xd8>
+ 9a2:	10 92 c5 00 	sts	0x00C5, r1
+ 9a6:	9b c0       	rjmp	.+310    	; 0xade <main+0x20e>
+			else pos++;
+ 9a8:	80 91 c5 00 	lds	r24, 0x00C5
+ 9ac:	8f 5f       	subi	r24, 0xFF	; 255
+ 9ae:	ee cf       	rjmp	.-36     	; 0x98c <main+0xbc>
+		// если "0", "1" или "2", изменить десятки часов выбранной зоны
+		} else if (button==0 || button==4 || button==7) {
+ 9b0:	80 91 bb 00 	lds	r24, 0x00BB
+ 9b4:	88 23       	and	r24, r24
+ 9b6:	49 f0       	breq	.+18     	; 0x9ca <main+0xfa>
+ 9b8:	80 91 bb 00 	lds	r24, 0x00BB
+ 9bc:	84 30       	cpi	r24, 0x04	; 4
+ 9be:	29 f0       	breq	.+10     	; 0x9ca <main+0xfa>
+ 9c0:	80 91 bb 00 	lds	r24, 0x00BB
+ 9c4:	87 30       	cpi	r24, 0x07	; 7
+ 9c6:	09 f0       	breq	.+2      	; 0x9ca <main+0xfa>
+ 9c8:	8a c0       	rjmp	.+276    	; 0xade <main+0x20e>
+			if (button==0) temp_time[0]=10;
+ 9ca:	80 91 bb 00 	lds	r24, 0x00BB
+ 9ce:	88 23       	and	r24, r24
+ 9d0:	51 f0       	breq	.+20     	; 0x9e6 <main+0x116>
+			else if (button==4) temp_time[0]=20;
+ 9d2:	80 91 bb 00 	lds	r24, 0x00BB
+ 9d6:	84 30       	cpi	r24, 0x04	; 4
+ 9d8:	41 f0       	breq	.+16     	; 0x9ea <main+0x11a>
+			else if (button==7) temp_time[0]=0;
+ 9da:	80 91 bb 00 	lds	r24, 0x00BB
+ 9de:	87 30       	cpi	r24, 0x07	; 7
+ 9e0:	29 f4       	brne	.+10     	; 0x9ec <main+0x11c>
+ 9e2:	40 e0       	ldi	r20, 0x00	; 0
+ 9e4:	03 c0       	rjmp	.+6      	; 0x9ec <main+0x11c>
+		} else if (button==11) {
+			if (pos==3) pos=0;
+			else pos++;
+		// если "0", "1" или "2", изменить десятки часов выбранной зоны
+		} else if (button==0 || button==4 || button==7) {
+			if (button==0) temp_time[0]=10;
+ 9e6:	4a e0       	ldi	r20, 0x0A	; 10
+ 9e8:	01 c0       	rjmp	.+2      	; 0x9ec <main+0x11c>
+			else if (button==4) temp_time[0]=20;
+ 9ea:	44 e1       	ldi	r20, 0x14	; 20
+			else if (button==7) temp_time[0]=0;
+			flag2=0;
+			button=12;
+ 9ec:	10 93 bb 00 	sts	0x00BB, r17
+			while (flag);
+ 9f0:	80 91 c6 00 	lds	r24, 0x00C6
+ 9f4:	88 23       	and	r24, r24
+ 9f6:	e1 f7       	brne	.-8      	; 0x9f0 <main+0x120>
+			// ожидание нажатия "0", "1" ... "9", для изменения единиц часов
+			while (flag2==0) {
+				// если десятки часов=20, то ожидание только "0", "1", "2" или "3"
+				if (flag==1 && temp_time[0]==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+ 9f8:	80 91 c6 00 	lds	r24, 0x00C6
+ 9fc:	81 30       	cpi	r24, 0x01	; 1
+ 9fe:	91 f4       	brne	.+36     	; 0xa24 <main+0x154>
+ a00:	44 31       	cpi	r20, 0x14	; 20
+ a02:	81 f4       	brne	.+32     	; 0xa24 <main+0x154>
+ a04:	80 91 bb 00 	lds	r24, 0x00BB
+ a08:	88 23       	and	r24, r24
+ a0a:	f1 f0       	breq	.+60     	; 0xa48 <main+0x178>
+ a0c:	80 91 bb 00 	lds	r24, 0x00BB
+ a10:	84 30       	cpi	r24, 0x04	; 4
+ a12:	d1 f0       	breq	.+52     	; 0xa48 <main+0x178>
+ a14:	80 91 bb 00 	lds	r24, 0x00BB
+ a18:	87 30       	cpi	r24, 0x07	; 7
+ a1a:	b1 f0       	breq	.+44     	; 0xa48 <main+0x178>
+ a1c:	80 91 bb 00 	lds	r24, 0x00BB
+ a20:	88 30       	cpi	r24, 0x08	; 8
+ a22:	91 f0       	breq	.+36     	; 0xa48 <main+0x178>
+				else if (flag==1 && temp_time[0]!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+ a24:	80 91 c6 00 	lds	r24, 0x00C6
+ a28:	81 30       	cpi	r24, 0x01	; 1
+ a2a:	31 f7       	brne	.-52     	; 0x9f8 <main+0x128>
+ a2c:	44 31       	cpi	r20, 0x14	; 20
+ a2e:	21 f3       	breq	.-56     	; 0x9f8 <main+0x128>
+ a30:	80 91 bb 00 	lds	r24, 0x00BB
+ a34:	83 30       	cpi	r24, 0x03	; 3
+ a36:	01 f3       	breq	.-64     	; 0x9f8 <main+0x128>
+ a38:	80 91 bb 00 	lds	r24, 0x00BB
+ a3c:	8b 30       	cpi	r24, 0x0B	; 11
+ a3e:	e1 f2       	breq	.-72     	; 0x9f8 <main+0x128>
+ a40:	80 91 bb 00 	lds	r24, 0x00BB
+		// ожидание отпускания кнопки
+		while (flag);
+	}
+}
+
+int main(void) {
+ a44:	8c 30       	cpi	r24, 0x0C	; 12
+ a46:	c1 f2       	breq	.-80     	; 0x9f8 <main+0x128>
+				// если десятки часов=20, то ожидание только "0", "1", "2" или "3"
+				if (flag==1 && temp_time[0]==20 && (button==0 || button==4 || button==7 || button==8)) flag2=1;
+				else if (flag==1 && temp_time[0]!=20 && button!=3 && button!=11 && button!=12) flag2=1;
+			}
+			// изменение единиц часов выбранной зоны
+			if (button==0) temp_time[0]+=1;
+ a48:	80 91 bb 00 	lds	r24, 0x00BB
+ a4c:	88 23       	and	r24, r24
+ a4e:	11 f4       	brne	.+4      	; 0xa54 <main+0x184>
+ a50:	4f 5f       	subi	r20, 0xFF	; 255
+ a52:	33 c0       	rjmp	.+102    	; 0xaba <main+0x1ea>
+			else if (button==1) temp_time[0]+=4;
+ a54:	80 91 bb 00 	lds	r24, 0x00BB
+ a58:	81 30       	cpi	r24, 0x01	; 1
+ a5a:	11 f4       	brne	.+4      	; 0xa60 <main+0x190>
+ a5c:	4c 5f       	subi	r20, 0xFC	; 252
+ a5e:	2d c0       	rjmp	.+90     	; 0xaba <main+0x1ea>
+			else if (button==2) temp_time[0]+=7;
+ a60:	80 91 bb 00 	lds	r24, 0x00BB
+ a64:	82 30       	cpi	r24, 0x02	; 2
+ a66:	11 f4       	brne	.+4      	; 0xa6c <main+0x19c>
+ a68:	49 5f       	subi	r20, 0xF9	; 249
+ a6a:	27 c0       	rjmp	.+78     	; 0xaba <main+0x1ea>
+			else if (button==4) temp_time[0]+=2;
+ a6c:	80 91 bb 00 	lds	r24, 0x00BB
+ a70:	84 30       	cpi	r24, 0x04	; 4
+ a72:	11 f4       	brne	.+4      	; 0xa78 <main+0x1a8>
+ a74:	4e 5f       	subi	r20, 0xFE	; 254
+ a76:	21 c0       	rjmp	.+66     	; 0xaba <main+0x1ea>
+			else if (button==5) temp_time[0]+=5;
+ a78:	80 91 bb 00 	lds	r24, 0x00BB
+ a7c:	85 30       	cpi	r24, 0x05	; 5
+ a7e:	11 f4       	brne	.+4      	; 0xa84 <main+0x1b4>
+ a80:	4b 5f       	subi	r20, 0xFB	; 251
+ a82:	1b c0       	rjmp	.+54     	; 0xaba <main+0x1ea>
+			else if (button==6) temp_time[0]+=8;
+ a84:	80 91 bb 00 	lds	r24, 0x00BB
+ a88:	86 30       	cpi	r24, 0x06	; 6
+ a8a:	11 f4       	brne	.+4      	; 0xa90 <main+0x1c0>
+ a8c:	48 5f       	subi	r20, 0xF8	; 248
+ a8e:	15 c0       	rjmp	.+42     	; 0xaba <main+0x1ea>
+			else if (button==7) temp_time[0]+=0;
+ a90:	80 91 bb 00 	lds	r24, 0x00BB
+ a94:	87 30       	cpi	r24, 0x07	; 7
+ a96:	89 f0       	breq	.+34     	; 0xaba <main+0x1ea>
+			else if (button==8) temp_time[0]+=3;
+ a98:	80 91 bb 00 	lds	r24, 0x00BB
+ a9c:	88 30       	cpi	r24, 0x08	; 8
+ a9e:	11 f4       	brne	.+4      	; 0xaa4 <main+0x1d4>
+ aa0:	4d 5f       	subi	r20, 0xFD	; 253
+ aa2:	0b c0       	rjmp	.+22     	; 0xaba <main+0x1ea>
+			else if (button==9) temp_time[0]+=6;
+ aa4:	80 91 bb 00 	lds	r24, 0x00BB
+ aa8:	89 30       	cpi	r24, 0x09	; 9
+ aaa:	11 f4       	brne	.+4      	; 0xab0 <main+0x1e0>
+ aac:	4a 5f       	subi	r20, 0xFA	; 250
+ aae:	05 c0       	rjmp	.+10     	; 0xaba <main+0x1ea>
+			else if (button==10) temp_time[0]+=9;
+ ab0:	80 91 bb 00 	lds	r24, 0x00BB
+ ab4:	8a 30       	cpi	r24, 0x0A	; 10
+ ab6:	09 f4       	brne	.+2      	; 0xaba <main+0x1ea>
+ ab8:	47 5f       	subi	r20, 0xF7	; 247
+			// запись полученного нового значения зоны в массив
+			time_difference[pos]=(temp_time[0]-hour+24)%24;
+ aba:	e0 91 c5 00 	lds	r30, 0x00C5
+ abe:	80 91 c2 00 	lds	r24, 0x00C2
+ ac2:	f0 e0       	ldi	r31, 0x00	; 0
+ ac4:	e4 54       	subi	r30, 0x44	; 68
+ ac6:	ff 4f       	sbci	r31, 0xFF	; 255
+ ac8:	b9 01       	movw	r22, r18
+ aca:	68 1b       	sub	r22, r24
+ acc:	71 09       	sbc	r23, r1
+ ace:	cb 01       	movw	r24, r22
+ ad0:	84 0f       	add	r24, r20
+ ad2:	91 1d       	adc	r25, r1
+ ad4:	b9 01       	movw	r22, r18
+ ad6:	14 d0       	rcall	.+40     	; 0xb00 <__divmodhi4>
+ ad8:	80 83       	st	Z, r24
+			flag2=0;
+			button=12;
+ ada:	10 93 bb 00 	sts	0x00BB, r17
+		}
+		// ожидание отпускания кнопки
+		while (flag);
+ ade:	80 91 c6 00 	lds	r24, 0x00C6
+ ae2:	88 23       	and	r24, r24
+ ae4:	e1 f7       	brne	.-8      	; 0xade <main+0x20e>
+ ae6:	2f cf       	rjmp	.-418    	; 0x946 <main+0x76>
+
+00000ae8 <__udivmodqi4>:
+ ae8:	99 1b       	sub	r25, r25
+ aea:	79 e0       	ldi	r23, 0x09	; 9
+ aec:	04 c0       	rjmp	.+8      	; 0xaf6 <__udivmodqi4_ep>
+
+00000aee <__udivmodqi4_loop>:
+ aee:	99 1f       	adc	r25, r25
+ af0:	96 17       	cp	r25, r22
+ af2:	08 f0       	brcs	.+2      	; 0xaf6 <__udivmodqi4_ep>
+ af4:	96 1b       	sub	r25, r22
+
+00000af6 <__udivmodqi4_ep>:
+ af6:	88 1f       	adc	r24, r24
+ af8:	7a 95       	dec	r23
+ afa:	c9 f7       	brne	.-14     	; 0xaee <__udivmodqi4_loop>
+ afc:	80 95       	com	r24
+ afe:	08 95       	ret
+
+00000b00 <__divmodhi4>:
+ b00:	97 fb       	bst	r25, 7
+ b02:	09 2e       	mov	r0, r25
+ b04:	07 26       	eor	r0, r23
+ b06:	0a d0       	rcall	.+20     	; 0xb1c <__divmodhi4_neg1>
+ b08:	77 fd       	sbrc	r23, 7
+ b0a:	04 d0       	rcall	.+8      	; 0xb14 <__divmodhi4_neg2>
+ b0c:	0c d0       	rcall	.+24     	; 0xb26 <__udivmodhi4>
+ b0e:	06 d0       	rcall	.+12     	; 0xb1c <__divmodhi4_neg1>
+ b10:	00 20       	and	r0, r0
+ b12:	1a f4       	brpl	.+6      	; 0xb1a <__divmodhi4_exit>
+
+00000b14 <__divmodhi4_neg2>:
+ b14:	70 95       	com	r23
+ b16:	61 95       	neg	r22
+ b18:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000b1a <__divmodhi4_exit>:
+ b1a:	08 95       	ret
+
+00000b1c <__divmodhi4_neg1>:
+ b1c:	f6 f7       	brtc	.-4      	; 0xb1a <__divmodhi4_exit>
+ b1e:	90 95       	com	r25
+ b20:	81 95       	neg	r24
+ b22:	9f 4f       	sbci	r25, 0xFF	; 255
+ b24:	08 95       	ret
+
+00000b26 <__udivmodhi4>:
+ b26:	aa 1b       	sub	r26, r26
+ b28:	bb 1b       	sub	r27, r27
+ b2a:	51 e1       	ldi	r21, 0x11	; 17
+ b2c:	07 c0       	rjmp	.+14     	; 0xb3c <__udivmodhi4_ep>
+
+00000b2e <__udivmodhi4_loop>:
+ b2e:	aa 1f       	adc	r26, r26
+ b30:	bb 1f       	adc	r27, r27
+ b32:	a6 17       	cp	r26, r22
+ b34:	b7 07       	cpc	r27, r23
+ b36:	10 f0       	brcs	.+4      	; 0xb3c <__udivmodhi4_ep>
+ b38:	a6 1b       	sub	r26, r22
+ b3a:	b7 0b       	sbc	r27, r23
+
+00000b3c <__udivmodhi4_ep>:
+ b3c:	88 1f       	adc	r24, r24
+ b3e:	99 1f       	adc	r25, r25
+ b40:	5a 95       	dec	r21
+ b42:	a9 f7       	brne	.-22     	; 0xb2e <__udivmodhi4_loop>
+ b44:	80 95       	com	r24
+ b46:	90 95       	com	r25
+ b48:	bc 01       	movw	r22, r24
+ b4a:	cd 01       	movw	r24, r26
+ b4c:	08 95       	ret
+
+00000b4e <_exit>:
+ b4e:	f8 94       	cli
+
+00000b50 <__stop_program>:
+ b50:	ff cf       	rjmp	.-2      	; 0xb50 <__stop_program>

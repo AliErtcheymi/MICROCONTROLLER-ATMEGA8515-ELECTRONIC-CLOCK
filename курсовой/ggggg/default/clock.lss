@@ -1,0 +1,1823 @@
+
+clock.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000bc6  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000040  00800060  00000bc6  00000c5a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000018  008000a0  008000a0  00000c9a  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  00000c9c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00001368  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000020  00000000  00000000  000013ff  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 00000127  00000000  00000000  0000141f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   00000595  00000000  00000000  00001546  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 00000201  00000000  00000000  00001adb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   000009de  00000000  00000000  00001cdc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  000000c0  00000000  00000000  000026bc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    000001ad  00000000  00000000  0000277c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    00000286  00000000  00000000  00002929  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000038  00000000  00000000  00002baf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c c0       	rjmp	.+24     	; 0x1a <__ctors_end>
+   2:	27 c0       	rjmp	.+78     	; 0x52 <__bad_interrupt>
+   4:	26 c0       	rjmp	.+76     	; 0x52 <__bad_interrupt>
+   6:	25 c0       	rjmp	.+74     	; 0x52 <__bad_interrupt>
+   8:	24 c0       	rjmp	.+72     	; 0x52 <__bad_interrupt>
+   a:	23 c0       	rjmp	.+70     	; 0x52 <__bad_interrupt>
+   c:	23 c0       	rjmp	.+70     	; 0x54 <__vector_6>
+   e:	21 c0       	rjmp	.+66     	; 0x52 <__bad_interrupt>
+  10:	20 c0       	rjmp	.+64     	; 0x52 <__bad_interrupt>
+  12:	1f c0       	rjmp	.+62     	; 0x52 <__bad_interrupt>
+  14:	1e c0       	rjmp	.+60     	; 0x52 <__bad_interrupt>
+  16:	1d c0       	rjmp	.+58     	; 0x52 <__bad_interrupt>
+  18:	1c c0       	rjmp	.+56     	; 0x52 <__bad_interrupt>
+
+0000001a <__ctors_end>:
+  1a:	11 24       	eor	r1, r1
+  1c:	1f be       	out	0x3f, r1	; 63
+  1e:	cf e5       	ldi	r28, 0x5F	; 95
+  20:	d2 e0       	ldi	r29, 0x02	; 2
+  22:	de bf       	out	0x3e, r29	; 62
+  24:	cd bf       	out	0x3d, r28	; 61
+
+00000026 <__do_copy_data>:
+  26:	10 e0       	ldi	r17, 0x00	; 0
+  28:	a0 e6       	ldi	r26, 0x60	; 96
+  2a:	b0 e0       	ldi	r27, 0x00	; 0
+  2c:	e6 ec       	ldi	r30, 0xC6	; 198
+  2e:	fb e0       	ldi	r31, 0x0B	; 11
+  30:	03 c0       	rjmp	.+6      	; 0x38 <__CCP__+0x4>
+  32:	c8 95       	lpm
+  34:	31 96       	adiw	r30, 0x01	; 1
+  36:	0d 92       	st	X+, r0
+  38:	a0 3a       	cpi	r26, 0xA0	; 160
+  3a:	b1 07       	cpc	r27, r17
+  3c:	d1 f7       	brne	.-12     	; 0x32 <__do_copy_data+0xc>
+
+0000003e <__do_clear_bss>:
+  3e:	10 e0       	ldi	r17, 0x00	; 0
+  40:	a0 ea       	ldi	r26, 0xA0	; 160
+  42:	b0 e0       	ldi	r27, 0x00	; 0
+  44:	01 c0       	rjmp	.+2      	; 0x48 <.do_clear_bss_start>
+
+00000046 <.do_clear_bss_loop>:
+  46:	1d 92       	st	X+, r1
+
+00000048 <.do_clear_bss_start>:
+  48:	a8 3b       	cpi	r26, 0xB8	; 184
+  4a:	b1 07       	cpc	r27, r17
+  4c:	e1 f7       	brne	.-8      	; 0x46 <.do_clear_bss_loop>
+  4e:	2b d1       	rcall	.+598    	; 0x2a6 <main>
+  50:	b8 c5       	rjmp	.+2928   	; 0xbc2 <_exit>
+
+00000052 <__bad_interrupt>:
+  52:	d6 cf       	rjmp	.-84     	; 0x0 <__vectors>
+
+00000054 <__vector_6>:
+int hour=0,minute=0,second=0;
+int poyas=0;  // position of the poyas, Magadan-Moscow-Kaliningrad-Europe
+void send_a_command(unsigned char command);
+void send_a_character(unsigned char character);
+
+ISR(TIMER1_OVF_vect) {
+  54:	1f 92       	push	r1
+  56:	0f 92       	push	r0
+  58:	0f b6       	in	r0, 0x3f	; 63
+  5a:	0f 92       	push	r0
+  5c:	11 24       	eor	r1, r1
+  5e:	2f 93       	push	r18
+  60:	3f 93       	push	r19
+  62:	4f 93       	push	r20
+  64:	5f 93       	push	r21
+  66:	6f 93       	push	r22
+  68:	7f 93       	push	r23
+  6a:	8f 93       	push	r24
+  6c:	9f 93       	push	r25
+  6e:	af 93       	push	r26
+  70:	bf 93       	push	r27
+  72:	ef 93       	push	r30
+  74:	ff 93       	push	r31
+	TCNT1=57724;  // 57724;  //65536 - 1 c * 8.000.000 / 1024
+  76:	8c e7       	ldi	r24, 0x7C	; 124
+  78:	91 ee       	ldi	r25, 0xE1	; 225
+  7a:	9d bd       	out	0x2d, r25	; 45
+  7c:	8c bd       	out	0x2c, r24	; 44
+	second++;
+  7e:	80 91 ae 00 	lds	r24, 0x00AE
+  82:	90 91 af 00 	lds	r25, 0x00AF
+  86:	01 96       	adiw	r24, 0x01	; 1
+  88:	90 93 af 00 	sts	0x00AF, r25
+  8c:	80 93 ae 00 	sts	0x00AE, r24
+	if (second==60) {
+  90:	8c 33       	cpi	r24, 0x3C	; 60
+  92:	91 05       	cpc	r25, r1
+  94:	09 f0       	breq	.+2      	; 0x98 <__vector_6+0x44>
+  96:	54 c0       	rjmp	.+168    	; 0x140 <__vector_6+0xec>
+		second=0;
+  98:	10 92 af 00 	sts	0x00AF, r1
+  9c:	10 92 ae 00 	sts	0x00AE, r1
+		minute++;
+  a0:	80 91 ac 00 	lds	r24, 0x00AC
+  a4:	90 91 ad 00 	lds	r25, 0x00AD
+  a8:	01 96       	adiw	r24, 0x01	; 1
+  aa:	90 93 ad 00 	sts	0x00AD, r25
+  ae:	80 93 ac 00 	sts	0x00AC, r24
+		if (minute==60) {
+  b2:	8c 33       	cpi	r24, 0x3C	; 60
+  b4:	91 05       	cpc	r25, r1
+  b6:	a1 f4       	brne	.+40     	; 0xe0 <__vector_6+0x8c>
+			minute=0;
+  b8:	10 92 ad 00 	sts	0x00AD, r1
+  bc:	10 92 ac 00 	sts	0x00AC, r1
+			hour++;
+  c0:	80 91 aa 00 	lds	r24, 0x00AA
+  c4:	90 91 ab 00 	lds	r25, 0x00AB
+  c8:	01 96       	adiw	r24, 0x01	; 1
+  ca:	90 93 ab 00 	sts	0x00AB, r25
+  ce:	80 93 aa 00 	sts	0x00AA, r24
+			if (hour==24) hour=0;
+  d2:	88 31       	cpi	r24, 0x18	; 24
+  d4:	91 05       	cpc	r25, r1
+  d6:	21 f4       	brne	.+8      	; 0xe0 <__vector_6+0x8c>
+  d8:	10 92 ab 00 	sts	0x00AB, r1
+  dc:	10 92 aa 00 	sts	0x00AA, r1
+		}
+		if (!flag) DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+  e0:	80 91 a0 00 	lds	r24, 0x00A0
+  e4:	90 91 a1 00 	lds	r25, 0x00A1
+  e8:	00 97       	sbiw	r24, 0x00	; 0
+  ea:	51 f5       	brne	.+84     	; 0x140 <__vector_6+0xec>
+  ec:	80 91 b0 00 	lds	r24, 0x00B0
+  f0:	90 91 b1 00 	lds	r25, 0x00B1
+  f4:	88 0f       	add	r24, r24
+  f6:	99 1f       	adc	r25, r25
+  f8:	e8 2f       	mov	r30, r24
+  fa:	f9 2f       	mov	r31, r25
+  fc:	ee 0f       	add	r30, r30
+  fe:	ff 1f       	adc	r31, r31
+ 100:	ea 57       	subi	r30, 0x7A	; 122
+ 102:	ff 4f       	sbci	r31, 0xFF	; 255
+ 104:	a8 2f       	mov	r26, r24
+ 106:	b9 2f       	mov	r27, r25
+ 108:	aa 0f       	add	r26, r26
+ 10a:	bb 1f       	adc	r27, r27
+ 10c:	a8 57       	subi	r26, 0x78	; 120
+ 10e:	bf 4f       	sbci	r27, 0xFF	; 255
+ 110:	2d 91       	ld	r18, X+
+ 112:	3c 91       	ld	r19, X
+ 114:	8a 56       	subi	r24, 0x6A	; 106
+ 116:	9f 4f       	sbci	r25, 0xFF	; 255
+ 118:	a8 2f       	mov	r26, r24
+ 11a:	b9 2f       	mov	r27, r25
+ 11c:	8d 91       	ld	r24, X+
+ 11e:	9c 91       	ld	r25, X
+ 120:	40 91 aa 00 	lds	r20, 0x00AA
+ 124:	50 91 ab 00 	lds	r21, 0x00AB
+ 128:	84 0f       	add	r24, r20
+ 12a:	95 1f       	adc	r25, r21
+ 12c:	68 e1       	ldi	r22, 0x18	; 24
+ 12e:	70 e0       	ldi	r23, 0x00	; 0
+ 130:	1f d5       	rcall	.+2622   	; 0xb70 <__divmodhi4>
+ 132:	48 2f       	mov	r20, r24
+ 134:	59 2f       	mov	r21, r25
+ 136:	80 81       	ld	r24, Z
+ 138:	91 81       	ldd	r25, Z+1	; 0x01
+ 13a:	62 2f       	mov	r22, r18
+ 13c:	73 2f       	mov	r23, r19
+ 13e:	49 d0       	rcall	.+146    	; 0x1d2 <DRAW>
+	}
+}
+ 140:	ff 91       	pop	r31
+ 142:	ef 91       	pop	r30
+ 144:	bf 91       	pop	r27
+ 146:	af 91       	pop	r26
+ 148:	9f 91       	pop	r25
+ 14a:	8f 91       	pop	r24
+ 14c:	7f 91       	pop	r23
+ 14e:	6f 91       	pop	r22
+ 150:	5f 91       	pop	r21
+ 152:	4f 91       	pop	r20
+ 154:	3f 91       	pop	r19
+ 156:	2f 91       	pop	r18
+ 158:	0f 90       	pop	r0
+ 15a:	0f be       	out	0x3f, r0	; 63
+ 15c:	0f 90       	pop	r0
+ 15e:	1f 90       	pop	r1
+ 160:	18 95       	reti
+
+00000162 <timer_init>:
+
+
+void timer_init() {
+	TCCR1A=0;
+ 162:	1f bc       	out	0x2f, r1	; 47
+	TCCR1B=5;
+ 164:	85 e0       	ldi	r24, 0x05	; 5
+ 166:	8e bd       	out	0x2e, r24	; 46
+	TCNT1=57724;  // 57724;
+ 168:	8c e7       	ldi	r24, 0x7C	; 124
+ 16a:	91 ee       	ldi	r25, 0xE1	; 225
+ 16c:	9d bd       	out	0x2d, r25	; 45
+ 16e:	8c bd       	out	0x2c, r24	; 44
+	TIFR=0;  // has interrupt flag
+ 170:	18 be       	out	0x38, r1	; 56
+	TIMSK=0x80;  // allows T1 interrupt
+ 172:	80 e8       	ldi	r24, 0x80	; 128
+ 174:	89 bf       	out	0x39, r24	; 57
+}
+ 176:	08 95       	ret
+
+00000178 <uart_init>:
+
+void uart_init(void) {
+	UBRR=51;
+ 178:	83 e3       	ldi	r24, 0x33	; 51
+ 17a:	89 b9       	out	0x09, r24	; 9
+	UCR=(1<<TXEN)|(1<<RXEN);
+ 17c:	88 e1       	ldi	r24, 0x18	; 24
+ 17e:	8a b9       	out	0x0a, r24	; 10
+}
+ 180:	08 95       	ret
+
+00000182 <uart_puts>:
+
+void uart_puts(char *str) {
+ 182:	e8 2f       	mov	r30, r24
+ 184:	f9 2f       	mov	r31, r25
+	unsigned char c;
+	while((c=*str++)!=0) {
+ 186:	03 c0       	rjmp	.+6      	; 0x18e <uart_puts+0xc>
+		while ((USR&(1<<UDRE))==0);
+ 188:	5d 9b       	sbis	0x0b, 5	; 11
+ 18a:	fe cf       	rjmp	.-4      	; 0x188 <uart_puts+0x6>
+		UDR=c;
+ 18c:	8c b9       	out	0x0c, r24	; 12
+	UCR=(1<<TXEN)|(1<<RXEN);
+}
+
+void uart_puts(char *str) {
+	unsigned char c;
+	while((c=*str++)!=0) {
+ 18e:	81 91       	ld	r24, Z+
+ 190:	88 23       	and	r24, r24
+ 192:	d1 f7       	brne	.-12     	; 0x188 <uart_puts+0x6>
+		while ((USR&(1<<UDRE))==0);
+		UDR=c;
+	}
+}
+ 194:	08 95       	ret
+
+00000196 <send_a_command>:
+
+void send_a_command (unsigned char command) {
+    PORTB=command;
+ 196:	88 bb       	out	0x18, r24	; 24
+    PORTD&= ~(1<<RS);
+ 198:	96 98       	cbi	0x12, 6	; 18
+    PORTD|= (1<<E);
+ 19a:	95 9a       	sbi	0x12, 5	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 19c:	8f e7       	ldi	r24, 0x7F	; 127
+ 19e:	98 e3       	ldi	r25, 0x38	; 56
+ 1a0:	a1 e0       	ldi	r26, 0x01	; 1
+ 1a2:	81 50       	subi	r24, 0x01	; 1
+ 1a4:	90 40       	sbci	r25, 0x00	; 0
+ 1a6:	a0 40       	sbci	r26, 0x00	; 0
+ 1a8:	e1 f7       	brne	.-8      	; 0x1a2 <send_a_command+0xc>
+ 1aa:	00 c0       	rjmp	.+0      	; 0x1ac <send_a_command+0x16>
+ 1ac:	00 00       	nop
+    _delay_ms(50);
+    PORTD&= ~(1<<E);
+ 1ae:	95 98       	cbi	0x12, 5	; 18
+    PORTB =0;
+ 1b0:	18 ba       	out	0x18, r1	; 24
+}
+ 1b2:	08 95       	ret
+
+000001b4 <send_a_character>:
+
+void send_a_character (unsigned char character) {
+    PORTB=character;
+ 1b4:	88 bb       	out	0x18, r24	; 24
+    PORTD|= (1<<RS);
+ 1b6:	96 9a       	sbi	0x12, 6	; 18
+    PORTD|= (1<<E);
+ 1b8:	95 9a       	sbi	0x12, 5	; 18
+ 1ba:	8f e7       	ldi	r24, 0x7F	; 127
+ 1bc:	98 e3       	ldi	r25, 0x38	; 56
+ 1be:	a1 e0       	ldi	r26, 0x01	; 1
+ 1c0:	81 50       	subi	r24, 0x01	; 1
+ 1c2:	90 40       	sbci	r25, 0x00	; 0
+ 1c4:	a0 40       	sbci	r26, 0x00	; 0
+ 1c6:	e1 f7       	brne	.-8      	; 0x1c0 <send_a_character+0xc>
+ 1c8:	00 c0       	rjmp	.+0      	; 0x1ca <send_a_character+0x16>
+ 1ca:	00 00       	nop
+    _delay_ms(50);
+    PORTD&= ~(1<<E);
+ 1cc:	95 98       	cbi	0x12, 5	; 18
+    PORTB =0;
+ 1ce:	18 ba       	out	0x18, r1	; 24
+}
+ 1d0:	08 95       	ret
+
+000001d2 <DRAW>:
+	send_a_command(0x01);  // komanda ochistit ekran
+    send_a_command(0x38);  // rezhim 16x2
+    send_a_command(0x0C);  // vklyuchit ekran 0C - no cursor 0D - black rectangle blink 0E - underline 0F - 0D + 0E
+}
+
+void DRAW(char first, char second, int hour1) {
+ 1d2:	ef 92       	push	r14
+ 1d4:	ff 92       	push	r15
+ 1d6:	0f 93       	push	r16
+ 1d8:	1f 93       	push	r17
+ 1da:	df 93       	push	r29
+ 1dc:	cf 93       	push	r28
+ 1de:	0f 92       	push	r0
+ 1e0:	cd b7       	in	r28, 0x3d	; 61
+ 1e2:	de b7       	in	r29, 0x3e	; 62
+ 1e4:	f8 2e       	mov	r15, r24
+ 1e6:	04 2f       	mov	r16, r20
+ 1e8:	15 2f       	mov	r17, r21
+	send_a_command(0x01);
+ 1ea:	81 e0       	ldi	r24, 0x01	; 1
+ 1ec:	69 83       	std	Y+1, r22	; 0x01
+ 1ee:	d3 df       	rcall	.-90     	; 0x196 <send_a_command>
+	send_a_command(0x0C);
+ 1f0:	8c e0       	ldi	r24, 0x0C	; 12
+ 1f2:	d1 df       	rcall	.-94     	; 0x196 <send_a_command>
+	send_a_character(first);
+ 1f4:	8f 2d       	mov	r24, r15
+ 1f6:	de df       	rcall	.-68     	; 0x1b4 <send_a_character>
+	send_a_character(second);
+ 1f8:	69 81       	ldd	r22, Y+1	; 0x01
+ 1fa:	86 2f       	mov	r24, r22
+ 1fc:	db df       	rcall	.-74     	; 0x1b4 <send_a_character>
+	send_a_character(45);
+ 1fe:	8d e2       	ldi	r24, 0x2D	; 45
+ 200:	d9 df       	rcall	.-78     	; 0x1b4 <send_a_character>
+	send_a_character(numbers+hour1/10);
+ 202:	5a e0       	ldi	r21, 0x0A	; 10
+ 204:	e5 2e       	mov	r14, r21
+ 206:	f1 2c       	mov	r15, r1
+ 208:	80 2f       	mov	r24, r16
+ 20a:	91 2f       	mov	r25, r17
+ 20c:	6e 2d       	mov	r22, r14
+ 20e:	7f 2d       	mov	r23, r15
+ 210:	af d4       	rcall	.+2398   	; 0xb70 <__divmodhi4>
+ 212:	08 2f       	mov	r16, r24
+ 214:	80 91 9e 00 	lds	r24, 0x009E
+ 218:	86 0f       	add	r24, r22
+ 21a:	cc df       	rcall	.-104    	; 0x1b4 <send_a_character>
+	send_a_character(numbers+hour1%10);
+ 21c:	80 91 9e 00 	lds	r24, 0x009E
+ 220:	80 0f       	add	r24, r16
+ 222:	c8 df       	rcall	.-112    	; 0x1b4 <send_a_character>
+	send_a_character(45);
+ 224:	8d e2       	ldi	r24, 0x2D	; 45
+ 226:	c6 df       	rcall	.-116    	; 0x1b4 <send_a_character>
+	send_a_character(numbers+minute/10);
+ 228:	80 91 ac 00 	lds	r24, 0x00AC
+ 22c:	90 91 ad 00 	lds	r25, 0x00AD
+ 230:	6e 2d       	mov	r22, r14
+ 232:	7f 2d       	mov	r23, r15
+ 234:	9d d4       	rcall	.+2362   	; 0xb70 <__divmodhi4>
+ 236:	80 91 9e 00 	lds	r24, 0x009E
+ 23a:	86 0f       	add	r24, r22
+ 23c:	bb df       	rcall	.-138    	; 0x1b4 <send_a_character>
+	send_a_character(numbers+minute%10);
+ 23e:	80 91 ac 00 	lds	r24, 0x00AC
+ 242:	90 91 ad 00 	lds	r25, 0x00AD
+ 246:	6e 2d       	mov	r22, r14
+ 248:	7f 2d       	mov	r23, r15
+ 24a:	92 d4       	rcall	.+2340   	; 0xb70 <__divmodhi4>
+ 24c:	90 91 9e 00 	lds	r25, 0x009E
+ 250:	89 0f       	add	r24, r25
+ 252:	b0 df       	rcall	.-160    	; 0x1b4 <send_a_character>
+}
+ 254:	0f 90       	pop	r0
+ 256:	cf 91       	pop	r28
+ 258:	df 91       	pop	r29
+ 25a:	1f 91       	pop	r17
+ 25c:	0f 91       	pop	r16
+ 25e:	ff 90       	pop	r15
+ 260:	ef 90       	pop	r14
+ 262:	08 95       	ret
+
+00000264 <clrscr>:
+    PORTD&= ~(1<<E);
+    PORTB =0;
+}
+
+void clrscr(void) {
+	send_a_command(0x01);  // komanda ochistit ekran
+ 264:	81 e0       	ldi	r24, 0x01	; 1
+ 266:	97 df       	rcall	.-210    	; 0x196 <send_a_command>
+    send_a_command(0x38);  // rezhim 16x2
+ 268:	88 e3       	ldi	r24, 0x38	; 56
+ 26a:	95 df       	rcall	.-214    	; 0x196 <send_a_command>
+    send_a_command(0x0C);  // vklyuchit ekran 0C - no cursor 0D - black rectangle blink 0E - underline 0F - 0D + 0E
+ 26c:	8c e0       	ldi	r24, 0x0C	; 12
+ 26e:	93 df       	rcall	.-218    	; 0x196 <send_a_command>
+}
+ 270:	08 95       	ret
+
+00000272 <calc>:
+	send_a_character(numbers+minute/10);
+	send_a_character(numbers+minute%10);
+}
+
+int calc(int pos) {
+	if (pos<2) return 5-pos; 
+ 272:	82 30       	cpi	r24, 0x02	; 2
+ 274:	91 05       	cpc	r25, r1
+ 276:	1c f4       	brge	.+6      	; 0x27e <calc+0xc>
+ 278:	25 e0       	ldi	r18, 0x05	; 5
+ 27a:	30 e0       	ldi	r19, 0x00	; 0
+ 27c:	02 c0       	rjmp	.+4      	; 0x282 <calc+0x10>
+	else return 4-pos;
+ 27e:	24 e0       	ldi	r18, 0x04	; 4
+ 280:	30 e0       	ldi	r19, 0x00	; 0
+ 282:	28 1b       	sub	r18, r24
+ 284:	39 0b       	sbc	r19, r25
+}
+ 286:	82 2f       	mov	r24, r18
+ 288:	93 2f       	mov	r25, r19
+ 28a:	08 95       	ret
+
+0000028c <calc2>:
+
+int calc2(int pos) {
+	if (pos<2) return 8-pos; 
+ 28c:	82 30       	cpi	r24, 0x02	; 2
+ 28e:	91 05       	cpc	r25, r1
+ 290:	1c f4       	brge	.+6      	; 0x298 <calc2+0xc>
+ 292:	28 e0       	ldi	r18, 0x08	; 8
+ 294:	30 e0       	ldi	r19, 0x00	; 0
+ 296:	02 c0       	rjmp	.+4      	; 0x29c <calc2+0x10>
+	else return 6-pos;
+ 298:	26 e0       	ldi	r18, 0x06	; 6
+ 29a:	30 e0       	ldi	r19, 0x00	; 0
+ 29c:	28 1b       	sub	r18, r24
+ 29e:	39 0b       	sbc	r19, r25
+}
+ 2a0:	82 2f       	mov	r24, r18
+ 2a2:	93 2f       	mov	r25, r19
+ 2a4:	08 95       	ret
+
+000002a6 <main>:
+
+int main(void) {
+ 2a6:	6f 92       	push	r6
+ 2a8:	7f 92       	push	r7
+ 2aa:	8f 92       	push	r8
+ 2ac:	9f 92       	push	r9
+ 2ae:	af 92       	push	r10
+ 2b0:	bf 92       	push	r11
+ 2b2:	cf 92       	push	r12
+ 2b4:	df 92       	push	r13
+ 2b6:	ef 92       	push	r14
+ 2b8:	ff 92       	push	r15
+ 2ba:	0f 93       	push	r16
+ 2bc:	1f 93       	push	r17
+ 2be:	cf 93       	push	r28
+ 2c0:	df 93       	push	r29
+	DDRA=0x00;
+ 2c2:	1a ba       	out	0x1a, r1	; 26
+	PORTA=0xFF;  // PORTB = input
+ 2c4:	8f ef       	ldi	r24, 0xFF	; 255
+ 2c6:	8b bb       	out	0x1b, r24	; 27
+	DDRB=0xFF;
+ 2c8:	87 bb       	out	0x17, r24	; 23
+    DDRD=0xFF;
+ 2ca:	81 bb       	out	0x11, r24	; 17
+    clrscr();
+ 2cc:	cb df       	rcall	.-106    	; 0x264 <clrscr>
+	while (PINA&0b00000010 && PINA&0b00000100);
+ 2ce:	c9 9b       	sbis	0x19, 1	; 25
+ 2d0:	02 c0       	rjmp	.+4      	; 0x2d6 <main+0x30>
+ 2d2:	ca 99       	sbic	0x19, 2	; 25
+ 2d4:	fc cf       	rjmp	.-8      	; 0x2ce <main+0x28>
+	if (!(PINA&0b00000010)) {  // left arrow
+ 2d6:	c9 99       	sbic	0x19, 1	; 25
+ 2d8:	f0 c1       	rjmp	.+992    	; 0x6ba <main+0x414>
+		while (!(PINA&0b00000010));
+ 2da:	c9 9b       	sbis	0x19, 1	; 25
+ 2dc:	fe cf       	rjmp	.-4      	; 0x2da <main+0x34>
+		send_a_command(0x0D);
+ 2de:	8d e0       	ldi	r24, 0x0D	; 13
+ 2e0:	5a df       	rcall	.-332    	; 0x196 <send_a_command>
+		send_a_character('U');  //first output
+ 2e2:	85 e5       	ldi	r24, 0x55	; 85
+ 2e4:	67 df       	rcall	.-306    	; 0x1b4 <send_a_character>
+		send_a_character('T');
+ 2e6:	84 e5       	ldi	r24, 0x54	; 84
+ 2e8:	65 df       	rcall	.-310    	; 0x1b4 <send_a_character>
+		send_a_character(45);
+ 2ea:	8d e2       	ldi	r24, 0x2D	; 45
+ 2ec:	63 df       	rcall	.-314    	; 0x1b4 <send_a_character>
+		send_a_character(numbers+temp_time[0]);
+ 2ee:	90 91 a2 00 	lds	r25, 0x00A2
+ 2f2:	80 91 9e 00 	lds	r24, 0x009E
+ 2f6:	89 0f       	add	r24, r25
+ 2f8:	5d df       	rcall	.-326    	; 0x1b4 <send_a_character>
+		send_a_character(numbers+temp_time[1]);
+ 2fa:	90 91 a4 00 	lds	r25, 0x00A4
+ 2fe:	80 91 9e 00 	lds	r24, 0x009E
+ 302:	89 0f       	add	r24, r25
+ 304:	57 df       	rcall	.-338    	; 0x1b4 <send_a_character>
+		send_a_character(45);
+ 306:	8d e2       	ldi	r24, 0x2D	; 45
+ 308:	55 df       	rcall	.-342    	; 0x1b4 <send_a_character>
+		send_a_character(numbers+temp_time[2]);
+ 30a:	90 91 a6 00 	lds	r25, 0x00A6
+ 30e:	80 91 9e 00 	lds	r24, 0x009E
+ 312:	89 0f       	add	r24, r25
+ 314:	4f df       	rcall	.-354    	; 0x1b4 <send_a_character>
+		send_a_character(numbers+temp_time[3]);
+ 316:	90 91 a8 00 	lds	r25, 0x00A8
+ 31a:	80 91 9e 00 	lds	r24, 0x009E
+ 31e:	89 0f       	add	r24, r25
+ 320:	49 df       	rcall	.-366    	; 0x1b4 <send_a_character>
+		pos=0;  // position of the cursor(kinda)
+ 322:	10 92 b3 00 	sts	0x00B3, r1
+ 326:	10 92 b2 00 	sts	0x00B2, r1
+		for (int i=0;i<calc(pos);i++)
+ 32a:	c0 e0       	ldi	r28, 0x00	; 0
+ 32c:	d0 e0       	ldi	r29, 0x00	; 0
+ 32e:	03 c0       	rjmp	.+6      	; 0x336 <main+0x90>
+			send_a_command(0x10);  // move cursor to 1st hour digit
+ 330:	80 e1       	ldi	r24, 0x10	; 16
+ 332:	31 df       	rcall	.-414    	; 0x196 <send_a_command>
+		send_a_character(numbers+temp_time[1]);
+		send_a_character(45);
+		send_a_character(numbers+temp_time[2]);
+		send_a_character(numbers+temp_time[3]);
+		pos=0;  // position of the cursor(kinda)
+		for (int i=0;i<calc(pos);i++)
+ 334:	21 96       	adiw	r28, 0x01	; 1
+ 336:	80 91 b2 00 	lds	r24, 0x00B2
+ 33a:	90 91 b3 00 	lds	r25, 0x00B3
+ 33e:	99 df       	rcall	.-206    	; 0x272 <calc>
+ 340:	c8 17       	cp	r28, r24
+ 342:	d9 07       	cpc	r29, r25
+ 344:	ac f3       	brlt	.-22     	; 0x330 <main+0x8a>
+ 346:	83 c1       	rjmp	.+774    	; 0x64e <main+0x3a8>
+			send_a_command(0x10);  // move cursor to 1st hour digit
+		while (pos!=4) {
+			if (!(PINA&0b00000001)) {  // UP
+ 348:	c8 99       	sbic	0x19, 0	; 25
+ 34a:	c2 c0       	rjmp	.+388    	; 0x4d0 <main+0x22a>
+				while (!(PINA&0b00000001));
+ 34c:	c8 9b       	sbis	0x19, 0	; 25
+ 34e:	fe cf       	rjmp	.-4      	; 0x34c <main+0xa6>
+				temp_time[pos]++;
+ 350:	e8 2f       	mov	r30, r24
+ 352:	f9 2f       	mov	r31, r25
+ 354:	ee 0f       	add	r30, r30
+ 356:	ff 1f       	adc	r31, r31
+ 358:	ee 55       	subi	r30, 0x5E	; 94
+ 35a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 35c:	20 81       	ld	r18, Z
+ 35e:	31 81       	ldd	r19, Z+1	; 0x01
+ 360:	2f 5f       	subi	r18, 0xFF	; 255
+ 362:	3f 4f       	sbci	r19, 0xFF	; 255
+ 364:	31 83       	std	Z+1, r19	; 0x01
+ 366:	20 83       	st	Z, r18
+				if (pos==0) {
+ 368:	00 97       	sbiw	r24, 0x00	; 0
+ 36a:	01 f5       	brne	.+64     	; 0x3ac <main+0x106>
+					if (temp_time[pos]==2 && temp_time[pos+1]>3) temp_time[pos+1]=0;
+ 36c:	22 30       	cpi	r18, 0x02	; 2
+ 36e:	31 05       	cpc	r19, r1
+ 370:	59 f4       	brne	.+22     	; 0x388 <main+0xe2>
+ 372:	80 91 a4 00 	lds	r24, 0x00A4
+ 376:	90 91 a5 00 	lds	r25, 0x00A5
+ 37a:	84 30       	cpi	r24, 0x04	; 4
+ 37c:	91 05       	cpc	r25, r1
+ 37e:	24 f0       	brlt	.+8      	; 0x388 <main+0xe2>
+ 380:	10 92 a5 00 	sts	0x00A5, r1
+ 384:	10 92 a4 00 	sts	0x00A4, r1
+					if (temp_time[pos]==3 && temp_time[pos+1]>3) temp_time[pos+1]=0;
+ 388:	80 91 a2 00 	lds	r24, 0x00A2
+ 38c:	90 91 a3 00 	lds	r25, 0x00A3
+ 390:	83 30       	cpi	r24, 0x03	; 3
+ 392:	91 05       	cpc	r25, r1
+ 394:	59 f4       	brne	.+22     	; 0x3ac <main+0x106>
+ 396:	80 91 a4 00 	lds	r24, 0x00A4
+ 39a:	90 91 a5 00 	lds	r25, 0x00A5
+ 39e:	84 30       	cpi	r24, 0x04	; 4
+ 3a0:	91 05       	cpc	r25, r1
+ 3a2:	24 f0       	brlt	.+8      	; 0x3ac <main+0x106>
+ 3a4:	10 92 a5 00 	sts	0x00A5, r1
+ 3a8:	10 92 a4 00 	sts	0x00A4, r1
+				}
+				if (pos==0 && temp_time[pos]==3) {
+ 3ac:	80 91 b2 00 	lds	r24, 0x00B2
+ 3b0:	90 91 b3 00 	lds	r25, 0x00B3
+ 3b4:	00 97       	sbiw	r24, 0x00	; 0
+ 3b6:	b9 f4       	brne	.+46     	; 0x3e6 <main+0x140>
+ 3b8:	20 91 a2 00 	lds	r18, 0x00A2
+ 3bc:	30 91 a3 00 	lds	r19, 0x00A3
+ 3c0:	23 30       	cpi	r18, 0x03	; 3
+ 3c2:	31 05       	cpc	r19, r1
+ 3c4:	e9 f5       	brne	.+122    	; 0x440 <main+0x19a>
+					temp_time[pos]=0;
+ 3c6:	10 92 a3 00 	sts	0x00A3, r1
+ 3ca:	10 92 a2 00 	sts	0x00A2, r1
+					if (temp_time[pos+1]>3) temp_time[pos+1]=0;
+ 3ce:	20 91 a4 00 	lds	r18, 0x00A4
+ 3d2:	30 91 a5 00 	lds	r19, 0x00A5
+ 3d6:	24 30       	cpi	r18, 0x04	; 4
+ 3d8:	31 05       	cpc	r19, r1
+ 3da:	94 f1       	brlt	.+100    	; 0x440 <main+0x19a>
+ 3dc:	10 92 a5 00 	sts	0x00A5, r1
+ 3e0:	10 92 a4 00 	sts	0x00A4, r1
+ 3e4:	2d c0       	rjmp	.+90     	; 0x440 <main+0x19a>
+				}
+				if (pos==1) {
+ 3e6:	81 30       	cpi	r24, 0x01	; 1
+ 3e8:	91 05       	cpc	r25, r1
+ 3ea:	d9 f4       	brne	.+54     	; 0x422 <main+0x17c>
+					if (temp_time[pos-1]==2) {  // hours/10 == 2
+ 3ec:	80 91 a2 00 	lds	r24, 0x00A2
+ 3f0:	90 91 a3 00 	lds	r25, 0x00A3
+ 3f4:	82 30       	cpi	r24, 0x02	; 2
+ 3f6:	91 05       	cpc	r25, r1
+ 3f8:	41 f4       	brne	.+16     	; 0x40a <main+0x164>
+						if (temp_time[pos]==4) temp_time[pos]=0;
+ 3fa:	80 91 a4 00 	lds	r24, 0x00A4
+ 3fe:	90 91 a5 00 	lds	r25, 0x00A5
+ 402:	84 30       	cpi	r24, 0x04	; 4
+ 404:	91 05       	cpc	r25, r1
+ 406:	51 f5       	brne	.+84     	; 0x45c <main+0x1b6>
+ 408:	07 c0       	rjmp	.+14     	; 0x418 <main+0x172>
+					} else {  // hours/10 != 2
+						if (temp_time[pos]==10) temp_time[pos]=0;
+ 40a:	80 91 a4 00 	lds	r24, 0x00A4
+ 40e:	90 91 a5 00 	lds	r25, 0x00A5
+ 412:	8a 30       	cpi	r24, 0x0A	; 10
+ 414:	91 05       	cpc	r25, r1
+ 416:	11 f5       	brne	.+68     	; 0x45c <main+0x1b6>
+ 418:	10 92 a5 00 	sts	0x00A5, r1
+ 41c:	10 92 a4 00 	sts	0x00A4, r1
+ 420:	1d c0       	rjmp	.+58     	; 0x45c <main+0x1b6>
+					}
+				}
+				if (pos==2 && temp_time[pos]==6) temp_time[pos]=0;
+ 422:	82 30       	cpi	r24, 0x02	; 2
+ 424:	91 05       	cpc	r25, r1
+ 426:	61 f4       	brne	.+24     	; 0x440 <main+0x19a>
+ 428:	80 91 a6 00 	lds	r24, 0x00A6
+ 42c:	90 91 a7 00 	lds	r25, 0x00A7
+ 430:	86 30       	cpi	r24, 0x06	; 6
+ 432:	91 05       	cpc	r25, r1
+ 434:	99 f4       	brne	.+38     	; 0x45c <main+0x1b6>
+ 436:	10 92 a7 00 	sts	0x00A7, r1
+ 43a:	10 92 a6 00 	sts	0x00A6, r1
+ 43e:	0e c0       	rjmp	.+28     	; 0x45c <main+0x1b6>
+				if (pos==3 && temp_time[pos]==10) temp_time[pos]=0;
+ 440:	83 30       	cpi	r24, 0x03	; 3
+ 442:	91 05       	cpc	r25, r1
+ 444:	59 f4       	brne	.+22     	; 0x45c <main+0x1b6>
+ 446:	80 91 a8 00 	lds	r24, 0x00A8
+ 44a:	90 91 a9 00 	lds	r25, 0x00A9
+ 44e:	8a 30       	cpi	r24, 0x0A	; 10
+ 450:	91 05       	cpc	r25, r1
+ 452:	21 f4       	brne	.+8      	; 0x45c <main+0x1b6>
+ 454:	10 92 a9 00 	sts	0x00A9, r1
+ 458:	10 92 a8 00 	sts	0x00A8, r1
+				hour=temp_time[0]*10+temp_time[1];
+ 45c:	80 91 a2 00 	lds	r24, 0x00A2
+ 460:	90 91 a3 00 	lds	r25, 0x00A3
+ 464:	6a e0       	ldi	r22, 0x0A	; 10
+ 466:	70 e0       	ldi	r23, 0x00	; 0
+ 468:	71 d3       	rcall	.+1762   	; 0xb4c <__mulhi3>
+ 46a:	20 91 a4 00 	lds	r18, 0x00A4
+ 46e:	30 91 a5 00 	lds	r19, 0x00A5
+ 472:	28 0f       	add	r18, r24
+ 474:	39 1f       	adc	r19, r25
+ 476:	30 93 ab 00 	sts	0x00AB, r19
+ 47a:	20 93 aa 00 	sts	0x00AA, r18
+				minute=temp_time[2]*10+temp_time[3];
+ 47e:	80 91 a6 00 	lds	r24, 0x00A6
+ 482:	90 91 a7 00 	lds	r25, 0x00A7
+ 486:	6a e0       	ldi	r22, 0x0A	; 10
+ 488:	70 e0       	ldi	r23, 0x00	; 0
+ 48a:	60 d3       	rcall	.+1728   	; 0xb4c <__mulhi3>
+ 48c:	40 91 a8 00 	lds	r20, 0x00A8
+ 490:	50 91 a9 00 	lds	r21, 0x00A9
+ 494:	48 0f       	add	r20, r24
+ 496:	59 1f       	adc	r21, r25
+ 498:	50 93 ad 00 	sts	0x00AD, r21
+ 49c:	40 93 ac 00 	sts	0x00AC, r20
+				DRAW('U','T',hour);
+ 4a0:	85 e5       	ldi	r24, 0x55	; 85
+ 4a2:	64 e5       	ldi	r22, 0x54	; 84
+ 4a4:	42 2f       	mov	r20, r18
+ 4a6:	53 2f       	mov	r21, r19
+ 4a8:	94 de       	rcall	.-728    	; 0x1d2 <DRAW>
+				send_a_command(0x0D);
+ 4aa:	8d e0       	ldi	r24, 0x0D	; 13
+ 4ac:	74 de       	rcall	.-792    	; 0x196 <send_a_command>
+				for (int i=0;i<calc(pos);i++)
+ 4ae:	ee 24       	eor	r14, r14
+ 4b0:	ff 24       	eor	r15, r15
+ 4b2:	05 c0       	rjmp	.+10     	; 0x4be <main+0x218>
+					send_a_command(0x10);  // move cursor 1 digit left
+ 4b4:	80 e1       	ldi	r24, 0x10	; 16
+ 4b6:	6f de       	rcall	.-802    	; 0x196 <send_a_command>
+				if (pos==3 && temp_time[pos]==10) temp_time[pos]=0;
+				hour=temp_time[0]*10+temp_time[1];
+				minute=temp_time[2]*10+temp_time[3];
+				DRAW('U','T',hour);
+				send_a_command(0x0D);
+				for (int i=0;i<calc(pos);i++)
+ 4b8:	08 94       	sec
+ 4ba:	e1 1c       	adc	r14, r1
+ 4bc:	f1 1c       	adc	r15, r1
+ 4be:	80 91 b2 00 	lds	r24, 0x00B2
+ 4c2:	90 91 b3 00 	lds	r25, 0x00B3
+ 4c6:	d5 de       	rcall	.-598    	; 0x272 <calc>
+ 4c8:	e8 16       	cp	r14, r24
+ 4ca:	f9 06       	cpc	r15, r25
+ 4cc:	9c f3       	brlt	.-26     	; 0x4b4 <main+0x20e>
+ 4ce:	c9 c0       	rjmp	.+402    	; 0x662 <main+0x3bc>
+					send_a_command(0x10);  // move cursor 1 digit left
+			} else if (!(PINA&0b00000010)) {  // LEFT
+ 4d0:	c9 99       	sbic	0x19, 1	; 25
+ 4d2:	11 c0       	rjmp	.+34     	; 0x4f6 <main+0x250>
+				while (!(PINA&0b00000010));
+ 4d4:	c9 9b       	sbis	0x19, 1	; 25
+ 4d6:	fe cf       	rjmp	.-4      	; 0x4d4 <main+0x22e>
+				if (pos!=0) {
+ 4d8:	00 97       	sbiw	r24, 0x00	; 0
+ 4da:	09 f4       	brne	.+2      	; 0x4de <main+0x238>
+ 4dc:	c2 c0       	rjmp	.+388    	; 0x662 <main+0x3bc>
+					pos--;
+ 4de:	01 97       	sbiw	r24, 0x01	; 1
+ 4e0:	90 93 b3 00 	sts	0x00B3, r25
+ 4e4:	80 93 b2 00 	sts	0x00B2, r24
+					if (pos==1) send_a_command(0x10);
+ 4e8:	81 30       	cpi	r24, 0x01	; 1
+ 4ea:	91 05       	cpc	r25, r1
+ 4ec:	11 f4       	brne	.+4      	; 0x4f2 <main+0x24c>
+ 4ee:	80 e1       	ldi	r24, 0x10	; 16
+ 4f0:	52 de       	rcall	.-860    	; 0x196 <send_a_command>
+					send_a_command(0x10);
+ 4f2:	80 e1       	ldi	r24, 0x10	; 16
+ 4f4:	0f c0       	rjmp	.+30     	; 0x514 <main+0x26e>
+				}
+			} else if (!(PINA&0b00000100)) {  // RIGHT
+ 4f6:	ca 99       	sbic	0x19, 2	; 25
+ 4f8:	0f c0       	rjmp	.+30     	; 0x518 <main+0x272>
+				while (!(PINA&0b00000100));
+ 4fa:	ca 9b       	sbis	0x19, 2	; 25
+ 4fc:	fe cf       	rjmp	.-4      	; 0x4fa <main+0x254>
+				pos++;
+ 4fe:	01 96       	adiw	r24, 0x01	; 1
+ 500:	90 93 b3 00 	sts	0x00B3, r25
+ 504:	80 93 b2 00 	sts	0x00B2, r24
+				if (pos==2) send_a_command(0x14);
+ 508:	82 30       	cpi	r24, 0x02	; 2
+ 50a:	91 05       	cpc	r25, r1
+ 50c:	11 f4       	brne	.+4      	; 0x512 <main+0x26c>
+ 50e:	84 e1       	ldi	r24, 0x14	; 20
+ 510:	42 de       	rcall	.-892    	; 0x196 <send_a_command>
+				send_a_command(0x14);
+ 512:	84 e1       	ldi	r24, 0x14	; 20
+ 514:	40 de       	rcall	.-896    	; 0x196 <send_a_command>
+ 516:	a5 c0       	rjmp	.+330    	; 0x662 <main+0x3bc>
+			} else if (!(PINA&0b00001000)) {  // DOWN
+ 518:	cb 99       	sbic	0x19, 3	; 25
+ 51a:	a3 c0       	rjmp	.+326    	; 0x662 <main+0x3bc>
+				while (!(PINA&0b00001000));
+ 51c:	cb 9b       	sbis	0x19, 3	; 25
+ 51e:	fe cf       	rjmp	.-4      	; 0x51c <main+0x276>
+				temp_time[pos]--;
+ 520:	e8 2f       	mov	r30, r24
+ 522:	f9 2f       	mov	r31, r25
+ 524:	ee 0f       	add	r30, r30
+ 526:	ff 1f       	adc	r31, r31
+ 528:	ee 55       	subi	r30, 0x5E	; 94
+ 52a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 52c:	20 81       	ld	r18, Z
+ 52e:	31 81       	ldd	r19, Z+1	; 0x01
+ 530:	21 50       	subi	r18, 0x01	; 1
+ 532:	30 40       	sbci	r19, 0x00	; 0
+ 534:	31 83       	std	Z+1, r19	; 0x01
+ 536:	20 83       	st	Z, r18
+				if (pos==0 && temp_time[pos]==-1) {				
+ 538:	00 97       	sbiw	r24, 0x00	; 0
+ 53a:	a1 f4       	brne	.+40     	; 0x564 <main+0x2be>
+ 53c:	4f ef       	ldi	r20, 0xFF	; 255
+ 53e:	2f 3f       	cpi	r18, 0xFF	; 255
+ 540:	34 07       	cpc	r19, r20
+ 542:	e1 f5       	brne	.+120    	; 0x5bc <main+0x316>
+					temp_time[pos]=2;
+ 544:	b0 92 a3 00 	sts	0x00A3, r11
+ 548:	a0 92 a2 00 	sts	0x00A2, r10
+					if (temp_time[pos+1]>3) temp_time[pos+1]=3;
+ 54c:	20 91 a4 00 	lds	r18, 0x00A4
+ 550:	30 91 a5 00 	lds	r19, 0x00A5
+ 554:	24 30       	cpi	r18, 0x04	; 4
+ 556:	31 05       	cpc	r19, r1
+ 558:	8c f1       	brlt	.+98     	; 0x5bc <main+0x316>
+ 55a:	10 93 a5 00 	sts	0x00A5, r17
+ 55e:	00 93 a4 00 	sts	0x00A4, r16
+ 562:	2c c0       	rjmp	.+88     	; 0x5bc <main+0x316>
+				}
+				if (pos==1 && temp_time[pos]==-1) {
+ 564:	81 30       	cpi	r24, 0x01	; 1
+ 566:	91 05       	cpc	r25, r1
+ 568:	c9 f4       	brne	.+50     	; 0x59c <main+0x2f6>
+ 56a:	80 91 a4 00 	lds	r24, 0x00A4
+ 56e:	90 91 a5 00 	lds	r25, 0x00A5
+ 572:	af ef       	ldi	r26, 0xFF	; 255
+ 574:	8f 3f       	cpi	r24, 0xFF	; 255
+ 576:	9a 07       	cpc	r25, r26
+ 578:	81 f5       	brne	.+96     	; 0x5da <main+0x334>
+					if (temp_time[pos-1]==2) temp_time[pos]=3;
+ 57a:	80 91 a2 00 	lds	r24, 0x00A2
+ 57e:	90 91 a3 00 	lds	r25, 0x00A3
+ 582:	82 30       	cpi	r24, 0x02	; 2
+ 584:	91 05       	cpc	r25, r1
+ 586:	29 f4       	brne	.+10     	; 0x592 <main+0x2ec>
+ 588:	10 93 a5 00 	sts	0x00A5, r17
+ 58c:	00 93 a4 00 	sts	0x00A4, r16
+ 590:	24 c0       	rjmp	.+72     	; 0x5da <main+0x334>
+					else temp_time[pos]=9;
+ 592:	d0 93 a5 00 	sts	0x00A5, r29
+ 596:	c0 93 a4 00 	sts	0x00A4, r28
+ 59a:	1f c0       	rjmp	.+62     	; 0x5da <main+0x334>
+				}
+				if (pos==2 && temp_time[pos]==-1) temp_time[pos]=5;
+ 59c:	82 30       	cpi	r24, 0x02	; 2
+ 59e:	91 05       	cpc	r25, r1
+ 5a0:	69 f4       	brne	.+26     	; 0x5bc <main+0x316>
+ 5a2:	80 91 a6 00 	lds	r24, 0x00A6
+ 5a6:	90 91 a7 00 	lds	r25, 0x00A7
+ 5aa:	bf ef       	ldi	r27, 0xFF	; 255
+ 5ac:	8f 3f       	cpi	r24, 0xFF	; 255
+ 5ae:	9b 07       	cpc	r25, r27
+ 5b0:	a1 f4       	brne	.+40     	; 0x5da <main+0x334>
+ 5b2:	d0 92 a7 00 	sts	0x00A7, r13
+ 5b6:	c0 92 a6 00 	sts	0x00A6, r12
+ 5ba:	0f c0       	rjmp	.+30     	; 0x5da <main+0x334>
+				if (pos==3 && temp_time[pos]==-1) temp_time[pos]=9;
+ 5bc:	83 30       	cpi	r24, 0x03	; 3
+ 5be:	91 05       	cpc	r25, r1
+ 5c0:	61 f4       	brne	.+24     	; 0x5da <main+0x334>
+ 5c2:	80 91 a8 00 	lds	r24, 0x00A8
+ 5c6:	90 91 a9 00 	lds	r25, 0x00A9
+ 5ca:	2f ef       	ldi	r18, 0xFF	; 255
+ 5cc:	8f 3f       	cpi	r24, 0xFF	; 255
+ 5ce:	92 07       	cpc	r25, r18
+ 5d0:	21 f4       	brne	.+8      	; 0x5da <main+0x334>
+ 5d2:	d0 93 a9 00 	sts	0x00A9, r29
+ 5d6:	c0 93 a8 00 	sts	0x00A8, r28
+				hour=temp_time[0]*10+temp_time[1];
+ 5da:	80 91 a2 00 	lds	r24, 0x00A2
+ 5de:	90 91 a3 00 	lds	r25, 0x00A3
+ 5e2:	6a e0       	ldi	r22, 0x0A	; 10
+ 5e4:	70 e0       	ldi	r23, 0x00	; 0
+ 5e6:	b2 d2       	rcall	.+1380   	; 0xb4c <__mulhi3>
+ 5e8:	20 91 a4 00 	lds	r18, 0x00A4
+ 5ec:	30 91 a5 00 	lds	r19, 0x00A5
+ 5f0:	28 0f       	add	r18, r24
+ 5f2:	39 1f       	adc	r19, r25
+ 5f4:	30 93 ab 00 	sts	0x00AB, r19
+ 5f8:	20 93 aa 00 	sts	0x00AA, r18
+				minute=temp_time[2]*10+temp_time[3];
+ 5fc:	80 91 a6 00 	lds	r24, 0x00A6
+ 600:	90 91 a7 00 	lds	r25, 0x00A7
+ 604:	6a e0       	ldi	r22, 0x0A	; 10
+ 606:	70 e0       	ldi	r23, 0x00	; 0
+ 608:	a1 d2       	rcall	.+1346   	; 0xb4c <__mulhi3>
+ 60a:	40 91 a8 00 	lds	r20, 0x00A8
+ 60e:	50 91 a9 00 	lds	r21, 0x00A9
+ 612:	48 0f       	add	r20, r24
+ 614:	59 1f       	adc	r21, r25
+ 616:	50 93 ad 00 	sts	0x00AD, r21
+ 61a:	40 93 ac 00 	sts	0x00AC, r20
+				DRAW('U','T',hour);
+ 61e:	85 e5       	ldi	r24, 0x55	; 85
+ 620:	64 e5       	ldi	r22, 0x54	; 84
+ 622:	42 2f       	mov	r20, r18
+ 624:	53 2f       	mov	r21, r19
+ 626:	d5 dd       	rcall	.-1110   	; 0x1d2 <DRAW>
+				send_a_command(0x0D);
+ 628:	8d e0       	ldi	r24, 0x0D	; 13
+ 62a:	b5 dd       	rcall	.-1174   	; 0x196 <send_a_command>
+				for (int i=0;i<calc(pos);i++)
+ 62c:	ee 24       	eor	r14, r14
+ 62e:	ff 24       	eor	r15, r15
+ 630:	05 c0       	rjmp	.+10     	; 0x63c <main+0x396>
+					send_a_command(0x10);  // move cursor 1 digit left
+ 632:	80 e1       	ldi	r24, 0x10	; 16
+ 634:	b0 dd       	rcall	.-1184   	; 0x196 <send_a_command>
+				if (pos==3 && temp_time[pos]==-1) temp_time[pos]=9;
+				hour=temp_time[0]*10+temp_time[1];
+				minute=temp_time[2]*10+temp_time[3];
+				DRAW('U','T',hour);
+				send_a_command(0x0D);
+				for (int i=0;i<calc(pos);i++)
+ 636:	08 94       	sec
+ 638:	e1 1c       	adc	r14, r1
+ 63a:	f1 1c       	adc	r15, r1
+ 63c:	80 91 b2 00 	lds	r24, 0x00B2
+ 640:	90 91 b3 00 	lds	r25, 0x00B3
+ 644:	16 de       	rcall	.-980    	; 0x272 <calc>
+ 646:	e8 16       	cp	r14, r24
+ 648:	f9 06       	cpc	r15, r25
+ 64a:	9c f3       	brlt	.-26     	; 0x632 <main+0x38c>
+ 64c:	0a c0       	rjmp	.+20     	; 0x662 <main+0x3bc>
+				if (pos==1 && temp_time[pos]==-1) {
+					if (temp_time[pos-1]==2) temp_time[pos]=3;
+					else temp_time[pos]=9;
+				}
+				if (pos==2 && temp_time[pos]==-1) temp_time[pos]=5;
+				if (pos==3 && temp_time[pos]==-1) temp_time[pos]=9;
+ 64e:	c9 e0       	ldi	r28, 0x09	; 9
+ 650:	d0 e0       	ldi	r29, 0x00	; 0
+				}
+				if (pos==1 && temp_time[pos]==-1) {
+					if (temp_time[pos-1]==2) temp_time[pos]=3;
+					else temp_time[pos]=9;
+				}
+				if (pos==2 && temp_time[pos]==-1) temp_time[pos]=5;
+ 652:	65 e0       	ldi	r22, 0x05	; 5
+ 654:	c6 2e       	mov	r12, r22
+ 656:	d1 2c       	mov	r13, r1
+				if (pos==0 && temp_time[pos]==-1) {				
+					temp_time[pos]=2;
+					if (temp_time[pos+1]>3) temp_time[pos+1]=3;
+				}
+				if (pos==1 && temp_time[pos]==-1) {
+					if (temp_time[pos-1]==2) temp_time[pos]=3;
+ 658:	03 e0       	ldi	r16, 0x03	; 3
+ 65a:	10 e0       	ldi	r17, 0x00	; 0
+				send_a_command(0x14);
+			} else if (!(PINA&0b00001000)) {  // DOWN
+				while (!(PINA&0b00001000));
+				temp_time[pos]--;
+				if (pos==0 && temp_time[pos]==-1) {				
+					temp_time[pos]=2;
+ 65c:	52 e0       	ldi	r21, 0x02	; 2
+ 65e:	a5 2e       	mov	r10, r21
+ 660:	b1 2c       	mov	r11, r1
+		send_a_character(numbers+temp_time[2]);
+		send_a_character(numbers+temp_time[3]);
+		pos=0;  // position of the cursor(kinda)
+		for (int i=0;i<calc(pos);i++)
+			send_a_command(0x10);  // move cursor to 1st hour digit
+		while (pos!=4) {
+ 662:	80 91 b2 00 	lds	r24, 0x00B2
+ 666:	90 91 b3 00 	lds	r25, 0x00B3
+ 66a:	84 30       	cpi	r24, 0x04	; 4
+ 66c:	91 05       	cpc	r25, r1
+ 66e:	09 f0       	breq	.+2      	; 0x672 <main+0x3cc>
+ 670:	6b ce       	rjmp	.-810    	; 0x348 <main+0xa2>
+				send_a_command(0x0D);
+				for (int i=0;i<calc(pos);i++)
+					send_a_command(0x10);  // move cursor 1 digit left
+			}
+		}
+		send_a_command(0x0C);  // disable the cursor
+ 672:	8c e0       	ldi	r24, 0x0C	; 12
+ 674:	90 dd       	rcall	.-1248   	; 0x196 <send_a_command>
+		hour=(temp_time[0]*10+temp_time[1])%24;
+ 676:	80 91 a2 00 	lds	r24, 0x00A2
+ 67a:	90 91 a3 00 	lds	r25, 0x00A3
+ 67e:	6a e0       	ldi	r22, 0x0A	; 10
+ 680:	70 e0       	ldi	r23, 0x00	; 0
+ 682:	64 d2       	rcall	.+1224   	; 0xb4c <__mulhi3>
+ 684:	20 91 a4 00 	lds	r18, 0x00A4
+ 688:	30 91 a5 00 	lds	r19, 0x00A5
+ 68c:	28 0f       	add	r18, r24
+ 68e:	39 1f       	adc	r19, r25
+ 690:	82 2f       	mov	r24, r18
+ 692:	93 2f       	mov	r25, r19
+ 694:	68 e1       	ldi	r22, 0x18	; 24
+ 696:	70 e0       	ldi	r23, 0x00	; 0
+ 698:	6b d2       	rcall	.+1238   	; 0xb70 <__divmodhi4>
+ 69a:	90 93 ab 00 	sts	0x00AB, r25
+ 69e:	80 93 aa 00 	sts	0x00AA, r24
+		minute=temp_time[2]*10+temp_time[3];
+ 6a2:	80 91 a6 00 	lds	r24, 0x00A6
+ 6a6:	90 91 a7 00 	lds	r25, 0x00A7
+ 6aa:	6a e0       	ldi	r22, 0x0A	; 10
+ 6ac:	70 e0       	ldi	r23, 0x00	; 0
+ 6ae:	4e d2       	rcall	.+1180   	; 0xb4c <__mulhi3>
+ 6b0:	20 91 a8 00 	lds	r18, 0x00A8
+ 6b4:	30 91 a9 00 	lds	r19, 0x00A9
+ 6b8:	4d c0       	rjmp	.+154    	; 0x754 <main+0x4ae>
+	} else if (!(PINA&0b00000100)) {  // right arrow
+ 6ba:	ca 99       	sbic	0x19, 2	; 25
+ 6bc:	51 c0       	rjmp	.+162    	; 0x760 <main+0x4ba>
+		uart_init();
+ 6be:	5c dd       	rcall	.-1352   	; 0x178 <uart_init>
+		uart_puts("Input UTC time (HHMM): ");
+ 6c0:	80 e6       	ldi	r24, 0x60	; 96
+ 6c2:	90 e0       	ldi	r25, 0x00	; 0
+ 6c4:	33 c0       	rjmp	.+102    	; 0x72c <main+0x486>
+		int error=1;  // flag until correct input
+		while (error) {
+			for (int i=0;i<4;i++) {
+				while(!(USR&(1<<RXC))) {};
+ 6c6:	5f 9b       	sbis	0x0b, 7	; 11
+ 6c8:	fe cf       	rjmp	.-4      	; 0x6c6 <main+0x420>
+					uart_time[i]=UDR;
+ 6ca:	8c b1       	in	r24, 0x0c	; 12
+ 6cc:	81 93       	st	Z+, r24
+				while ((USR&(1<<UDRE))==0);
+ 6ce:	5d 9b       	sbis	0x0b, 5	; 11
+ 6d0:	fe cf       	rjmp	.-4      	; 0x6ce <main+0x428>
+					UDR=uart_time[i];
+ 6d2:	8c b9       	out	0x0c, r24	; 12
+	} else if (!(PINA&0b00000100)) {  // right arrow
+		uart_init();
+		uart_puts("Input UTC time (HHMM): ");
+		int error=1;  // flag until correct input
+		while (error) {
+			for (int i=0;i<4;i++) {
+ 6d4:	40 e0       	ldi	r20, 0x00	; 0
+ 6d6:	e8 3b       	cpi	r30, 0xB8	; 184
+ 6d8:	f4 07       	cpc	r31, r20
+ 6da:	a9 f7       	brne	.-22     	; 0x6c6 <main+0x420>
+				while(!(USR&(1<<RXC))) {};
+					uart_time[i]=UDR;
+				while ((USR&(1<<UDRE))==0);
+					UDR=uart_time[i];
+			}
+			if (uart_time[0]>='0' && uart_time[0]<='2' && uart_time[1]>='0' && 
+ 6dc:	80 91 b4 00 	lds	r24, 0x00B4
+ 6e0:	98 2f       	mov	r25, r24
+ 6e2:	90 53       	subi	r25, 0x30	; 48
+ 6e4:	93 30       	cpi	r25, 0x03	; 3
+ 6e6:	00 f5       	brcc	.+64     	; 0x728 <main+0x482>
+ 6e8:	40 91 b5 00 	lds	r20, 0x00B5
+ 6ec:	40 33       	cpi	r20, 0x30	; 48
+ 6ee:	e0 f0       	brcs	.+56     	; 0x728 <main+0x482>
+ 6f0:	4a 33       	cpi	r20, 0x3A	; 58
+ 6f2:	d0 f4       	brcc	.+52     	; 0x728 <main+0x482>
+			uart_time[1]<='9' && uart_time[2]>='0' && uart_time[2]<='9' && 
+ 6f4:	a0 91 b6 00 	lds	r26, 0x00B6
+ 6f8:	a0 33       	cpi	r26, 0x30	; 48
+ 6fa:	b0 f0       	brcs	.+44     	; 0x728 <main+0x482>
+ 6fc:	aa 33       	cpi	r26, 0x3A	; 58
+ 6fe:	a0 f4       	brcc	.+40     	; 0x728 <main+0x482>
+			uart_time[3]>='0' && uart_time[3]<='9' && ((uart_time[0]-'0')*10+uart_time[1]-'0')<=23) error=0;
+ 700:	20 91 b7 00 	lds	r18, 0x00B7
+					uart_time[i]=UDR;
+				while ((USR&(1<<UDRE))==0);
+					UDR=uart_time[i];
+			}
+			if (uart_time[0]>='0' && uart_time[0]<='2' && uart_time[1]>='0' && 
+			uart_time[1]<='9' && uart_time[2]>='0' && uart_time[2]<='9' && 
+ 704:	20 33       	cpi	r18, 0x30	; 48
+ 706:	80 f0       	brcs	.+32     	; 0x728 <main+0x482>
+			uart_time[3]>='0' && uart_time[3]<='9' && ((uart_time[0]-'0')*10+uart_time[1]-'0')<=23) error=0;
+ 708:	2a 33       	cpi	r18, 0x3A	; 58
+ 70a:	70 f4       	brcc	.+28     	; 0x728 <main+0x482>
+ 70c:	90 e0       	ldi	r25, 0x00	; 0
+ 70e:	6a e0       	ldi	r22, 0x0A	; 10
+ 710:	70 e0       	ldi	r23, 0x00	; 0
+ 712:	1c d2       	rcall	.+1080   	; 0xb4c <__mulhi3>
+ 714:	50 e0       	ldi	r21, 0x00	; 0
+ 716:	64 2f       	mov	r22, r20
+ 718:	75 2f       	mov	r23, r21
+ 71a:	60 5e       	subi	r22, 0xE0	; 224
+ 71c:	71 40       	sbci	r23, 0x01	; 1
+ 71e:	68 0f       	add	r22, r24
+ 720:	79 1f       	adc	r23, r25
+ 722:	68 34       	cpi	r22, 0x48	; 72
+ 724:	71 05       	cpc	r23, r1
+ 726:	34 f0       	brlt	.+12     	; 0x734 <main+0x48e>
+			if (error) uart_puts("\r\nTry again: ");
+ 728:	88 e7       	ldi	r24, 0x78	; 120
+ 72a:	90 e0       	ldi	r25, 0x00	; 0
+ 72c:	2a dd       	rcall	.-1452   	; 0x182 <uart_puts>
+		}
+		hour=((uart_time[0]-'0')*10+uart_time[1]-'0');
+		minute=(uart_time[2]-'0')*10+uart_time[3]-'0';
+ 72e:	e4 eb       	ldi	r30, 0xB4	; 180
+ 730:	f0 e0       	ldi	r31, 0x00	; 0
+ 732:	c9 cf       	rjmp	.-110    	; 0x6c6 <main+0x420>
+			if (uart_time[0]>='0' && uart_time[0]<='2' && uart_time[1]>='0' && 
+			uart_time[1]<='9' && uart_time[2]>='0' && uart_time[2]<='9' && 
+			uart_time[3]>='0' && uart_time[3]<='9' && ((uart_time[0]-'0')*10+uart_time[1]-'0')<=23) error=0;
+			if (error) uart_puts("\r\nTry again: ");
+		}
+		hour=((uart_time[0]-'0')*10+uart_time[1]-'0');
+ 734:	48 0f       	add	r20, r24
+ 736:	59 1f       	adc	r21, r25
+ 738:	40 51       	subi	r20, 0x10	; 16
+ 73a:	52 40       	sbci	r21, 0x02	; 2
+ 73c:	50 93 ab 00 	sts	0x00AB, r21
+ 740:	40 93 aa 00 	sts	0x00AA, r20
+		minute=(uart_time[2]-'0')*10+uart_time[3]-'0';
+ 744:	30 e0       	ldi	r19, 0x00	; 0
+ 746:	20 51       	subi	r18, 0x10	; 16
+ 748:	32 40       	sbci	r19, 0x02	; 2
+ 74a:	8a 2f       	mov	r24, r26
+ 74c:	90 e0       	ldi	r25, 0x00	; 0
+ 74e:	6a e0       	ldi	r22, 0x0A	; 10
+ 750:	70 e0       	ldi	r23, 0x00	; 0
+ 752:	fc d1       	rcall	.+1016   	; 0xb4c <__mulhi3>
+ 754:	28 0f       	add	r18, r24
+ 756:	39 1f       	adc	r19, r25
+ 758:	30 93 ad 00 	sts	0x00AD, r19
+ 75c:	20 93 ac 00 	sts	0x00AC, r18
+	}
+	timer_init();
+ 760:	00 dd       	rcall	.-1536   	; 0x162 <timer_init>
+	sei();
+ 762:	78 94       	sei
+	DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ 764:	80 91 b0 00 	lds	r24, 0x00B0
+ 768:	90 91 b1 00 	lds	r25, 0x00B1
+ 76c:	88 0f       	add	r24, r24
+ 76e:	99 1f       	adc	r25, r25
+ 770:	c8 2f       	mov	r28, r24
+ 772:	d9 2f       	mov	r29, r25
+ 774:	cc 0f       	add	r28, r28
+ 776:	dd 1f       	adc	r29, r29
+ 778:	ca 57       	subi	r28, 0x7A	; 122
+ 77a:	df 4f       	sbci	r29, 0xFF	; 255
+ 77c:	e8 2f       	mov	r30, r24
+ 77e:	f9 2f       	mov	r31, r25
+ 780:	ee 0f       	add	r30, r30
+ 782:	ff 1f       	adc	r31, r31
+ 784:	e8 57       	subi	r30, 0x78	; 120
+ 786:	ff 4f       	sbci	r31, 0xFF	; 255
+ 788:	8a 56       	subi	r24, 0x6A	; 106
+ 78a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 78c:	a8 2f       	mov	r26, r24
+ 78e:	b9 2f       	mov	r27, r25
+ 790:	8d 91       	ld	r24, X+
+ 792:	9c 91       	ld	r25, X
+ 794:	20 91 aa 00 	lds	r18, 0x00AA
+ 798:	30 91 ab 00 	lds	r19, 0x00AB
+ 79c:	82 0f       	add	r24, r18
+ 79e:	93 1f       	adc	r25, r19
+ 7a0:	68 e1       	ldi	r22, 0x18	; 24
+ 7a2:	70 e0       	ldi	r23, 0x00	; 0
+ 7a4:	e5 d1       	rcall	.+970    	; 0xb70 <__divmodhi4>
+ 7a6:	48 2f       	mov	r20, r24
+ 7a8:	59 2f       	mov	r21, r25
+ 7aa:	88 81       	ld	r24, Y
+ 7ac:	60 81       	ld	r22, Z
+ 7ae:	11 dd       	rcall	.-1502   	; 0x1d2 <DRAW>
+	while (1) {
+		if (!(PINA&0b00000001)) {  // UP
+			while (!(PINA&0b00000001));
+			poyas++;
+			if (poyas==4) poyas=0;
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ 7b0:	08 e1       	ldi	r16, 0x18	; 24
+ 7b2:	10 e0       	ldi	r17, 0x00	; 0
+		}
+		if (!(PINA&0b00000100)) {  // RIGHT
+			while (!(PINA&0b00000100));
+			flag=1;
+ 7b4:	91 e0       	ldi	r25, 0x01	; 1
+ 7b6:	e9 2e       	mov	r14, r25
+ 7b8:	f1 2c       	mov	r15, r1
+			while (pos!=3) {
+				if (!(PINA&0b00000001)) {  // UP
+					while (!(PINA&0b00000001));
+					if (pos<2) {
+						timezone[2*poyas+pos]++;
+						if (timezone[2*poyas+pos]=='Z'+1) timezone[2*poyas+pos]='A';
+ 7ba:	81 e4       	ldi	r24, 0x41	; 65
+ 7bc:	c8 2e       	mov	r12, r24
+ 7be:	d1 2c       	mov	r13, r1
+						timezone[2*poyas+pos]--;
+						if (timezone[2*poyas+pos]=='A'-1) timezone[2*poyas+pos]='Z';
+					}
+					if (pos==2) {
+						if (time_difference[poyas]!=0) time_difference[poyas]=(time_difference[poyas]-1)%24;
+						else time_difference[poyas]=23;
+ 7c0:	b7 e1       	ldi	r27, 0x17	; 23
+ 7c2:	ab 2e       	mov	r10, r27
+ 7c4:	b1 2c       	mov	r11, r1
+					send_a_command(0x14);
+				} else if (!(PINA&0b00001000)) {  // DOWN
+					while (!(PINA&0b00001000));
+					if (pos<2) {
+						timezone[2*poyas+pos]--;
+						if (timezone[2*poyas+pos]=='A'-1) timezone[2*poyas+pos]='Z';
+ 7c6:	aa e5       	ldi	r26, 0x5A	; 90
+ 7c8:	8a 2e       	mov	r8, r26
+ 7ca:	91 2c       	mov	r9, r1
+			send_a_command(0x0C);
+		}
+		if (!(PINA&0b00001000)) {  // DOWN
+			while (!(PINA&0b00001000));
+			poyas--;
+			if (poyas==-1) poyas=3;
+ 7cc:	f3 e0       	ldi	r31, 0x03	; 3
+ 7ce:	6f 2e       	mov	r6, r31
+ 7d0:	71 2c       	mov	r7, r1
+	}
+	timer_init();
+	sei();
+	DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+	while (1) {
+		if (!(PINA&0b00000001)) {  // UP
+ 7d2:	c8 99       	sbic	0x19, 0	; 25
+ 7d4:	38 c0       	rjmp	.+112    	; 0x846 <main+0x5a0>
+			while (!(PINA&0b00000001));
+ 7d6:	c8 9b       	sbis	0x19, 0	; 25
+ 7d8:	fe cf       	rjmp	.-4      	; 0x7d6 <main+0x530>
+			poyas++;
+ 7da:	80 91 b0 00 	lds	r24, 0x00B0
+ 7de:	90 91 b1 00 	lds	r25, 0x00B1
+ 7e2:	01 96       	adiw	r24, 0x01	; 1
+ 7e4:	90 93 b1 00 	sts	0x00B1, r25
+ 7e8:	80 93 b0 00 	sts	0x00B0, r24
+			if (poyas==4) poyas=0;
+ 7ec:	84 30       	cpi	r24, 0x04	; 4
+ 7ee:	91 05       	cpc	r25, r1
+ 7f0:	21 f4       	brne	.+8      	; 0x7fa <main+0x554>
+ 7f2:	10 92 b1 00 	sts	0x00B1, r1
+ 7f6:	10 92 b0 00 	sts	0x00B0, r1
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ 7fa:	80 91 b0 00 	lds	r24, 0x00B0
+ 7fe:	90 91 b1 00 	lds	r25, 0x00B1
+ 802:	88 0f       	add	r24, r24
+ 804:	99 1f       	adc	r25, r25
+ 806:	c8 2f       	mov	r28, r24
+ 808:	d9 2f       	mov	r29, r25
+ 80a:	cc 0f       	add	r28, r28
+ 80c:	dd 1f       	adc	r29, r29
+ 80e:	ca 57       	subi	r28, 0x7A	; 122
+ 810:	df 4f       	sbci	r29, 0xFF	; 255
+ 812:	e8 2f       	mov	r30, r24
+ 814:	f9 2f       	mov	r31, r25
+ 816:	ee 0f       	add	r30, r30
+ 818:	ff 1f       	adc	r31, r31
+ 81a:	e8 57       	subi	r30, 0x78	; 120
+ 81c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 81e:	8a 56       	subi	r24, 0x6A	; 106
+ 820:	9f 4f       	sbci	r25, 0xFF	; 255
+ 822:	a8 2f       	mov	r26, r24
+ 824:	b9 2f       	mov	r27, r25
+ 826:	8d 91       	ld	r24, X+
+ 828:	9c 91       	ld	r25, X
+ 82a:	20 91 aa 00 	lds	r18, 0x00AA
+ 82e:	30 91 ab 00 	lds	r19, 0x00AB
+ 832:	82 0f       	add	r24, r18
+ 834:	93 1f       	adc	r25, r19
+ 836:	60 2f       	mov	r22, r16
+ 838:	71 2f       	mov	r23, r17
+ 83a:	9a d1       	rcall	.+820    	; 0xb70 <__divmodhi4>
+ 83c:	48 2f       	mov	r20, r24
+ 83e:	59 2f       	mov	r21, r25
+ 840:	88 81       	ld	r24, Y
+ 842:	60 81       	ld	r22, Z
+ 844:	c6 dc       	rcall	.-1652   	; 0x1d2 <DRAW>
+		}
+		if (!(PINA&0b00000100)) {  // RIGHT
+ 846:	ca 99       	sbic	0x19, 2	; 25
+ 848:	45 c1       	rjmp	.+650    	; 0xad4 <main+0x82e>
+			while (!(PINA&0b00000100));
+ 84a:	ca 9b       	sbis	0x19, 2	; 25
+ 84c:	fe cf       	rjmp	.-4      	; 0x84a <main+0x5a4>
+			flag=1;
+ 84e:	f0 92 a1 00 	sts	0x00A1, r15
+ 852:	e0 92 a0 00 	sts	0x00A0, r14
+			pos=0;
+ 856:	10 92 b3 00 	sts	0x00B3, r1
+ 85a:	10 92 b2 00 	sts	0x00B2, r1
+			send_a_command(0x0D);  // enable the cursor
+ 85e:	8d e0       	ldi	r24, 0x0D	; 13
+ 860:	9a dc       	rcall	.-1740   	; 0x196 <send_a_command>
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);  // draw the time
+ 862:	80 91 b0 00 	lds	r24, 0x00B0
+ 866:	90 91 b1 00 	lds	r25, 0x00B1
+ 86a:	88 0f       	add	r24, r24
+ 86c:	99 1f       	adc	r25, r25
+ 86e:	c8 2f       	mov	r28, r24
+ 870:	d9 2f       	mov	r29, r25
+ 872:	cc 0f       	add	r28, r28
+ 874:	dd 1f       	adc	r29, r29
+ 876:	ca 57       	subi	r28, 0x7A	; 122
+ 878:	df 4f       	sbci	r29, 0xFF	; 255
+ 87a:	e8 2f       	mov	r30, r24
+ 87c:	f9 2f       	mov	r31, r25
+ 87e:	ee 0f       	add	r30, r30
+ 880:	ff 1f       	adc	r31, r31
+ 882:	e8 57       	subi	r30, 0x78	; 120
+ 884:	ff 4f       	sbci	r31, 0xFF	; 255
+ 886:	8a 56       	subi	r24, 0x6A	; 106
+ 888:	9f 4f       	sbci	r25, 0xFF	; 255
+ 88a:	a8 2f       	mov	r26, r24
+ 88c:	b9 2f       	mov	r27, r25
+ 88e:	8d 91       	ld	r24, X+
+ 890:	9c 91       	ld	r25, X
+ 892:	20 91 aa 00 	lds	r18, 0x00AA
+ 896:	30 91 ab 00 	lds	r19, 0x00AB
+ 89a:	82 0f       	add	r24, r18
+ 89c:	93 1f       	adc	r25, r19
+ 89e:	60 2f       	mov	r22, r16
+ 8a0:	71 2f       	mov	r23, r17
+ 8a2:	66 d1       	rcall	.+716    	; 0xb70 <__divmodhi4>
+ 8a4:	48 2f       	mov	r20, r24
+ 8a6:	59 2f       	mov	r21, r25
+ 8a8:	88 81       	ld	r24, Y
+ 8aa:	60 81       	ld	r22, Z
+ 8ac:	92 dc       	rcall	.-1756   	; 0x1d2 <DRAW>
+			send_a_command(0x0D);
+ 8ae:	8d e0       	ldi	r24, 0x0D	; 13
+ 8b0:	72 dc       	rcall	.-1820   	; 0x196 <send_a_command>
+ 8b2:	c8 e0       	ldi	r28, 0x08	; 8
+ 8b4:	d0 e0       	ldi	r29, 0x00	; 0
+			for (int i=0;i<8;i++)
+				send_a_command(0x10);  //cursor is on first letter
+ 8b6:	80 e1       	ldi	r24, 0x10	; 16
+ 8b8:	6e dc       	rcall	.-1828   	; 0x196 <send_a_command>
+ 8ba:	21 97       	sbiw	r28, 0x01	; 1
+			flag=1;
+			pos=0;
+			send_a_command(0x0D);  // enable the cursor
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);  // draw the time
+			send_a_command(0x0D);
+			for (int i=0;i<8;i++)
+ 8bc:	e1 f7       	brne	.-8      	; 0x8b6 <main+0x610>
+ 8be:	fc c0       	rjmp	.+504    	; 0xab8 <main+0x812>
+				send_a_command(0x10);  //cursor is on first letter
+			while (pos!=3) {
+				if (!(PINA&0b00000001)) {  // UP
+ 8c0:	c8 99       	sbic	0x19, 0	; 25
+ 8c2:	66 c0       	rjmp	.+204    	; 0x990 <main+0x6ea>
+					while (!(PINA&0b00000001));
+ 8c4:	c8 9b       	sbis	0x19, 0	; 25
+ 8c6:	fe cf       	rjmp	.-4      	; 0x8c4 <main+0x61e>
+					if (pos<2) {
+ 8c8:	82 30       	cpi	r24, 0x02	; 2
+ 8ca:	91 05       	cpc	r25, r1
+ 8cc:	bc f4       	brge	.+46     	; 0x8fc <main+0x656>
+						timezone[2*poyas+pos]++;
+ 8ce:	e0 91 b0 00 	lds	r30, 0x00B0
+ 8d2:	f0 91 b1 00 	lds	r31, 0x00B1
+ 8d6:	ee 0f       	add	r30, r30
+ 8d8:	ff 1f       	adc	r31, r31
+ 8da:	e8 0f       	add	r30, r24
+ 8dc:	f9 1f       	adc	r31, r25
+ 8de:	ee 0f       	add	r30, r30
+ 8e0:	ff 1f       	adc	r31, r31
+ 8e2:	ea 57       	subi	r30, 0x7A	; 122
+ 8e4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 8e6:	80 81       	ld	r24, Z
+ 8e8:	91 81       	ldd	r25, Z+1	; 0x01
+ 8ea:	01 96       	adiw	r24, 0x01	; 1
+ 8ec:	91 83       	std	Z+1, r25	; 0x01
+ 8ee:	80 83       	st	Z, r24
+						if (timezone[2*poyas+pos]=='Z'+1) timezone[2*poyas+pos]='A';
+ 8f0:	8b 35       	cpi	r24, 0x5B	; 91
+ 8f2:	91 05       	cpc	r25, r1
+ 8f4:	b1 f4       	brne	.+44     	; 0x922 <main+0x67c>
+ 8f6:	d1 82       	std	Z+1, r13	; 0x01
+ 8f8:	c0 82       	st	Z, r12
+ 8fa:	13 c0       	rjmp	.+38     	; 0x922 <main+0x67c>
+					}
+					if (pos==2)	time_difference[poyas]=(time_difference[poyas]+1)%24;
+ 8fc:	82 30       	cpi	r24, 0x02	; 2
+ 8fe:	91 05       	cpc	r25, r1
+ 900:	81 f4       	brne	.+32     	; 0x922 <main+0x67c>
+ 902:	e0 91 b0 00 	lds	r30, 0x00B0
+ 906:	f0 91 b1 00 	lds	r31, 0x00B1
+ 90a:	ee 0f       	add	r30, r30
+ 90c:	ff 1f       	adc	r31, r31
+ 90e:	ea 56       	subi	r30, 0x6A	; 106
+ 910:	ff 4f       	sbci	r31, 0xFF	; 255
+ 912:	80 81       	ld	r24, Z
+ 914:	91 81       	ldd	r25, Z+1	; 0x01
+ 916:	01 96       	adiw	r24, 0x01	; 1
+ 918:	60 2f       	mov	r22, r16
+ 91a:	71 2f       	mov	r23, r17
+ 91c:	29 d1       	rcall	.+594    	; 0xb70 <__divmodhi4>
+ 91e:	91 83       	std	Z+1, r25	; 0x01
+ 920:	80 83       	st	Z, r24
+					DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ 922:	80 91 b0 00 	lds	r24, 0x00B0
+ 926:	90 91 b1 00 	lds	r25, 0x00B1
+ 92a:	88 0f       	add	r24, r24
+ 92c:	99 1f       	adc	r25, r25
+ 92e:	c8 2f       	mov	r28, r24
+ 930:	d9 2f       	mov	r29, r25
+ 932:	cc 0f       	add	r28, r28
+ 934:	dd 1f       	adc	r29, r29
+ 936:	ca 57       	subi	r28, 0x7A	; 122
+ 938:	df 4f       	sbci	r29, 0xFF	; 255
+ 93a:	e8 2f       	mov	r30, r24
+ 93c:	f9 2f       	mov	r31, r25
+ 93e:	ee 0f       	add	r30, r30
+ 940:	ff 1f       	adc	r31, r31
+ 942:	e8 57       	subi	r30, 0x78	; 120
+ 944:	ff 4f       	sbci	r31, 0xFF	; 255
+ 946:	8a 56       	subi	r24, 0x6A	; 106
+ 948:	9f 4f       	sbci	r25, 0xFF	; 255
+ 94a:	a8 2f       	mov	r26, r24
+ 94c:	b9 2f       	mov	r27, r25
+ 94e:	8d 91       	ld	r24, X+
+ 950:	9c 91       	ld	r25, X
+ 952:	20 91 aa 00 	lds	r18, 0x00AA
+ 956:	30 91 ab 00 	lds	r19, 0x00AB
+ 95a:	82 0f       	add	r24, r18
+ 95c:	93 1f       	adc	r25, r19
+ 95e:	60 2f       	mov	r22, r16
+ 960:	71 2f       	mov	r23, r17
+ 962:	06 d1       	rcall	.+524    	; 0xb70 <__divmodhi4>
+ 964:	48 2f       	mov	r20, r24
+ 966:	59 2f       	mov	r21, r25
+ 968:	88 81       	ld	r24, Y
+ 96a:	60 81       	ld	r22, Z
+ 96c:	32 dc       	rcall	.-1948   	; 0x1d2 <DRAW>
+					send_a_command(0x0D);
+ 96e:	8d e0       	ldi	r24, 0x0D	; 13
+ 970:	12 dc       	rcall	.-2012   	; 0x196 <send_a_command>
+					for (int i=0;i<calc2(pos);i++)
+ 972:	c0 e0       	ldi	r28, 0x00	; 0
+ 974:	d0 e0       	ldi	r29, 0x00	; 0
+ 976:	03 c0       	rjmp	.+6      	; 0x97e <main+0x6d8>
+						send_a_command(0x10);  // move cursor to 1st hour digit
+ 978:	80 e1       	ldi	r24, 0x10	; 16
+ 97a:	0d dc       	rcall	.-2022   	; 0x196 <send_a_command>
+						if (timezone[2*poyas+pos]=='Z'+1) timezone[2*poyas+pos]='A';
+					}
+					if (pos==2)	time_difference[poyas]=(time_difference[poyas]+1)%24;
+					DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+					send_a_command(0x0D);
+					for (int i=0;i<calc2(pos);i++)
+ 97c:	21 96       	adiw	r28, 0x01	; 1
+ 97e:	80 91 b2 00 	lds	r24, 0x00B2
+ 982:	90 91 b3 00 	lds	r25, 0x00B3
+ 986:	82 dc       	rcall	.-1788   	; 0x28c <calc2>
+ 988:	c8 17       	cp	r28, r24
+ 98a:	d9 07       	cpc	r29, r25
+ 98c:	ac f3       	brlt	.-22     	; 0x978 <main+0x6d2>
+ 98e:	94 c0       	rjmp	.+296    	; 0xab8 <main+0x812>
+						send_a_command(0x10);  // move cursor to 1st hour digit
+				} else if (!(PINA&0b00000010)) {  // LEFT
+ 990:	c9 99       	sbic	0x19, 1	; 25
+ 992:	13 c0       	rjmp	.+38     	; 0x9ba <main+0x714>
+					while (!(PINA&0b00000010));
+ 994:	c9 9b       	sbis	0x19, 1	; 25
+ 996:	fe cf       	rjmp	.-4      	; 0x994 <main+0x6ee>
+					if (pos!=0) {
+ 998:	00 97       	sbiw	r24, 0x00	; 0
+ 99a:	09 f4       	brne	.+2      	; 0x99e <main+0x6f8>
+ 99c:	8d c0       	rjmp	.+282    	; 0xab8 <main+0x812>
+						pos--;
+ 99e:	01 97       	sbiw	r24, 0x01	; 1
+ 9a0:	90 93 b3 00 	sts	0x00B3, r25
+ 9a4:	80 93 b2 00 	sts	0x00B2, r24
+						if (pos==1) {
+ 9a8:	81 30       	cpi	r24, 0x01	; 1
+ 9aa:	91 05       	cpc	r25, r1
+ 9ac:	21 f4       	brne	.+8      	; 0x9b6 <main+0x710>
+							send_a_command(0x10);
+ 9ae:	80 e1       	ldi	r24, 0x10	; 16
+ 9b0:	f2 db       	rcall	.-2076   	; 0x196 <send_a_command>
+							send_a_command(0x10);
+ 9b2:	80 e1       	ldi	r24, 0x10	; 16
+ 9b4:	f0 db       	rcall	.-2080   	; 0x196 <send_a_command>
+						}
+						send_a_command(0x10);
+ 9b6:	80 e1       	ldi	r24, 0x10	; 16
+ 9b8:	11 c0       	rjmp	.+34     	; 0x9dc <main+0x736>
+					}
+				} else if (!(PINA&0b00000100)) {  // RIGHT
+ 9ba:	ca 99       	sbic	0x19, 2	; 25
+ 9bc:	11 c0       	rjmp	.+34     	; 0x9e0 <main+0x73a>
+					while (!(PINA&0b00000100));
+ 9be:	ca 9b       	sbis	0x19, 2	; 25
+ 9c0:	fe cf       	rjmp	.-4      	; 0x9be <main+0x718>
+					pos++;
+ 9c2:	01 96       	adiw	r24, 0x01	; 1
+ 9c4:	90 93 b3 00 	sts	0x00B3, r25
+ 9c8:	80 93 b2 00 	sts	0x00B2, r24
+					if (pos==2) {
+ 9cc:	82 30       	cpi	r24, 0x02	; 2
+ 9ce:	91 05       	cpc	r25, r1
+ 9d0:	21 f4       	brne	.+8      	; 0x9da <main+0x734>
+						send_a_command(0x14);
+ 9d2:	84 e1       	ldi	r24, 0x14	; 20
+ 9d4:	e0 db       	rcall	.-2112   	; 0x196 <send_a_command>
+						send_a_command(0x14);
+ 9d6:	84 e1       	ldi	r24, 0x14	; 20
+ 9d8:	de db       	rcall	.-2116   	; 0x196 <send_a_command>
+					}
+					send_a_command(0x14);
+ 9da:	84 e1       	ldi	r24, 0x14	; 20
+ 9dc:	dc db       	rcall	.-2120   	; 0x196 <send_a_command>
+ 9de:	6c c0       	rjmp	.+216    	; 0xab8 <main+0x812>
+				} else if (!(PINA&0b00001000)) {  // DOWN
+ 9e0:	cb 99       	sbic	0x19, 3	; 25
+ 9e2:	6a c0       	rjmp	.+212    	; 0xab8 <main+0x812>
+					while (!(PINA&0b00001000));
+ 9e4:	cb 9b       	sbis	0x19, 3	; 25
+ 9e6:	fe cf       	rjmp	.-4      	; 0x9e4 <main+0x73e>
+					if (pos<2) {
+ 9e8:	82 30       	cpi	r24, 0x02	; 2
+ 9ea:	91 05       	cpc	r25, r1
+ 9ec:	bc f4       	brge	.+46     	; 0xa1c <main+0x776>
+						timezone[2*poyas+pos]--;
+ 9ee:	e0 91 b0 00 	lds	r30, 0x00B0
+ 9f2:	f0 91 b1 00 	lds	r31, 0x00B1
+ 9f6:	ee 0f       	add	r30, r30
+ 9f8:	ff 1f       	adc	r31, r31
+ 9fa:	e8 0f       	add	r30, r24
+ 9fc:	f9 1f       	adc	r31, r25
+ 9fe:	ee 0f       	add	r30, r30
+ a00:	ff 1f       	adc	r31, r31
+ a02:	ea 57       	subi	r30, 0x7A	; 122
+ a04:	ff 4f       	sbci	r31, 0xFF	; 255
+ a06:	80 81       	ld	r24, Z
+ a08:	91 81       	ldd	r25, Z+1	; 0x01
+ a0a:	01 97       	sbiw	r24, 0x01	; 1
+ a0c:	91 83       	std	Z+1, r25	; 0x01
+ a0e:	80 83       	st	Z, r24
+						if (timezone[2*poyas+pos]=='A'-1) timezone[2*poyas+pos]='Z';
+ a10:	80 34       	cpi	r24, 0x40	; 64
+ a12:	91 05       	cpc	r25, r1
+ a14:	d9 f4       	brne	.+54     	; 0xa4c <main+0x7a6>
+ a16:	91 82       	std	Z+1, r9	; 0x01
+ a18:	80 82       	st	Z, r8
+ a1a:	18 c0       	rjmp	.+48     	; 0xa4c <main+0x7a6>
+					}
+					if (pos==2) {
+ a1c:	82 30       	cpi	r24, 0x02	; 2
+ a1e:	91 05       	cpc	r25, r1
+ a20:	a9 f4       	brne	.+42     	; 0xa4c <main+0x7a6>
+						if (time_difference[poyas]!=0) time_difference[poyas]=(time_difference[poyas]-1)%24;
+ a22:	e0 91 b0 00 	lds	r30, 0x00B0
+ a26:	f0 91 b1 00 	lds	r31, 0x00B1
+ a2a:	ee 0f       	add	r30, r30
+ a2c:	ff 1f       	adc	r31, r31
+ a2e:	ea 56       	subi	r30, 0x6A	; 106
+ a30:	ff 4f       	sbci	r31, 0xFF	; 255
+ a32:	80 81       	ld	r24, Z
+ a34:	91 81       	ldd	r25, Z+1	; 0x01
+ a36:	00 97       	sbiw	r24, 0x00	; 0
+ a38:	39 f0       	breq	.+14     	; 0xa48 <main+0x7a2>
+ a3a:	01 97       	sbiw	r24, 0x01	; 1
+ a3c:	60 2f       	mov	r22, r16
+ a3e:	71 2f       	mov	r23, r17
+ a40:	97 d0       	rcall	.+302    	; 0xb70 <__divmodhi4>
+ a42:	91 83       	std	Z+1, r25	; 0x01
+ a44:	80 83       	st	Z, r24
+ a46:	02 c0       	rjmp	.+4      	; 0xa4c <main+0x7a6>
+						else time_difference[poyas]=23;
+ a48:	b1 82       	std	Z+1, r11	; 0x01
+ a4a:	a0 82       	st	Z, r10
+					}
+					DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ a4c:	80 91 b0 00 	lds	r24, 0x00B0
+ a50:	90 91 b1 00 	lds	r25, 0x00B1
+ a54:	88 0f       	add	r24, r24
+ a56:	99 1f       	adc	r25, r25
+ a58:	c8 2f       	mov	r28, r24
+ a5a:	d9 2f       	mov	r29, r25
+ a5c:	cc 0f       	add	r28, r28
+ a5e:	dd 1f       	adc	r29, r29
+ a60:	ca 57       	subi	r28, 0x7A	; 122
+ a62:	df 4f       	sbci	r29, 0xFF	; 255
+ a64:	e8 2f       	mov	r30, r24
+ a66:	f9 2f       	mov	r31, r25
+ a68:	ee 0f       	add	r30, r30
+ a6a:	ff 1f       	adc	r31, r31
+ a6c:	e8 57       	subi	r30, 0x78	; 120
+ a6e:	ff 4f       	sbci	r31, 0xFF	; 255
+ a70:	8a 56       	subi	r24, 0x6A	; 106
+ a72:	9f 4f       	sbci	r25, 0xFF	; 255
+ a74:	a8 2f       	mov	r26, r24
+ a76:	b9 2f       	mov	r27, r25
+ a78:	8d 91       	ld	r24, X+
+ a7a:	9c 91       	ld	r25, X
+ a7c:	20 91 aa 00 	lds	r18, 0x00AA
+ a80:	30 91 ab 00 	lds	r19, 0x00AB
+ a84:	82 0f       	add	r24, r18
+ a86:	93 1f       	adc	r25, r19
+ a88:	60 2f       	mov	r22, r16
+ a8a:	71 2f       	mov	r23, r17
+ a8c:	71 d0       	rcall	.+226    	; 0xb70 <__divmodhi4>
+ a8e:	48 2f       	mov	r20, r24
+ a90:	59 2f       	mov	r21, r25
+ a92:	88 81       	ld	r24, Y
+ a94:	60 81       	ld	r22, Z
+ a96:	9d db       	rcall	.-2246   	; 0x1d2 <DRAW>
+					send_a_command(0x0D);
+ a98:	8d e0       	ldi	r24, 0x0D	; 13
+ a9a:	7d db       	rcall	.-2310   	; 0x196 <send_a_command>
+					for (int i=0;i<calc2(pos);i++)
+ a9c:	c0 e0       	ldi	r28, 0x00	; 0
+ a9e:	d0 e0       	ldi	r29, 0x00	; 0
+ aa0:	03 c0       	rjmp	.+6      	; 0xaa8 <main+0x802>
+						send_a_command(0x10);  // move cursor to 1st hour digit
+ aa2:	80 e1       	ldi	r24, 0x10	; 16
+ aa4:	78 db       	rcall	.-2320   	; 0x196 <send_a_command>
+						if (time_difference[poyas]!=0) time_difference[poyas]=(time_difference[poyas]-1)%24;
+						else time_difference[poyas]=23;
+					}
+					DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+					send_a_command(0x0D);
+					for (int i=0;i<calc2(pos);i++)
+ aa6:	21 96       	adiw	r28, 0x01	; 1
+ aa8:	80 91 b2 00 	lds	r24, 0x00B2
+ aac:	90 91 b3 00 	lds	r25, 0x00B3
+ ab0:	ed db       	rcall	.-2086   	; 0x28c <calc2>
+ ab2:	c8 17       	cp	r28, r24
+ ab4:	d9 07       	cpc	r29, r25
+ ab6:	ac f3       	brlt	.-22     	; 0xaa2 <main+0x7fc>
+			send_a_command(0x0D);  // enable the cursor
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);  // draw the time
+			send_a_command(0x0D);
+			for (int i=0;i<8;i++)
+				send_a_command(0x10);  //cursor is on first letter
+			while (pos!=3) {
+ ab8:	80 91 b2 00 	lds	r24, 0x00B2
+ abc:	90 91 b3 00 	lds	r25, 0x00B3
+ ac0:	83 30       	cpi	r24, 0x03	; 3
+ ac2:	91 05       	cpc	r25, r1
+ ac4:	09 f0       	breq	.+2      	; 0xac8 <main+0x822>
+ ac6:	fc ce       	rjmp	.-520    	; 0x8c0 <main+0x61a>
+					send_a_command(0x0D);
+					for (int i=0;i<calc2(pos);i++)
+						send_a_command(0x10);  // move cursor to 1st hour digit
+				}
+			}
+			flag=0;
+ ac8:	10 92 a1 00 	sts	0x00A1, r1
+ acc:	10 92 a0 00 	sts	0x00A0, r1
+			send_a_command(0x0C);
+ ad0:	8c e0       	ldi	r24, 0x0C	; 12
+ ad2:	61 db       	rcall	.-2366   	; 0x196 <send_a_command>
+		}
+		if (!(PINA&0b00001000)) {  // DOWN
+ ad4:	cb 99       	sbic	0x19, 3	; 25
+ ad6:	7d ce       	rjmp	.-774    	; 0x7d2 <main+0x52c>
+			while (!(PINA&0b00001000));
+ ad8:	cb 9b       	sbis	0x19, 3	; 25
+ ada:	fe cf       	rjmp	.-4      	; 0xad8 <main+0x832>
+			poyas--;
+ adc:	80 91 b0 00 	lds	r24, 0x00B0
+ ae0:	90 91 b1 00 	lds	r25, 0x00B1
+ ae4:	01 97       	sbiw	r24, 0x01	; 1
+ ae6:	90 93 b1 00 	sts	0x00B1, r25
+ aea:	80 93 b0 00 	sts	0x00B0, r24
+			if (poyas==-1) poyas=3;
+ aee:	bf ef       	ldi	r27, 0xFF	; 255
+ af0:	8f 3f       	cpi	r24, 0xFF	; 255
+ af2:	9b 07       	cpc	r25, r27
+ af4:	21 f4       	brne	.+8      	; 0xafe <main+0x858>
+ af6:	70 92 b1 00 	sts	0x00B1, r7
+ afa:	60 92 b0 00 	sts	0x00B0, r6
+			DRAW(timezone[2*poyas],timezone[2*poyas+1],(hour+time_difference[poyas])%24);
+ afe:	80 91 b0 00 	lds	r24, 0x00B0
+ b02:	90 91 b1 00 	lds	r25, 0x00B1
+ b06:	88 0f       	add	r24, r24
+ b08:	99 1f       	adc	r25, r25
+ b0a:	c8 2f       	mov	r28, r24
+ b0c:	d9 2f       	mov	r29, r25
+ b0e:	cc 0f       	add	r28, r28
+ b10:	dd 1f       	adc	r29, r29
+ b12:	ca 57       	subi	r28, 0x7A	; 122
+ b14:	df 4f       	sbci	r29, 0xFF	; 255
+ b16:	e8 2f       	mov	r30, r24
+ b18:	f9 2f       	mov	r31, r25
+ b1a:	ee 0f       	add	r30, r30
+ b1c:	ff 1f       	adc	r31, r31
+ b1e:	e8 57       	subi	r30, 0x78	; 120
+ b20:	ff 4f       	sbci	r31, 0xFF	; 255
+ b22:	8a 56       	subi	r24, 0x6A	; 106
+ b24:	9f 4f       	sbci	r25, 0xFF	; 255
+ b26:	a8 2f       	mov	r26, r24
+ b28:	b9 2f       	mov	r27, r25
+ b2a:	8d 91       	ld	r24, X+
+ b2c:	9c 91       	ld	r25, X
+ b2e:	20 91 aa 00 	lds	r18, 0x00AA
+ b32:	30 91 ab 00 	lds	r19, 0x00AB
+ b36:	82 0f       	add	r24, r18
+ b38:	93 1f       	adc	r25, r19
+ b3a:	60 2f       	mov	r22, r16
+ b3c:	71 2f       	mov	r23, r17
+ b3e:	18 d0       	rcall	.+48     	; 0xb70 <__divmodhi4>
+ b40:	48 2f       	mov	r20, r24
+ b42:	59 2f       	mov	r21, r25
+ b44:	88 81       	ld	r24, Y
+ b46:	60 81       	ld	r22, Z
+ b48:	44 db       	rcall	.-2424   	; 0x1d2 <DRAW>
+ b4a:	43 ce       	rjmp	.-890    	; 0x7d2 <main+0x52c>
+
+00000b4c <__mulhi3>:
+ b4c:	55 27       	eor	r21, r21
+ b4e:	00 24       	eor	r0, r0
+
+00000b50 <__mulhi3_loop>:
+ b50:	80 ff       	sbrs	r24, 0
+ b52:	02 c0       	rjmp	.+4      	; 0xb58 <__mulhi3_skip1>
+ b54:	06 0e       	add	r0, r22
+ b56:	57 1f       	adc	r21, r23
+
+00000b58 <__mulhi3_skip1>:
+ b58:	66 0f       	add	r22, r22
+ b5a:	77 1f       	adc	r23, r23
+ b5c:	61 15       	cp	r22, r1
+ b5e:	71 05       	cpc	r23, r1
+ b60:	21 f0       	breq	.+8      	; 0xb6a <__mulhi3_exit>
+ b62:	96 95       	lsr	r25
+ b64:	87 95       	ror	r24
+ b66:	00 97       	sbiw	r24, 0x00	; 0
+ b68:	99 f7       	brne	.-26     	; 0xb50 <__mulhi3_loop>
+
+00000b6a <__mulhi3_exit>:
+ b6a:	95 2f       	mov	r25, r21
+ b6c:	80 2d       	mov	r24, r0
+ b6e:	08 95       	ret
+
+00000b70 <__divmodhi4>:
+ b70:	97 fb       	bst	r25, 7
+ b72:	09 2e       	mov	r0, r25
+ b74:	07 26       	eor	r0, r23
+ b76:	0a d0       	rcall	.+20     	; 0xb8c <__divmodhi4_neg1>
+ b78:	77 fd       	sbrc	r23, 7
+ b7a:	04 d0       	rcall	.+8      	; 0xb84 <__divmodhi4_neg2>
+ b7c:	0c d0       	rcall	.+24     	; 0xb96 <__udivmodhi4>
+ b7e:	06 d0       	rcall	.+12     	; 0xb8c <__divmodhi4_neg1>
+ b80:	00 20       	and	r0, r0
+ b82:	1a f4       	brpl	.+6      	; 0xb8a <__divmodhi4_exit>
+
+00000b84 <__divmodhi4_neg2>:
+ b84:	70 95       	com	r23
+ b86:	61 95       	neg	r22
+ b88:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000b8a <__divmodhi4_exit>:
+ b8a:	08 95       	ret
+
+00000b8c <__divmodhi4_neg1>:
+ b8c:	f6 f7       	brtc	.-4      	; 0xb8a <__divmodhi4_exit>
+ b8e:	90 95       	com	r25
+ b90:	81 95       	neg	r24
+ b92:	9f 4f       	sbci	r25, 0xFF	; 255
+ b94:	08 95       	ret
+
+00000b96 <__udivmodhi4>:
+ b96:	aa 1b       	sub	r26, r26
+ b98:	bb 1b       	sub	r27, r27
+ b9a:	51 e1       	ldi	r21, 0x11	; 17
+ b9c:	07 c0       	rjmp	.+14     	; 0xbac <__udivmodhi4_ep>
+
+00000b9e <__udivmodhi4_loop>:
+ b9e:	aa 1f       	adc	r26, r26
+ ba0:	bb 1f       	adc	r27, r27
+ ba2:	a6 17       	cp	r26, r22
+ ba4:	b7 07       	cpc	r27, r23
+ ba6:	10 f0       	brcs	.+4      	; 0xbac <__udivmodhi4_ep>
+ ba8:	a6 1b       	sub	r26, r22
+ baa:	b7 0b       	sbc	r27, r23
+
+00000bac <__udivmodhi4_ep>:
+ bac:	88 1f       	adc	r24, r24
+ bae:	99 1f       	adc	r25, r25
+ bb0:	5a 95       	dec	r21
+ bb2:	a9 f7       	brne	.-22     	; 0xb9e <__udivmodhi4_loop>
+ bb4:	80 95       	com	r24
+ bb6:	90 95       	com	r25
+ bb8:	68 2f       	mov	r22, r24
+ bba:	79 2f       	mov	r23, r25
+ bbc:	8a 2f       	mov	r24, r26
+ bbe:	9b 2f       	mov	r25, r27
+ bc0:	08 95       	ret
+
+00000bc2 <_exit>:
+ bc2:	f8 94       	cli
+
+00000bc4 <__stop_program>:
+ bc4:	ff cf       	rjmp	.-2      	; 0xbc4 <__stop_program>
